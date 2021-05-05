@@ -1,0 +1,19 @@
+
+table{
+    width:50%;
+    border:1px solid #000;
+    margin: auto;
+}
+th,td{
+    width: 20%;
+    text-align: center;
+    border-right: 1px solid black;
+    border-spacing:0;
+    padding:1px;
+}
+th:last-child,td:last-child{
+    border-right:none;
+}
+th{
+    border-bottom:2px solid black;
+}
