@@ -1,0 +1,384 @@
+activamos xampp, apache, y en configuracion del proyecto en el brackets colocamos la ruta de donde esta la pagina, que su carpeta 
+la debemos colocar en xampp htpdocs
+
+
+al iniciar apache por primera vez, podemos ir a su boton config, php ini, y buscar donde dice error_reporting y dejarlo con error_reporting=E_ALL
+esto sirve para que php nos muestre todos los errores
+
+<?php
+    
+    echo "hola mundo"; //es parecido al document.write de javascript
+    
+    ?>
+
+<?
+   sin la palabra php, esto sirve para hacer comentarios
+?>
+
+<?=//con este = es como si colocaramos un echo
+	"hola mundo";
+?>
+
+
+<?php
+    
+    echo "hola mundo", "otro valor", "otro valor";//puede tener varios valores, pero no se le puede asignar a una variable
+    
+    $caja= print "hola mundo 2";//segunda forma de escribir pero a este si que se puede asignar a una variable
+    
+    $caja2= 2; //es necesario colocar al final de cada sentencia el ;
+    //comentario de una sola linea
+    /*de 2 lin
+    eas*/
+    #pokecomentariiooooo de una linea tambien
+    
+    ?><!--este cierre de php, es necesario aqui por que esta junto con al html, estando el solo, no seria necesario cerrar
+    
+
+<?php
+    
+    $nombre= "johan";
+    $edad= 25;
+    
+    $edadNueva= &$edad; //cuando colocamos el & significa que la variable $edadNueva sera una variable referencia de $edad, es decir si a la Nueva le cambiamos su valor edad tambien cambiara su valor, si no lo colocamos, edad no sufrira los cambios de edadNueva
+    $edadNueva += 7;
+    
+    echo "$edad<br>";
+        echo "$edadNueva<br>";
+    ?>
+
+
+<?php
+    
+    define("CAJA", "hola mundo");//asi se crean constantes, una buena pratica es hacerlas en mayusculas, tambien se puede poner un tercer parametro boolean, por defecto es false, si es true, al usar la constante podemos escribirla con minusculas
+        echo CAJA;
+    ?>
+
+<?php
+    
+    $caja1="hola";
+        $caja2="mundo";
+        
+    echo $caja1.$caja2."<br>";
+        echo $caja1."<br>";
+        
+        $caja1 .= $caja2;//con el .= se concatena y asigna quedando "hola mundo"
+        echo $caja1."<br>";
+        echo $caja2;//como esta no concateno sigue siendo solo "mundo"
+        
+    ?>
+---------------------------------------------------------------
+
+								arrays
+
+<?php
+        //matriz indexado
+        $frutas= ["manzana","pera","banano","limon"];
+        $personas=["gilbert","maria","pepito"];
+        $matriz=[];
+        
+        $matriz[0]= 13;
+        
+        //matriz asociativo
+        $edad= ["gilbert" => 25, "maria"=> 21 ];
+        $edad['pepito']=23;
+        
+        echo "mi nombre es {$personas[0]}, me gusta la {$frutas[1]} y mi edad es {$edad['gilbert']} años";//a diferencia de las variables los arrays se deben encerrar entre llaves para que que dentro de comillas dobles se puedan mostrar
+        
+        
+    
+        
+    ?>
+
+ <?php
+        //matriz multidimencional indexado
+        $frutas= [["manzana","mora"],
+                  ["limon","naranja",["mango biche","parchita",[[["pokemon",21]]]]]];
+        
+        
+        echo $frutas[1][2][2][0][0][1];//ufff que mamera de indices
+        
+        //matriz asociativa multi
+        
+        $apellidos=["johan" => "alexis", "karla"=>["lize","choco"]];
+        
+        echo $apellidos["karla"]["1"];
+        
+    
+        
+    ?>
+
+-------------------------------------------------------------------------------------
+
+							for each
+
+<?php
+        //matriz multidimencional indexado
+        $frutas= ["manzana","mora","choco","cola"];
+        
+        /*for($x=0;$x<count($frutas);$x++){//en vez de .lenght como en javascript aqui se usa el metodo count()
+            echo "$frutas[$x] <br>";
+        }*/
+                  foreach( $frutas as $clave => $valor){//es como el for in de javascript, es decir solo sirve para arrays el itera por cada clave es decir $frutas[0],$frutas[1] y asi sucesivamente podemos mostrar su valor asignadole una variable como cuando asignamos valor a una clave o indice de un array
+                      echo "en el indice $clave esta el valor $valor <br>";
+                  }//tambien se puede sin usar indice si no solo el valor foreach ( $frutas as $valor)
+        
+   /* $clave=3;//es algo asi como funciona el foreach
+        $valor= $frutas[$clave];*/
+        
+    ?>
+
+
+--------------------------------------------------------------------------------
+
+									continue y break// funcionan igual que javascript
+
+<?php
+        $b=0;
+        
+        while($b<=7){
+            $b++;
+            
+            switch($b){
+                case 4:
+                    continue 2;// se usa un 2 por que en un switch dentro de un for o un while no funciona solo colocar continue o break solos, es como si fueran un nivel 2 de los mismos
+                case 5:
+                    continue 2;
+                case 7:
+                        break 2;
+            }
+            echo "$b <br>";
+            
+            
+        }
+    ?>
+
+------------------------------------------------------------------------------------
+
+									paso de parametros por valor, defecto y referencia
+
+<?php
+        function saludar($nombre){//paso de parametros por valor, osea como en javascript
+            return "hola $nombre";
+        }
+        
+        echo saludar("johan"). "<br>";
+        
+        function por5($num1,$num2=5){//parametro por defecto, es decir, que ya al principio ya poseera un valor, por lo que cuando llamemos a la funcion, no es necesario que enviemos el valor de num2
+            return $num1*$num2;
+        }
+        echo por5(7)."<br><br>";
+        
+        
+        function incremento(&$num){//por referencia, para que guarde iteraciones es decir el parametro $num acumulara sus cambios, con cada llamada que le hagan a la funcion
+            return $num++;
+        }
+        
+        $numero=3;//haciendo que numero varia su valor
+        
+        echo incremento($numero)."<br>";//3
+        echo $numero."<br>";//4
+       echo incremento($numero)."<br>";//4
+        
+        echo incremento($numero)."<br>";//5
+        echo $numero."<br>";6
+        
+        
+    ?>
+
+----------------------------------------------------------------------------------
+
+									variables globals
+
+<?php
+        
+        $caro= "carolina";
+        
+        function decirNombre(){
+            global $caro;
+           // $nombre= $GLOBALS['caro'];//VARIABLE del lenguaje llamada global, es un array, que puede usar variables declaradas como si fueran posiciones dentro de su array, se puede usar como cuando usamos global en una variable, para que se pueda usar en un afuncion
+            echo $caro;
+        }
+        
+        decirNombre();
+    ?>
+
+-------------------------------------------------------------------------------------
+
+								clousure
+
+<?php
+        
+        function crearSuma($n){
+            return function($m) use ($n){//en php para usar los parametros de la funcion padre debemos usar el "use"
+                return $n + $m;
+            };
+        }
+        $suma15= crearSuma(15);//aqui guarda en n
+        $suma25= crearSuma(25);
+        
+        echo $suma15(10)."<br>"; //25 aqui enviamos m
+        echo $suma15(30)."<br>";//45
+        echo $suma25(25)."<br>";//50
+        
+        
+        
+    ?>
+
+-------------------------------------------------------------------------------------------------
+
+								static
+
+<?php
+        
+        function incrementar(){
+            static $contador=0;//las variables static, sirven para acumular los cambios que reciben al ser llamada la funcion en donde se encuentran, solo se usan en funciones
+            $contador++;
+            echo $contador."<br>";
+        }
+        
+        incrementar();//1
+        incrementar();//2
+        incrementar();//3
+        
+    ?>
+
+
+--------------------------------------------------------------------------------------------------
+
+								include, require, once
+
+<?php include 'test.php'; ?> se usan para enlazar un archivo php al index, tambien esa require, que si o si se debe enlazar el archivo o sus versiones include_once para hacerlo al menos una vez, si lo hacen devolveran un true
+
+
+<?php
+
+$nombre= "johan";
+
+function saludar(){
+    echo "pokemon";
+}
+
+$frutas=["manzana", "pera", "guayaba"];
+
+
+
+?>
+
+
+<section>
+        <?php
+        
+        
+        
+        echo $nombre."<br>";
+        saludar();
+    ?>
+    </section>
+
+-----------------------------------------------------------------------------------------------------
+								callback
+<?php
+        function escribir ($arg, $callback= null){// ya que pusimos que el parametro que recibe la funcion callback  sea por defecto null, no es necesario enviar la funcion
+            echo $arg."<br>";
+            if( $callback!=null){
+                if(gettype($callback)== 'object'){
+                    $callback();
+                }else{
+                    echo "error: no has ingresado una funcion como parametro";
+                }
+            }
+        }
+        
+        echo escribir("hola mundo"/*, function(){//recordar que los callbacks, son funciones que reciben otra funciones entre sus parametros
+            echo "hola mundo2";
+        }*/);
+       
+    ?>
+
+------------------------------------------------------------------------------------------------------
+
+								uso de string
+
+<?php
+        $frase= "Hola soy un pokemon pikachu loco panocho";
+        
+       /* $frase_array= explode(' ',$frase,2);//es parecido al de javascript, pero tiene un tercer parametro opcional que limita en cuantos espacios separa el array, por ejemplo si colocamos 2, solo permitira 2 posiciones, 0 y 1, que separara en el primer espacio que encuentre quedando para [0] hola y para [1] el resto de la frase, tambien se pueden numeros negativos
+        
+        echo $frase_array[1];//soy
+        
+        print_r($frase_array);//imprime como esta el array y sus indices asi= Array ( [0] => hola [1] => soy un pokemon pikachu loco panocho )
+        
+        echo "<br><br>";
+        $frase_string= implode(' ',$frase_array);//arma un array en un string, recordar que como en explode el primer parametro es el independiente, es decir con quien explode separa, implode une
+        //join es igual que implode
+        echo $frase_string;
+        */
+        echo lcfirst($frase);//la primera letra la cambia a minus
+        
+        echo "<br><br>";
+        
+        $base= "mivariable1=este es el valor&mivariable2=valor2&miArray[]=valor1&miArray[]=valor2&miArray[fruta1]= manzana";//que estring tan rato, las variables las separamos con el &
+        
+        parse_str($base);//detras del igual, el nombre de variable, despues del igual su valor y separa cada variable cada que vea &
+        
+        echo $mivariable1."<br>";
+        echo $mivariable2."<br>";
+        echo $miArray[0]."<br>";//la primera vez que en el string aparece miArray[] corresponde al indice 0, y el segundo al indice 1, y asi susecivamente
+        echo $miArray[1]."<br>";
+        echo $miArray['fruta1']."<br>";
+        
+        
+    ?>
+
+ <?php
+        $frase= "Hola soy un pokemon pikachu loco panocho";
+        
+       $resultado= str_replace('pikachu','pochomon',$frase, $conteo);//reemplaza una palabra por otra en un string, el primer parametro, es la palabra a buscar, el segundo es el reemplazo, el tercero el string a usar, y la ultima una variable, que cuente cuantas veces hizo el reemplazo
+        
+        echo $resultado."<br>";
+        /*
+        echo $conteo;//1 sola vez se vio el cambio
+        
+        echo str_repeat("hola soy pokemon<br>",5);//repite el texto tantas veces
+        
+        $frase_desordenada= str_shuffle($frase);//ordena aleatoriamente un string
+        
+        echo $frase_desordenada;
+        
+        $arr1= str_split($frase);//convierte un string en array
+        $arr2= str_split($frase,5);//si colocamos un segundo parametro que es un numero, coloca los valores deacuerdo al numero, ejemplo Array ( [0] => Hola [1] => soy u [2] => n pok [3] => emon [4] => pikac [5] => hu lo [6] => co pa [7] => nocho )
+        
+        print_r($arr1) ;
+        
+        echo "<br><br>";
+        print_r($arr2);*/
+        
+        echo "<br>".strlen($frase);//es como un .lenght pero para strings
+        echo "<br><br>";
+        echo strrev($frase);//frase al revez
+        
+        echo "<br><br>";
+        
+        echo strtolower($frase);//tolowercase
+        echo "<br><br>";
+        echo strtoupper($frase);//touppercase
+        echo "<br><br>";
+        echo substr_count($frase,'pano' )."<br>";//aqui encuentra 1 pano
+        echo substr_count($frase,'pano',5)."<br>";//aqui encuentra 1 pano
+        echo substr_count($frase,'pano',5,30 )."<br>";//aqui no encuentra por que empieza en 5 y en el 30 aun no ha llegado a la palabra panocho que esta en la posicion 33 creo
+        
+        
+        
+         
+    ?>
+--------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+

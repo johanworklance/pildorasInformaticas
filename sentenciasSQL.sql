@@ -47,8 +47,18 @@ INSERT INTO `artículos`(`SECCIÓN`, `NOMBRE ARTÍCULO`, `PAÍS DE ORIGEN`) VALU
 
 INSERT INTO `artículos` VALUES ('deporte','camisa Nike','21-02-2002','Colombia','2000');
 
-INSERT INTO `artículos`(`SECCIÓN`, `NOMBRE ARTÍCULO`, `FECHA`, `PAÍS DE ORIGEN`, `PRECIO`) VALUES ('pokemones', 'pikacha','21/02/2012','japon','corazon')
+INSERT INTO `artículos`(`SECCIÓN`, `NOMBRE ARTÍCULO`, `FECHA`, `PAÍS DE ORIGEN`, `PRECIO`) VALUES ('pokemones', 'pikacha','21/02/2012','japon','corazon');
 
+DELETE FROM `artículos` WHERE `nombre artículo` = 'balon prisionero';--no importa si el campo o nombre de la bd está en mayuscula o minuscula, pero los acentos si se respetan y si tiene espacios usar los ``
 
+UPDATE `artículos`SET `nombre artículo`= 'El martillo' WHERE `nombre artículo`= 'Martillo';
+
+UPDATE `artículos`SET `precio`= '30,33' WHERE `nombre artículo`= 'Llave Inglesa';
+
+UPDATE `artículos`SET `nombre artículo`= 'Traje Caballero',`precio`= '350',`país de origen`='España' WHERE `nombre artículo`= 'Tarje Caballero';--separamos con ,los valores del registro a cambiar
+
+--IMPORTANTE "cenicero' OR 1='1" SI COLOCO LO QUE ESTA ENTRE COMILLAS EN EL INPUT DEL ARCHIVO formularioBusquedad.php, REALIZARA UNA INYECCIÓN SQL, y buscara todos los registros con está técnica de hacking, por que la consulta quedaria como SELECT * FROM artículos WHERE `NOMBRE ARTÍCULO` = 'cenicero' OR 1='1'
+
+CREATE TABLE usersPass (id INT NOT NULL AUTO_INCREMENT PRIMARY KEY, users VARCHAR (20) NOT NULL,password VARCHAR (20) NOT NULL);
 
 

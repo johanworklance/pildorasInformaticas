@@ -1,6 +1,8 @@
 <?php
 
-    $dbHost= "localhost";
-    $dbName= "prueba";
-    $dbUsuario= "root";
-    $dbPass= "";
+$dbHost= "localhost";
+$dbName= "prueba";
+$dbUsuario= "root";
+$dbPass= "";
+
+    

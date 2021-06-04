@@ -1,0 +1,158 @@
+Alberto Alcocer profesor en platzi
+\d o [0-9] =todos los digitos
+\w o [a-zA-Z0-9_] =todas las letras de la a-z A-Z digitos(0-9) y el _  (\w\w\w\w) 4 caracteres seguidos en una palabra
+\s todos los espacios, incluyendo el salto de linea \n
+
+. = cualquier caracter
+.. = 2 caracteres
+...= 3 caracteres (ojo pueden haber 3 caracteres uno junto al otro y parecer ser una linea sola y asi para otras reglas como \d\d\d 3 digitos seguidos)
+
+[6-9] del 6 al 9 el uso del - ayuda a crear un rango [434] aqui buscaria solo los 4, 3 
+
+Escape \ con el podremos buscar caracteres especiales/clases operadoras usados por el REGEXP ejemplo \. aqui buscara el caracter . literalmente el punto
+
+#FFF  => #[a-fA-F0-9]{3,6} asi encontrar numeros hexadecimales
+
+.* => el * indica busca todos ve a por todo greedy-todo o ninguno osea puede haber 1 o mas o no haber nada, aqui seria buscame todos los caracteres en una linea pero todos exactamente todo, asi sean caracteres especiales, es decir si reemplazamos cambiara toda la linea por lo que le mandemos a reemplazar
+\d* => todos los digitos
+
+.+ => el uno o mas, es decir al menos una vez y puede repetirse
+
+.? => es parecido al + pero busca caracter por caracter, no lineas enteras, es decir que aparezca una vez o ninguna (primera forma)
+
+1223a => \d+[a-z] uno o mas numeros y que termine en una letra
+
+\d*[a-z] puede o no haber numero pero debe haber una letra
+
+
+22323s
+dd3d4433ds => \d*[a-z]?s que hayan uno o mas numeros o ninguno, una letra o ninguna y termine en s
+
+\d{2,2} busca minimo 2 y maximo 2 digitos
+\d{2,} maximo todas las que quieras
+
+44-54-45
+23.34.44
+223344 ==>\d{2,2}\-? 
+
+\d{2,2}[\-\.]? puede haber o no el - o el . esto entre corchetes es una clase propia
+
+\d{2,2}[\-\.]?\d{2,2}[\-\.]?\d{2,2}[\-\.]? == las lineas 33,34 y 35 con esta expresion solo dan una coincidencia por linea
+
+54 33.22-22 => \d{2,2}[\-\. ]?\d{2,2}[\-\. ]?\d{2,2}[\-\. ]?\d{2,2}[\-\. ]? tambien esta el espacio
+
+
+csv1,csv2,csv3,csv4 => .+, aqui da un solo match
+
+csv1,csv2,csv3,csv4 aqui da 3 matches con el .+? usando el ? que indica no me busques el match entero de la linea, sino la version mas pequeña de la busquedad, encuentra un match y lo cuentas (segunda forma del ?)
+
+el espacio y el \n salto de linea son valores distintos
+
+
+-----------------------------------------------------
+negacion
+
+\D Todo lo que no sea numeros
+\W todo lo que no sea un caracter alfa numerico y el _
+\S todo lo que no sea un espacio
+
+digamos esta clase [0-5a-z]todo los numeros del 0 al 5 y letras de la a a la c
+usando el ^ negamos eso [^0-5a-c], usandolo al inicio de una clase, buscara todo menos lo de la clase
+
+55 33 44
+22.33.23
+44-22 32
+33e44r66 => que no me encuentre este dividido entre letras \d\d[^a-z]\d\d[^a-z]\d\d
+
+^inicio de linea $fin de linea=> todo lo que haya entre estos dos dara match si en una linea solo hay lo que este entre los dos
+
+^\d{3,6}$ solo dara match si la linea tiene minimo 3 digitos y maximo 6 digitos y la linea solo debe contener esto, si hay mas cosas no dara match
+
+^[^\d].*$ todas las lineas que no empiezen con un digito y termine con lo que sea, notar que el gorrito tiene esa funcion distinta dentro de las clases/[]
+
+^inicio de linea, [^] negacion dentro de clases
+
+$ con el al final indicamos que debe dar match la linea entera, si solo da hasta cierto caracter que no la cuente
+
+12,34,56,78
+AD33454555
+CD344545466
+
+addededede
+aaaaa
+
+
+
+Hola
+12345678
+
+hola como estas
+
+esto es una prueba
+
+
+12n
+
+
+----------------------------------------------------------------------------
+ejemplos 
+
+telefono
+
+^\+?\d{2,3}[^\da-z]?\d{2,3}[^\da-z]?\d{2,3}[#pe]?\d*$ => busca cualquier numero que comienze o no con un "+" que tenga 3 grupos de numeros que pueden ser de 2 a 3 cifras separados o no por algun caracter que no sea otro numero o letras, seguido o no de un "#" o "p" o "e" y que termine o no con cualquier numero de cifras y todo esto debe dar un match de una linea entera.
+
+URLs
+
+https?:\/\/[\w\-\.]+\.\w{2,5}\/?\S* => que este el "http", la "s" de seguro puede o no estar, que esten los "//" que haya minimo un caracter o un - o un ., despues que haya un . y de 2 a 5 caracteres esto se refiere a los ".com", puede o no seguir el dominio con un "/" y finalmente cualquier caracter o ninguno y que no sea un espacio.
+
+Correos
+
+[\w\._]{5,30}\+?[\w]{0,10}@[\w\.\-]{3,}\.\w{3,5} => que hayan al principio 5 o hasta 30 caracteres incluyendo el . y el _, puede o no haber un signo "+" esto es por que gmail usando este signo puede crear un alias ejemplo "pepito+pepin@gmail.com" siendo pepin el alias y especificamos que ese alias puede o no estar pero no ser mayor de 10, el @, minimo 3 caracteres que pueden ser letras o numeros el . y el - hasta aqui corresponde el ".com" tipico, un punto, y finalmente de 3 a 5 caracteres que corresponden a los regionalismos como ".mx" ".co" ".ve" o a otros TLDs dominios de nivel superior como ".edu" (btw gmail pide minimo 5 caracteres al inico y maximo 30)
+
+Coordenadas
+
+ejemplo:-99.205646, 19.429707, 2275.10
+
+
+^\-?\d{1,3}\.\d{1,6},\s?\d{1,3}\.\d{1,6},.*$ => Que haya o no un signo "-" al inicio, de uno a 3 digito(van de 0 a 180), un punto, de 1 a 6 digitos, una coma, puede o no haber un espacio, de uno a 3 digito, un punto, de 1 a 6 digitos, una coma, y finalmente 0 o mas caracteres, pero todo esto debe ser una linea entera para eso usamos el ^ y el $
+
+ejemplo2: -99 12' 34.08"W, 19 34' 56.98"N
+
+^\-?\d{1,3}\s\d{1,2}'\s\d{1,2}\.\d{2,2}"[WE], \-?\d{1,3}\s\d{1,2}'\s\d{1,2}\.\d{2,2}"[NS]$ => con este encontraremos el segundo ejemplo de coordenada consiste en puede o no iniciar con un -, numero de 1 a 3 cifras que corresponden a grados que van de 0 a 180,un espacio, de una a 2 cifras que son minutos 0 a 60, luego una comilla, espacio, de uno a 2 cifras segundos, un punto, de 2 a 2 cifras que van del 00 al 99, comillas dobles, que esten o el "W" de west o el "E" de east, una coma, un espacio(notese que aqui no use el \s ya que el " " tambien sirve), y todo lo de la parte antes de la coma, pero con la diferencia de que al final debe haber es "N" de norte/north o "S" de sur/south. Ah y que empieze y termine en una linea entera, no se vale que hayan caracteres que no esten en el match, gracias al ^ y el $.
+
+
+Busquedad y reemplazo.-----------------------------------------------------------------
+
+65::Bio-dome (1996)::Comedy
+
+^\d+::([\w\s:,\(\)'\.\-&\/]+)\s\((\d\d\d\d)\)::.*$ => puede haber o no un numero, debe haber ::, primera clase debe estar una vez o mas un caracter espacio : "," () ' . - & /, un espacio, () dentro de este 4 digitos, ::, y lo que sea que que tenga al terminar.
+
+Usamos los () para encerrar posibles matches, es decir, es como tenerlos a mano como valores de variable y asi usarlos como reemplazo.
+
+
+BUSCAR ^\d+::([\w\s:,\(\)'\.\-&\/]+)\s\((\d\d\d\d)\)::.*$ => encuentra 65::Bio-dome (1996)::Comedy
+
+REEMPLAZA INSERT INTO MOVIES (year, title) VALUES ($2,'$1'); con los valores Bio-dome y 1996
+
+INSERT INTO MOVIES (year, title) VALUES (1996,'Bio-dome');
+
+$1 corresponde al primer () de la busquedad que da el nombre de la peli, el $2 corresponde al segundo () que trae el año.
+
+Otro ejemplo un archivo JSON 
+
+REEMPLAZA {title:"$1",year:$2}
+
+Daria {title:"Bio-dome",year:1996}
+
+
+EXTRAER VARIABLES DE UN GET DENTRO DE UNA URL
+
+http://b3ceo.com/?s=fotografia&mode=search&module=blog
+
+[\?&](\w+)=([^&\n]+) => toma desde donde haya o un ? o un &, minimo un caracter o mas y dentro de la primera variable para eso los (), un =, todo lo que no sea un & o un salto de linea \n minimo una vez o mas y dentro de la segunda variable.
+
+y queda asi con este formato -$1 => $2 el reemplazo
+
+http://b3ceo.com/-s => fotografia-mode => search-module => blog
+
+asi logramos extraer variables del get facilmente
