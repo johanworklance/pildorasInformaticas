@@ -378,6 +378,8 @@ ALTER TABLE authors MODIFY COLUMN birthyear YEAR DEFAULT 1920;--modifica el camp
 
 ALTER TABLE authors DROP COLUMN birthyear;--eliminar campo birthyear
 
+ALTER TABLE userspass CHANGE `users` `user` VARCHAR(20);
+
  mysqldump--herramienta fuera de sql para crear y importar archivo sql
 
  mysqldump -u user -p database_name > esquema.sql - guarda el esquema de una base de datos con todo y datos en un
