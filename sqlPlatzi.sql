@@ -378,7 +378,9 @@ ALTER TABLE authors MODIFY COLUMN birthyear YEAR DEFAULT 1920;--modifica el camp
 
 ALTER TABLE authors DROP COLUMN birthyear;--eliminar campo birthyear
 
-ALTER TABLE userspass CHANGE `users` `user` VARCHAR(20);
+ALTER TABLE userspass CHANGE `users` `user` VARCHAR(20);--cambiar nombre
+
+ALTER TABLE userspass MODIFY COLUMN password VARCHAR(255);--cambiar longitud
 
  mysqldump--herramienta fuera de sql para crear y importar archivo sql
 
@@ -404,4 +406,3 @@ pero si hago un retroceso de dichos cambios. Entonces es como si nunca hubiese p
 
 ROLLBACK
 
-Fiuuu, que alivio.

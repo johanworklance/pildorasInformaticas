@@ -62,3 +62,6 @@ UPDATE `artículos`SET `nombre artículo`= 'Traje Caballero',`precio`= '350',`pa
 CREATE TABLE usersPass (id INT NOT NULL AUTO_INCREMENT PRIMARY KEY, users VARCHAR (20) NOT NULL,password VARCHAR (20) NOT NULL);
 
 
+ALTER TABLE userspass CHANGE `users` `user` VARCHAR(20);--cambiar nombre
+
+ALTER TABLE userspass MODIFY COLUMN password VARCHAR(255);--cambiar longitud
