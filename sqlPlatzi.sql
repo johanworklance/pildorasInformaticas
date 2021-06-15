@@ -406,3 +406,14 @@ pero si hago un retroceso de dichos cambios. Entonces es como si nunca hubiese p
 
 ROLLBACK
 
+ALTER TABLE userspass CHANGE `users` `user` VARCHAR(20);--cambiar nombre
+
+ALTER TABLE userspass MODIFY COLUMN password VARCHAR(255);--cambiar longitud
+
+UPDATE datos_usuarios SET apellido = 'german' WHERE id = 3 LIMIT 1;
+
+UPDATE datos_usuarios SET nombre = 'laura' WHERE id = 3 LIMIT 1;
+
+UPDATE datos_usuarios SET direccion = 'Venezuela' WHERE id = 3 LIMIT 1;
+
+SELECT `nombre artículo`, sección, `país de origen`,precio FROM artículos WHERE sección= 'DEPORTE' LIMIT 0,3;
