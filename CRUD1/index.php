@@ -106,7 +106,7 @@
       <?php endforeach?>
 
     <tr>
-    <td></td>
+    
         <td><input type='text' name='Nom' size='10' class='centrado'></td>
         <td><input type='text' name='Ape' size='10' class='centrado'></td>
         <td><input type='text' name=' Dir' size='10' class='centrado'></td>

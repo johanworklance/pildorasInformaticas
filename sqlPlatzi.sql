@@ -417,3 +417,9 @@ UPDATE datos_usuarios SET nombre = 'laura' WHERE id = 3 LIMIT 1;
 UPDATE datos_usuarios SET direccion = 'Venezuela' WHERE id = 3 LIMIT 1;
 
 SELECT `nombre artículo`, sección, `país de origen`,precio FROM artículos WHERE sección= 'DEPORTE' LIMIT 0,3;
+
+ALTER TABLE artículos ADD COLUMN foto VARCHAR(50) DEFAULT NULL AFTER precio;
+
+ALTER TABLE artículos CHANGE foto FOTO VARCHAR(50) DEFAULT NULL;
+
+UPDATE artículos SET FOTO= '$nombreImagen' WHERE `NOMBRE ARTÍCULO`= 'Tubos' LIMIT 1;
