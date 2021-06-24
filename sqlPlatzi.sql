@@ -423,3 +423,5 @@ ALTER TABLE artículos ADD COLUMN foto VARCHAR(50) DEFAULT NULL AFTER precio;
 ALTER TABLE artículos CHANGE foto FOTO VARCHAR(50) DEFAULT NULL;
 
 UPDATE artículos SET FOTO= '$nombreImagen' WHERE `NOMBRE ARTÍCULO`= 'Tubos' LIMIT 1;
+
+ALTER TABLE `contenido` CHANGE `fecha` `fecha` DATETIME NOT NULL;--antes era de tipo DATE
