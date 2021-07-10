@@ -1,0 +1,16 @@
+<Directory c:/virtualhost>
+	AllowOverride All
+	Require all granted
+	Allow for all
+</Directory>
+
+
+<VirtualHost *:80>
+	DocumentRoot c:/xampp/htdocs
+	ServerName localhost
+</VirtualHost>
+
+<VirtualHost *:80>
+	DocumentRoot c:/virutalhost/laravelPildoras/public
+	ServerName laravelPildoras.com
+</VirtualHost>

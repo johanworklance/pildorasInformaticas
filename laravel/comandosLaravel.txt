@@ -1,0 +1,74 @@
+#todos los comandos
+php artisan list
+
+#crear proyecto laravel desde composer
+composer create-project --prefer-dist laravel/laravel ejemplo
+composer global require laravel/installer
+laravel new ejemplo
+
+
+#iniciar servicio laravel 
+php artisan serve
+
+
+#detener servidor
+control+c
+
+
+#crear controlador
+php artisan make:controller Example2Controller
+#con metodos ya prehechos
+php artisan make:controller --resource Example3Controller
+
+
+#lista de las rutas creadas
+php artisan route:list
+
+
+#migraciones crear tablas, en el archivo .env del proyecto estas las credenciales de conexion a mysql, debe estar creada la bd que alli este
+#en la carpeta database migrations estan los scripts sql, por defecto laravel tiene 3 archivos que crean 4 tablas
+php artisan migrate
+
+
+#crear un nuevo archivo migration //create_ es una convencion de laravel articulos es el nombre de la tabla, por cierto la consola tarda un #poco en crearlo
+php artisan make:migration create_articulos_table --create="articulos"
+
+
+
+#vuelve un paso atras como un ctrl+z de migraciones, sirve para por ejemplo eliminar una creacion de tabla de hace justo un paso
+php artisan migrate:rollback
+
+
+#es parecio al de crear una migracion, pero esta es para modificar una tabla, por eso usamos el --table= con el indicamos a que tabla #modificar
+php artisan make:migration agregar_seccion_articulos --table=articulos
+
+
+#para agregar una nueva columna de tipo deleted_at para la papelera de reciclaje
+php artisan make:migration add_deleted_at_column_to_articulos_tables --table=articulos
+
+
+#elimina todas las tablas
+php artisan migrate:reset
+
+
+#elimina todas las tablas y vuelve a ejecutar todas las migraciones de nuevo
+php artisan migrate:refresh
+
+
+#verifica el estado de las migraciones, dice si han corrido o no al menos una vez
+php artisan migrate:status
+
+
+#crear un modelo para una tabla en base de datos, en bases de datos son en plural, aqui en modelo es en singular
+php artisan make:model Articulo
+
+
+#asi creamos la migration correspondiente al modelo cliente que crea la tabla clientes en la BD
+php artisan make:model cliente --migration
+php artisan make:model perfil --migration
+
+#tabla pivote entres la tabla clientes y la tabla perfils esta ultima creada con la migration de arriba(laravel como es en ingles le pone una #s de plural);la tabla pivote se escribe en singular
+php artisan make:migration create_perfiles_table --create=cliente_perfil
+php artisan make:model Calificaciones --migration
+
+
