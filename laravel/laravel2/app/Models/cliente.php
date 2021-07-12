@@ -9,6 +9,8 @@ class cliente extends Model
 {
     use HasFactory;
 
+    protected $fillable=['nombre','apellidos'];//indicamos que podamos hacer insercciones en la base de datos con estas columnas, de otra manera no podemos pasar la directiva de no poder pasar datos 
+
     public function articulo(){//con nombre de la segunda tabla a asociar, aqui articulos pero se pone en singular
         
         return $this->hasOne("App\Models\articulo");//con este metodo ya asociamos el cliente con su articulo, es bastante asbtracto al verdad
@@ -25,4 +27,6 @@ class cliente extends Model
     public function calificaciones(){
         return $this->morphMany('App\Models\Calificaciones','calificacion');//indicamos el modelo y el nombre del metodo que hace que Calificaciones sea polimorfico respecto a esta tabla clientes
     }
+
+   
 }

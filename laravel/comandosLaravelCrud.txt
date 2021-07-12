@@ -1,0 +1,62 @@
+php artisan make:migration create_productos_table --create="productos" //creamos el migration con el que despues crearemos la tabla productos
+
+//recordar cambiar los datos de conexion a la bd en los archivos .env y .env.example
+//las migrations estan en database/migrations
+//los modelos estan en app/Models
+//los controles estan en app/Http/Controllers
+
+php artisan make:controller --resource productosController //creamos el controlador
+
+//las rutas estan en routes/web.php
+
+//las vistas estan en resources/views
+
+php artisan route:list //para ver la lista de rutas creadas por el Route::resource
+
+php artisan make:model Producto //crea el modelo que correspondera a los objetos que a su vez corresponden a cada registro en la tabla
+productos, la regla es que el modelo comienze en mayuscula y sea singular, por lo que si cada registro sera un objeto cada campo de la tabla
+pasa a ser un atributo de los objetos tipo Producto
+
+
+---------------------------------------------------------------------------------------------------------------
+@extends("../layouts.plantilla")
+
+@section("cabecera")
+
+@section("contenido")
+
+<form action="/productos" method="post">
+    <input type="text" name="nombreArticulo">
+    {{csrf_field()}}
+    <input type="submit" name="enviar" value="Enviar">
+
+</form>
+
+//esto lo comento aqui para definir ciertas reglas: este es el archivo create.blade.php en la carpeta views/productos
+en el archivo web.php se creo la ruta de este archivo como productos/create, en el productosController, en el metodo store se hace una
+instancia del modelo Producto, que usando sus metodos registra en la BD lo que llegue del formulario, lo que yo no se es como consiste la comunicacion de este archivo con la vista, pero probando, veo 2 reglas.
+
+la pimera el formulario debe tener el action hacia la misma carpeta donde esta es decir productos, la misma que se indico en el Route:resource
+la segunda regla es el name del campo; si este dice nombreArticulo la propiedad del objeto request en el metodo store del controlador tambien
+debe llamarse nombreArticulo, ah y debemos poner eso de {{csrf_field()}} debajo del campo, es una proteccion, tambien se puede poner @csrf
+
+sospecho que como el metodo store es para recibir datos de un formulario, el pilla los datos de alli
+
+---------------------------------------------------------------------------------------------------------------
+
+@method('PUT') colocar esto en los formularios de update, es un tipo de metodo de envio dentro de una propiedad laravel de seguridad
+
+esto tambien es valido para el @csrf y {{csrf_field()}} que son lo mismo, yo en otro ejemplo se lo ponia a cada input pero no es necesario
+
+@method('DELETE') Tambien esta la propiedad para la eliminacion de registros, esto usarlo en el formulario donde pondremos el boton que rediriga al metodo destroy
+
+
+@method('DELETE') esto para eliminar
+    @csrf
+
+
+@method('PUT') esto para actualizar
+@csrf
+
+y en los de insertar solo es 
+@csrf

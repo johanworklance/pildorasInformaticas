@@ -3,6 +3,7 @@ php artisan list
 
 #crear proyecto laravel desde composer
 composer create-project --prefer-dist laravel/laravel ejemplo
+composer create-project laravel/laravel laravelCrud  //no es necesario el --prefer-dist
 composer global require laravel/installer
 laravel new ejemplo
 
@@ -71,4 +72,9 @@ php artisan make:model perfil --migration
 php artisan make:migration create_perfiles_table --create=cliente_perfil
 php artisan make:model Calificaciones --migration
 
+
+#herramienta tinker, podemos hacer crud con ella para hacer pruebas
+php artisan tinker
+#insercion desde tinker, habilitar la inserccion en el modelo mediante el atributo fillable
+$cliente=App\Models\create(["nombre"=>"antonio","apellidos"=>"fernandez"]);
 
