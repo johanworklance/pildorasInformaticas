@@ -5,7 +5,8 @@
 @endsection
 
 @section("contenido")
-<form action="{{route('productos.update', $producto->id)}}" method="post">
+<!-- <form action="{{route('productos.update', $producto->id)}}" method="post"> -->
+{!!Form::model($producto,['route' => ['productos.update', $producto->id]])!!}
     @method('PUT')
     <table>
         <tr>
@@ -33,12 +34,15 @@
             <td><input type="reset" name="borrar" value="Borrar campos"></td>
         </tr>
     </table>   
-</form>
-<form action="{{route('productos.destroy', $producto->id)}}" method="post">
+<!-- </form> -->
+{!! Form::close() !!}
+<!-- <form action="{{route('productos.destroy', $producto->id)}}" method="post"> -->
+{!!Form::open(['action' => ['App\Http\Controllers\productosController@destroy', $producto->id]])!!}
     @method('DELETE')
     @csrf
     <input type="submit" value="Eliminar Registro">
-</form>
+{!! Form::close() !!}
+<!-- </form> -->
 @endsection
 @section("pie")
 @endsection

@@ -41,12 +41,19 @@
             bottom:0px;
             width:100%;
             font-size:0.7em;
-            padding:20px;
+            padding:5px;
             background:#000;
             color:#ff8000;
         }
         .contenido table{
             margin:0 auto;
+        }
+        img{
+            width:50px;
+            
+        }
+        td{
+            text-align:center;
         }
     </style>
 </head>

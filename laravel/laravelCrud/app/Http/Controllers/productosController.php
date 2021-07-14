@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Producto;//recordar poner la ruta del modelo
+use App\Http\Requests\create_productos_request;//ruta de la clase request creada por nosotros
 
 class productosController extends Controller
 {
@@ -35,17 +36,36 @@ class productosController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    //public function store(Request $request)
+    public function store(create_productos_request $request)
     {
         //return view('productos.insert');
 
-        $producto= new Producto;
+        //$this->validate($request,['seccion'=>'required','nombreArticulo'=>'required','paisOrigen'=>'required']);//con este metodo indicamos que campos y que tipo de validacion se requiere, en el formulario los errores llegan en un array llamado $errors
+
+
+        //como cambiamos el parametro $request al tipo create_productos_request, el se trae las reglas de alla, por lo que no hay que usar el $this->validate()
+
+       /*  $producto= new Producto;
         $producto->nombreArticulo= $request->nombreArticulo;
         $producto->seccion= $request->seccion;
         $producto->precio= $request->precio;
         $producto->fecha= $request->fecha;
         $producto->paisOrigen= $request->paisOrigen;//$producto->nombreArticulo es el campo de la tabla, $request->nombreArticulo es lo que llega del formulario
         $producto->save();
+        return redirect("/productos"); */
+
+        $entrada= $request->all();//esto recoge todo lo de arriba que llega desde el form
+
+        if($archivo=$request->file('file')){//si se ha enviado alguna imagen desde el formulario
+
+            $nombreImagen=$archivo->getClientOriginalName();//este metodo obtiene el nombre de la imagen
+
+            $archivo->move('images',$nombreImagen);//este movera el archivo a la carpeta images que esta en public, de no estarlo el la crea
+            $entrada['ruta']=$nombreImagen;//este seria el registro que se guardara en la columna ruta de la tabla en la bd
+        }
+
+        Producto::create($entrada);//esto registrara de una vez lo que tenga entrada en la bd
         return redirect("/productos");
 
     }

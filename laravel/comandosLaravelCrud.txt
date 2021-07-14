@@ -17,7 +17,7 @@ php artisan make:model Producto //crea el modelo que correspondera a los objetos
 productos, la regla es que el modelo comienze en mayuscula y sea singular, por lo que si cada registro sera un objeto cada campo de la tabla
 pasa a ser un atributo de los objetos tipo Producto
 
-
+//EN EL ARCHIVO config/app.php cambiar la timezone a AMERICA/CARACAS o AMERICA/BOGOTA
 ---------------------------------------------------------------------------------------------------------------
 @extends("../layouts.plantilla")
 
@@ -60,3 +60,18 @@ esto tambien es valido para el @csrf y {{csrf_field()}} que son lo mismo, yo en 
 
 y en los de insertar solo es 
 @csrf
+
+
+//instalar laravel collective
+composer require laravelcollective/html
+
+//formulario de laravel collective
+{!! Form::open(['url' => 'foo/bar']) !!}
+    //
+{!! Form::close() !!}
+
+//crea una clase request, aparece en app/http
+php artisan make:request create_productos_request
+
+//este archivo migration es para agregar una columna a la tabla
+php artisan make:migration agregarColumnaRuta --table=productos
