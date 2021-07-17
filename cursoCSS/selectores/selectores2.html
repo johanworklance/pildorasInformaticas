@@ -1,0 +1,59 @@
+<!DOCTYPE html >
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>Curso CSS</title>
+<style>
+    *{/*todos los elementos*/
+        box-sizing: border-box;/*el borde y el padding no sobrepasan el width total*/
+    }
+
+    /* pseudoclases
+     * :link= en reposo, es decir el vinculo sin que interactuaemos con el, por
+     * ejemplo no clickearlo o no pasar encima de el.
+     * :visited= estilo cuando el vinculo ya ha sido visitado, por defecto tiene un * color morado. 
+     * :hover= cuando se pasa el raton por encima
+     * :active= cuando se le hace click, por defecto es rojo
+     */
+
+     a:link{
+        color: black;
+        /* text-decoration: none; *//*no es recomendable por cuestiones de accesibilidad eliminar los subrayados de los links, por cierto es curioso, al hacer esto todos los enlaces en reposo perdieron el subrayado, incluyendo a los visitados, eso significa que el estado link, no da algun color*/
+        background-color: teal;
+    }
+    a:visited{
+        color:mediumseagreen;
+    }
+    a:hover{
+        color: yellow;
+        text-decoration: none;
+        background-color: violet;
+    }
+    a:active{
+        color: purple;
+    }
+
+    /*a los p se les pueden poner estos 2 estados*/
+    p:hover{
+        color: tomato;
+        font-size: 20px;
+    }
+    p:active{
+        color: rgb(76, 94, 57);
+        font-size: 30px;
+    }
+
+</style>
+
+
+</head>
+
+<body><!--los links sin visitar el navegador los pone azules, los visitados son morados, para eliminar la cache de la pagina puedes usar ctrl+f5, pero esto no elimina el estado visited de los links visitados, hay se debe borrar la pagina que visito en el historial-->
+    <a href="https://www.google.com">ir a google</a><br>
+    <a href="https://www.anaitgames.com">ir a anait</a><br>
+    <a href="https://www.youtube.com">ir a youtube</a><br>
+    <a href="https://www.pildorasinformaticas.com">ir a pildoras informaticas</a>
+    <br>
+    <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Non accusantium quae quas? Ex deserunt itaque deleniti repellendus veniam ipsum maiores.</p>
+</body>
+</html>

@@ -1,0 +1,105 @@
+<!DOCTYPE html >
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>Curso CSS</title>
+<style>
+    *{/*todos los elementos*/
+        box-sizing: border-box;/*el borde y el padding no sobrepasan el width total*/
+    }
+    h2{
+        color:aquamarine;
+        font-size:1.2em;
+    }
+    p{/*selecto de etiqueta*/
+        color:#000;
+        /* font-style: italic;
+         font-weight: bold;  */
+    }
+    table{
+        width: 50%;
+        margin: 0 auto;
+        height: 188px;
+        border-spacing: 5px;/*agrega un espacio entre los bordes de las celdas y el borde de la tabla, si usamos la propiedad border-collapse: collapse no habra espacio y las celdas compartiran borde con la tabla*/
+    }
+    table,td{/*estilo de grupo es decir varios elementos a la vez separadonlos con coma*/
+        border: 1px solid #000;
+        padding:10px;
+    }
+    .miestilo{/*estilo de clase, para darselo a los elementos que querramos*/
+        color:rgb(32, 151, 58);
+        font-size: 18px;
+    }
+    #tabla{/*estilo de id, solo funciona en un elemento, y hereda las propiedades que ya tenga el elemento anteriormente;si que se puede poner la misma propiedad id en otro elemento, pero no es como se debe usar el id, para eso se usa el class*/
+        background-color: #00f;
+        border:5px #f00 solid ;
+    }
+    .rojo{/*esta clase esta en el ul, pero solo cambiar el color de los li, es decir ese puntito, pero no a los enlaces a*/
+        color:#f00;
+    }
+    li a strong{/*me doy cuenta de que la herencia no afecta, es decir el estilo de abajo li a no sobreescribe el valor de este strong, tal y como la clase de arriba en ul solo afecta a sus li pero no a los enlaces dentro de los li, parece variar en cada caso*/
+        color:hotpink;
+    }
+    li a{/*estilo descendiente, es decir estilo a los 2 'a' dentro de un 'li'*/
+        color:green;
+    }
+    .destacado{
+        font-size: 24px;
+        color: maroon;
+    }
+    strong .destacado{/*elementos con clase destacado dentro de un strong*/
+        text-decoration: underline;
+    }
+    strong.destacado{/*strong con un atributo clase llamado destacado, la diferencia con  el de arriba es el espacio, si van juntos es un atributo, si van separados es una jerarquia*/
+        color: blue;
+        text-decoration: underline;
+    }
+    .prueba.loco{/*algo parecido sucede aqui, aqui seria estas 2 clases en un mismo atributo class*/
+        color: mediumseagreen;
+    }
+    .prueba .loco{/*aqui es una clase llamada prueba que tiene como descendiente a otro elemento con clase loco*/
+        font-size: 30px;
+    }
+
+</style>
+
+
+</head>
+
+<body>
+<h1 style="color: aqua;font-size:36px;">Curso CSS. Píldoras informáticas</h1>
+<p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui <span class="prueba loco"> ratione voluptatem sequi</span> ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur,<span class="prueba"><span class="loco">numquam eius modi</span></span> adipisci velit, sed quia non  tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. </p>
+
+<p>Proyectos mensuales</p>
+
+<ul class="rojo">
+    <li><a href="#">Reunión</a></li>
+    <li><a href="#">Estimación de <strong>necesidades</strong></a></li>
+    <li><a href="#">Aceptación</a></li>
+</ul>
+<h2 style="color:chartreuse">Lorem Ipsum Dolor Sat</h2><!--estilo inline tiene mas importancia--><!--span es una etiqueta sin ningun formato-->
+<p>Sed ut <a href="#">perspiciatis unde omnis</a> iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi <strong><span class="destacado">architecto</span></strong> beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. <span class="destacado">Neque porro quisquam</span>  est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad <strong class="destacado">minima veniam</strong> , quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?</p>
+<p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?</p>
+<h2>Nisi Ut Aliquid </h2>
+<p class="miestilo">Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?</p>
+<p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?</p>
+<!-- <address style="color:#F0F; font-family:'Palatino Linotype', 'Book Antiqua', Palatino, serif; font-size:14px" > --><!--el estilo en inline tiene mas importancia que el de clase-->
+    <table id="tabla">
+        <tr>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td></td>
+        </tr>
+    </table>
+<address class="miestilo">
+Copyright 2012. Píldoras informáticas.
+</address>
+</body>
+</html>

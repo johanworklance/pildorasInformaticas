@@ -425,3 +425,7 @@ ALTER TABLE artículos CHANGE foto FOTO VARCHAR(50) DEFAULT NULL;
 UPDATE artículos SET FOTO= '$nombreImagen' WHERE `NOMBRE ARTÍCULO`= 'Tubos' LIMIT 1;
 
 ALTER TABLE `contenido` CHANGE `fecha` `fecha` DATETIME NOT NULL;--antes era de tipo DATE
+
+TRUNCATE users;--elimina todos los registros de una tabla
+
+UPDATE users SET role_id="1" WHERE id= 1 LIMIT 1;
