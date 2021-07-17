@@ -1,0 +1,40 @@
+//este ya no existe mas
+php artisan make:auth 
+
+//https://styde.net/paquete-laravel-ui-en-laravel-6/
+//esto instalara un scafollding de bootstrap que sera un login prehecho, me toco instalar nodejs v13.14 que es la que funcionan aun en windows 7 por cierto para que se instale todo, despues ejecutar estos comandos, los de npm me dieron varias advertencias porque node en windows 7 esta descontinuado
+composer require laravel/ui
+php artisan ui bootstrap --auth
+npm install
+npm run dev
+
+
+//crear un middleware, archivo para roles y permisos varios
+php artisan make:middleware RoleMiddleware
+
+//creamos el modelos que correspondera a la tabla roles en la BD, y que este comando tambien creara su respectiva migration, para modificarla
+//agregando los campos que queremos, el comando -m crea el archivo migration
+php artisan make:model Role -m
+
+
+IMPORTANTE REVISAR TODOS LOS ARCHIVOS DE ESTAS RUTAS, PARA CUANDO OLVIDEMOS ALGO:
+app/http/controllers
+app/http/middleware/models
+database/migrations
+public para cuando agregemos cosas como la carpeta images
+resources/views
+routes/web
+env.
+app/http/kernel
+
+con esto podemos cambiar campos en la bd con las migrations, por cierto si modificamos algun campo de una tabla ya creada, el archivo migration hace un truncate de la tabla
+php artisan migrate:refresh
+
+php artisan make:middleware esAdmin
+
+php artisan make:controller administradorController
+
+composer require guzzlehttp/guzzle
+
+//limpia cache
+php artisan config:cache

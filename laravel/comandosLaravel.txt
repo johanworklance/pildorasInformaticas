@@ -1,3 +1,13 @@
+IMPORTANTE REVISAR TODOS LOS ARCHIVOS DE ESTAS RUTAS, PARA CUANDO OLVIDEMOS ALGO:
+app/http/controllers
+app/http/middleware/models
+database/migrations
+public para cuando agregemos cosas como la carpeta images
+resources/views
+routes/web
+env.
+app/http/kernel
+
 #todos los comandos
 php artisan list
 

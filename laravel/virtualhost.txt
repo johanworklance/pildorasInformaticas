@@ -11,6 +11,6 @@
 </VirtualHost>
 
 <VirtualHost *:80>
-	DocumentRoot c:/virutalhost/laravelPildoras/public
+	DocumentRoot c:/virtualhost/laravelPildoras/public
 	ServerName laravelPildoras.com
 </VirtualHost>
