@@ -429,3 +429,5 @@ ALTER TABLE `contenido` CHANGE `fecha` `fecha` DATETIME NOT NULL;--antes era de 
 TRUNCATE users;--elimina todos los registros de una tabla
 
 UPDATE users SET role_id="1" WHERE id= 1 LIMIT 1;
+
+RENAME TABLE `photos` TO fotos;--cambiar el nombre de una tabla

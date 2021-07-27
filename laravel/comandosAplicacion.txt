@@ -1,0 +1,498 @@
+notas resumen instalacion: no use virtualbox ni vagrant ni homestead, por que no estoy claro que la pc lo soporte, a parte ya vi que puedo usar laravel perfectamente con xampp, git, nodejs y composer instalados a mano. pero es recomendable usarlos a futuro.En definitiva no use virtualizacion ni tampoco contenedores tipo vagrant o docker, todo en configuracion local.
+
+
+
+respecto a los paquetes de auth de laravel, hay 4: breeze,jetstream, fortify y finalmente el legacy laravel ui, en el curso de pildoras usa este pero cuando era parte oficial de laravel, yo tuve que usarlo pero bajandolo con composer y node js, a parte me quedare con este un tiempo por que usa bootstrap, los otros usan uno llamado tailwind.
+
+
+
+a la final no le cambie puertos ni use dominios virtuales, simplemente corro laravel con el comando php artisan serve con su config por defecto que es localhost:8000
+
+
+
+instalar laravel, en este caso como ya estaba dentro de una carpeta vacia llamada aplicacionLaravel, no le coloque el nombre en el comando,
+esto creara una carpeta laravel con lo instalado
+//composer create-project laravel/laravel laravelNuevo
+
+
+
+
+//para instalar el auth con bootstrap
+composer require laravel/ui
+php artisan ui bootstrap --auth
+npm install
+npm run dev//a veces me toca usarlo 2 veces por que manda error
+
+
+
+//crear la bd, e ir al archivo env y cambiar
+DB_DATABASE=aplicacionLaravel
+
+
+
+//activar las primeras migratiosn que trae laravel
+php artisan migrate
+
+
+
+//creamos el modelos Role con su respectivo migration que correspondera a la tabla roles en la bd
+php artisan make:model Role -m
+
+
+
+//iremos a la migration de roles y agregaremos un campo mas 
+$table->string('name');
+
+
+
+//iremos a la migration de users y agregaremos este campo para hacer el enlace entre roles y users, le puse nullable para hacer pruebas con el formulario por defecto de laravel que no tiene para poner el rol, lo de index, si ni idea eso lo puso el profe
+$table->integer('role_id')->index()->nullable();
+
+
+
+//iremos a App\Models\User y haremos al relacion de la tabla users con la tabla roles, previamente debemos crear el campo foraneo, en este caso por convecion es rol_id en la tabla users, un usuario tiene un rol
+public function role(){
+        return $this->belongsTo('App\Models\Role');//el metodo belongsTo, es como si fuera "este role pertenece a este usuario"
+}//NOTA: role, es decir el nombre de este metodo es el nombre que recibira el campo que contiene la relacion entre la tabla roles y users, usando role_id en users y id en roles, despues del nombre del metodo podeis sacar cualquier valor del registro que corresponda ejemplo role->name
+
+
+
+//haremos la migration de estos ultimos cambios
+php artisan migrate
+
+
+
+//en esta ultima migrate no me agrego el campo role_id a users, asi que puedo usar estos comandos
+php artisan migrate:reset y luego otra vez php artisan migrate o puedo usar
+php artisan migrate:refresh que hace esas dos a la vez, es decir borra todo lo que hicieron las migracion y las rehace
+
+
+
+//en la bd se insertaron los datos de roles para administrador, autor y suscriptor
+
+
+
+//crearemos rutas para el administrador, admin/users corresponden a dichas carpetas que debemos crear en views
+Route::resource('/admin/users','App\Http\Controllers\AdminUsersController');
+
+
+
+//creamos el controlador de las rutas
+php artisan make:controller --resource AdminUsersController
+
+
+
+//verificamos la lista de rutas creadas, esas 3 son algunas
+php artisan route:list
+admin/users
+admin/users/create
+admin/users/{user}/edit
+
+ <a href="{{route('users.create')}}">Insertar Registros</a>//aqui me hice un lio, el metodo route permite navegar entre las vistas, pero el campo al que debemos referirnos es al name que crea roule list, es decir en el metodo route de este enlace se debe poner 'users.create' no 'admin.users.create'
+
+
+
+//creamos una carpeta llamada admin y dentro de ella users, como indican las rutas en resources/views, hay estaran las vistas del administrador, primeramente crearemos a index.blade.php
+
+
+
+//en el metodo index y create del controlador indicamos que vista retornar
+return view('Admin.users.index');
+return view('Admin.users.create');
+
+
+
+
+//creamos una tabla en index que es la pagina principal del admin que mostrara los datos del usuarios, en el AdminUsersController enviamos los //datos a esa vista con
+use App\Models\User;//esta ultima en la parte superior del archivo para poder usar el metodo del modelo User
+$users= User::all();
+return view('Admin.users.index',compact('users'));
+
+
+
+
+//con un foreach mostramos los datos
+@if($users)//lo condicionamos, por que si la bd esta vacia, laravel muestra un error muy feo segun el profe
+@foreach($users as $user)
+            <tr>
+                <td>{{$user->id}}</td>
+                <td>{{$user->role_id}}</td>
+                <td>{{$user->name}}</td>
+                <td>{{$user->email}}</td>
+                <td>{{$user->created_at}}</td>
+                <td>{{$user->updated_at}}</td>
+            </tr>
+@endforeach
+@endif
+
+al final queda asi ese form
+<table width="500" border="1">
+        <tr>
+            <th>Id</th>
+            <th>Photo</th>
+            <th>Role</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Creado</th>
+            <th>Modificado</th>
+        </tr>
+        @if($users)
+            @foreach($users as $user)
+                <tr>
+                    <td>{{$user->id}}</td>
+                    <td><img src="/images/{{$user->photo ? $user->photo->route_photo : '-'}}" alt="" width='100'></td>
+                    <td>{{$user->role_id}}</td>
+                    <td>{{$user->name}}</td>
+                    <td>{{$user->email}}</td>
+                    <td>{{$user->created_at}}</td>
+                    <td>{{$user->updated_at}}</td>
+                </tr>
+            @endforeach
+        @endif
+  </table>
+<a href="{{route('users.create')}}">Insertar Registros</a>
+
+//en el operador ternario, el false no funciona, es decir no coloca el '-'
+<td>{{$user->id}}</td>
+                    @if($user->photo)
+                    <td><img src="/images/{{$user->photo->route_photo}}" alt="" width='100'></td>
+                    @else
+                    <td>No photo</td>
+                    @endif
+
+
+
+
+//instalar laravel collective
+composer require laravelcollective/html//volvi a hacer la aplicacon y decidi no seguir con collective
+
+
+
+
+//usaremos la estructura de forms que usa laravel collective en el archivo create de las views esta el codigo
+
+
+
+
+//comunicaremos el formulario con el metodo store del controlador
+{!! Form::open(['method' => 'post', 'action'=> 'App\Http\Controllers\AdminUsersController@store']) !!}
+//sin collective quedaria mas o menos asi
+<form action="{{action('App\Http\Controllers\AdminUsersController@store')}}" method="post" enctype="multipart/form-data">
+    @csrf
+        <table>
+            <tr>
+                <td><label for="name">Name:</label></td>
+                <td><input type="text" id="name" name="name"></td>
+            </tr>
+            <tr>
+                <td><label for="role">Role:</label></td>
+                <td><input type="text" id="role" name="role_id"></td>
+            </tr>
+            <tr>
+                <td><label for="email">Email:</label></td>
+                <td><input type="email" id="email" name="email"></td>
+            </tr>
+            <tr>
+                <td><label for="email_verified_at">Email verification:</label></td>
+                <td><input type="text" id="email_verified_at" name="email_verified_at"></td>
+            </tr>
+            <tr>
+                <td><label for="password">Password:</label></td>
+                <td><input type="text" id="password" name="password"></td>
+            </tr>
+            <tr>
+                <td><label for="photo">Photo:</label></td>
+                <td><input type="file" id="photo" name="photo_id"></td>
+            </tr>
+            
+            <tr>
+                <td><input type="submit" value="Send"></td>
+                <td><input type="reset" value="Reset"></td>
+            </tr>
+        </table>
+    
+    </form>
+
+
+
+//en el metodo store del AdminUsersController podemos hacer una prueba para ver si el formulario efectivamente se comunica bien, mostrando en //pantalla todo lo que llega de el a la pantalla sin registrar aun en la BD, por cierto esa estancia Request es un objeto json
+return $request->all();
+
+
+
+
+//agregamos role_id al array fillable en el modelo User, para que permita insertar tambien ese registro en la BD
+
+//ahora si registraremos usando y redirigimos
+User::create($request->all());
+return redirect('admin\users');
+
+
+
+
+//agregamos role_id al array fillable en el modelo User, para que permita insertar tambien ese registro en la BD
+protected $fillable = [
+        'name',
+        'email',
+        'password',
+        'role_id',
+        'route_photo_id'
+    ];//tambien el de la foto
+
+
+
+//para fotos haremos el mismo proceso 
+php artisan make:model Photo -m
+<tr>
+<td>{!! Form::label('route_photo', 'Photo:'); !!}</td>
+<td>{!! Form::file('route_photo'); !!}</td>
+</tr>
+<tr>
+<td><label for="photo">Photo:</label></td>
+<td><input type="file" id="photo" name="route_photo"></td>
+</tr>
+$table->string('route_photo');//migramos
+protected $fillable=['route_photo'];//en el modelo de photo
+public function photo(){
+return $this->belongsTo('App\Models\Photo');
+}//en el modelo user, para relacionar los modelos, para luego relacionas las tablas
+
+
+
+
+//agregaremos el campo foto en la tabla users mediante un migration
+php artisan make:migration agregar_campoFoto_users --table=users
+$table->string('route_photo_id');//en el up
+$table->dropColumn('route_photo_id');//en el down
+
+
+
+
+//explicacion compleja, esto es el metodo store en AdminUsersController, esto es previo a ver que hacia el profe en siguientes videos, si hay cambios lo pondre mas abajo
+
+ $entrada= $request->all();//todo lo que llega del formulario
+
+        if($archivo= $request->file('route_photo')){//si llego una imagen
+
+            $nombre= $archivo->getClientOriginalName();//obtenemos el nombre de la imagen
+
+            $archivo->move('images',$nombre);//creamos la carpeta images y movemos la imagen para alla
+
+            $photo= Photo::create(['route_photo'=>$nombre]);//registramos en base de datos el nombre de la imagen y ademas obtenemos una instancia de Photo que tiene los valores del registro que se acaba de crear en la bd
+
+            $entrada['route_photo']= $photo->id;//donde antes teniamos la imagen, lo sustituimos por el id del registro en la tabla fotos, que es lo que guardaremos en realidad en users
+
+            User::create($entrada);//guardamos en users
+
+        }else{
+		$entrada['route_photo']="";
+            User::create($entrada);//si no envian imagen solo guardamos en users
+        }
+
+
+
+//cambio de nombre en campo foto en users
+php artisan make:migration agregar_cambioFoto_users --table=users
+
+
+
+
+//si que hubo cambios
+public function store(Request $request)
+    {
+        //return $request->all();para hacer pruebas
+
+        /* User::create($request->all());
+        return redirect('admin\users'); */
+
+        $entrada= $request->all();
+
+        if($archivo= $request->file('photo_id')){//al formulario le cambiamos el nombre del input file por photo_id
+
+            $nombre= $archivo->getClientOriginalName();
+
+            $archivo->move('images',$nombre);
+
+            $photo= Photo::create(['route_photo'=>$nombre]);//aqui si sigue igual route_photo, por que ese es el nombre del campo en la tabla photos, recordar que aqui pasan 2 cosas, se hace el registro en la BD, y al mismo tiempo se crea una instancia de Photo con los datos previamente registrados, es decir saca de la bd datos como el id automatico que se creo y se lo asigna a la propiedad id del objeto $photo
+
+            $entrada['photo_id']= $photo->id;//y aqui asinagmos el id del registro previo al campo photo_id
+
+        }
+
+        $entrada['password']=bcrypt($request->password);//usamos este metodo para encritar de laravel
+        User::create($entrada);//y finalmente enviamos, si no se hubiera mandado una imagen, simplemete manda nada
+return redirect('admin\users');
+        
+    }
+
+
+
+
+//nota:como seria el form sin collective, lo copie de un comentario, yo por ejemplo no use una etiqueta select
+<form action="{{action('AdminUsersController@store')}}" method="post"  enctype="multipart/form-data">
+                {{csrf_field()}}
+                <label>Nombre</label>
+                <input type="text" id="nombre" name="name">
+                <label>Password</label>
+                <input type="text" id="password"  name="password" >
+                <label>Email</label>
+                <input type="text"  id="mail" name="email">
+                <label>Verificar Email</label>
+                <input type="text"  id="mail2" name="email_verified_at">
+                <label>Role</label>
+                <select id="role_id" name="role_id">
+                    <option value="1">Administrador</option>
+                    <option value="2">Autor</option>
+                    <option value="3">Suscriptor</option>
+                </select>               
+                <label>Foto</label><br>
+                <input type="file"  id="ruta_foto" name="ruta_foto">
+                <input type="submit" value="Crear usuario">
+                <input type="reset" value="Borrar">
+            </form>
+
+//{{$user->photo_id ? $user->photo_id->route_photo : '-'}}//esto no funciona, tengo toda la configuracion correcta, pero laravel no realiza la consulta a la tabla de photos, $user->photo_id es solamente un string, no es un objeto con la info de la fotografia, decidi dejarlo asi y seguir lo demas//aqui el problema fue pensar que el campo relacion era el photo_id en users, pero no es el, es el metodo photo en el modelo User
+
+
+//NOTTTAAAAAAA::: <td>{{$user->photo ? $user->photo->route_photo : '-'}}</td> ya entendi esta es la manera, el campo donde viene la relacion entre users y photos usando los campos photo_id del primero con el id del segundo es  el metodo photo que creamos en el modelo de user, por cierto es un ternario porque si los registros tenian vacio en el campo photo_id, entonces no habria relacion y mandaria null, asi que si llegan nulls que los ponga en '-'
+
+
+//REGLAS PARA LA RELACION DE TABLAS con belongsTo:
+1.crear el metodo con el que una tabla pertenece a otra, es decir en el modelo User un metodo llamado photo que indique el modelo Photo
+2.en users debe haber un campo llamado photo_id y en la tabla photos el id
+3. al llamar los datos de la base de datos de la tabla users, es photo el nombre de la relacion entre las tablas
+
+
+
+
+//para la pagina de edicion redigiremos a la ruta indicada por route list que nos envia a, no a la vista en si de edit.blade si no al metodo que controla el acceso a esa vista, que es edit en AdminUsersController, por lo que en el metodo route enviaremos tambien de parametro el id del usuario a modificar
+<td><a href="{{route('users.edit', $user->id)}}">{{$user->name}}</a></td>
+
+ public function edit($id)
+{
+        $user= User::findOrFail($id);
+        return view('admin.users.edit',compact('user'));
+}
+
+
+
+
+
+//formulario de edicion, aqui si use el operador ternario para la imagen
+<form action="{{action('App\Http\Controllers\AdminUsersController@update',$user->id)}}" method="post" enctype="multipart/form-data">
+    @method('PATCH')
+    @csrf
+        <table>
+            <tr>
+                <td>
+                    <img src="/images/{{$user->photo ? $user->photo->route_photo : 'sinFoto.jpg'}}" alt="" width='100'>
+                </td>
+            </tr>
+            <tr>
+                <td><label for="name">Name:</label></td>
+                <td><input type="text" id="name" name="name" value="{{$user->name}}"></td>
+            </tr>
+            <tr>
+                <td><label for="role">Role:</label></td>
+                <td><input type="text" id="role" name="role_id" value="{{$user->role_id}}"></td>
+            </tr>
+            <tr>
+                <td><label for="email">Email:</label></td>
+                <td><input type="email" id="email" name="email" value="{{$user->email}}"></td>
+            </tr>
+            <tr>
+                <td><label for="email_verified_at">Email verification:</label></td>
+                <td><input type="text" id="email_verified_at" name="email_verified_at" value=""></td>
+            </tr>
+            
+            <tr>
+                <td><label for="photo">Photo:</label></td>
+                <td><input type="file" id="photo" name="photo_id"></td>
+            </tr>
+            
+            <tr>
+                <td><input type="submit" value="Send"></td>
+                <td><input type="reset" value="Reset"></td>
+            </tr>
+        </table>
+    
+    </form>
+    <a href="{{route('users.index')}}">Home</a>
+
+
+
+
+//el metodo update es muy parecido al store
+
+public function update(Request $request, $id)
+    {
+        //
+
+        $user= User::findOrFail($id);//buscamos al usuario con el id que llega del form
+
+        $input=$request->all();
+
+        if($file=$request->file('photo_id')){
+
+            $nameImage= $file->getClientOriginalName();
+
+            $file->move('images',$nameImage);
+
+            $photo= Photo::create(['route_photo'=>$nameImage]);
+
+            $input['photo_id']= $photo->id;
+        }
+        
+        $input['password']= bcrypt($request->password);
+        
+        $user->update($input);//con este metodo actualizamos
+
+        return redirect('/admin/users');
+    }
+
+
+
+
+//para eliminar en la misma pagina del edit agregamos este formulario, que apunta al metodo destroy en el controlador
+
+<form action="{{action('App\Http\Controllers\AdminUsersController@destroy',$user->id)}}" method="post">
+        @csrf
+        @method('DELETE')
+        <input type="submit" value="Delete User">
+    </form>
+
+
+public function destroy($id)
+    {
+        //
+        //$user= User::findOrFail($id)->delete();//podemos buscar y eliminar en una sola linea, pero lo comento para lo siguiente
+
+        $user= User::findOrFail($id);
+
+        if($user->photo){//recordar que este photo es de la relacion
+
+            $photo=Photo::findOrFail($user->photo_id); //buscamos la foto
+
+            $rutaOriginal = $user->photo->route_photo;//guardamos la ruta 
+
+            $archivoOriginal = public_path() . "/images/" . $rutaOriginal;//public_path() es un helper laravel que indica la carpeta public del proyecto y concatenamos con la carpeta images y el nombre de la imagen
+
+             unlink($archivoOriginal);//unlink es un metodo php que borra archivos
+
+             $photo->delete();//borramos la foto de la bd
+        }
+
+        $user->delete();//y finalmente borramos al usuario
+
+        return redirect('/admin/users');
+    }
+
+
+al parecer bootstrap se encuentra en estas rutas, copias esto a tus html y listo pilla el css, y se le pueden poner clases a los elementos
+
+ <script src="{{ asset('js/app.js') }}"></script>
+    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+
+
+<h1 class="text-center">Main Page</h1>
+    <table width="500" border="1" class="table">

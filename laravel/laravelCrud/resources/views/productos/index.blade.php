@@ -31,7 +31,7 @@
         </tr>
     @endforeach
 </table>
-<a href="{{route('productos.create')}}">Insertar Registros</a>
+
 @endsection
 @section("pie")
 @endsection
