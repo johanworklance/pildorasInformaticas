@@ -496,3 +496,17 @@ al parecer bootstrap se encuentra en estas rutas, copias esto a tus html y listo
 
 <h1 class="text-center">Main Page</h1>
     <table width="500" border="1" class="table">
+
+
+
+
+//mensajes flash que son mensajes pueden aparecer justo despues de una accion, en este caso un mensaje que aparecera despues de eliminar, en el controlador agregamos
+use Illuminate\Support\Facades\Session;
+
+//y en el metodo destroy, justo antes del delete
+Session::flash('usuarioBorrado','El usuario ha sido eliminado con exito');//es como crear una cookie usando Session
+        
+//y finalmente antes del h1 del index
+@if(Session::has('usuarioBorrado'))
+    <p class="bg-danger">{{session('usuarioBorrado')}}</p>
+@endif
