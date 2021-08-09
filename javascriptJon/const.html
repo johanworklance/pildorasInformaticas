@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        const PI= 3.1416;//Los Valores primitivos(de acceso inmediato) en una constante, no pueden ser cambiado su valor mas adelante
+
+        //const NUEVE;//error, las constantes no pueden estar vacias, a diferencia de let y var que si podemos declararlas vacias
+
+        console.log(PI);
+
+        {}//objeto, coleccion de atributos y valores como una regla css
+        []//array, coleccion de datos 
+        //estos 2 son valores compuestos
+
+        const objeto= {//con objetos, aqui puedo poner let o const, y no da error
+            nombre: "Johan"
+        }
+
+        const array= ["blanco", "negro"];//con arrays, aqui puedo poner let o const, y no da error
+
+        console.log(objeto);
+        console.log(array);
+
+        objeto.apellido= "Nieto";//el console log de arriba, pilla esta agregado al objeto
+
+        array.push= "azul";//el console log de arriba lo pilla como un valor temporal push
+
+        console.log(objeto);
+        console.log(array);
+
+        //para javascript, que se asignen valoreso propiedades a objetos o arrays, no cambian que sean objetos y arrays, por eso no hay conflicto por usar la palabra const o let, daria error si hiciera lo siguiente
+
+
+        //objeto= 1;//aqui si da error, estoy cambiando el valor de objeto a un valor primitivo de tipo number
+
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,55 @@
+/*reset*/
+
+*{
+    padding: 0;
+    margin: 0;
+    font-size: 100%;/*tamaño original en todos los navegadores*/
+    font-weight: normal;
+}
+
+ol{
+    margin-left: 1.4em;
+    list-style: decimal;
+}
+
+ul{
+    margin-left: 1.4em;
+    list-style: square;
+}
+
+img{
+    border: 0;
+}
+
+/*reset*/
+
+#principal{
+    float: left;/*se pasa a la izquierda y lo demas se ir a la derecha que es el div latera*/
+    width: 580px;
+}
+
+#lateral{
+    margin-left: 600px;/*hay que sumar lo que esta ocupando el elemento que flota en left que vale 580, +20 serian 600, si pusiera solo 20 no se veria, ya que el margin lef, la toma desde el contenedor de ambos, por que el elemento flotante no "esta"*/
+    padding: 15px;
+    background-color: #e1cdff;
+}
+
+body{
+    color: #b1967c;
+    font-family:'Times New Roman', Times, serif;
+    padding-top: 100px;
+    background: #e1cdff url('images/fondo_cuerpo.png') repeat-x;
+    width: 800px;
+    margin: 0 auto;
+}
+
+h1{
+    font-size: 3em;
+    font-family: Arial, Helvetica, sans-serif;/*aqui sustituimos la herencia del body, todas estas son propiedades de primer plano, las de segundo plano tipo el background image, color de fondo, margin, padding no se heredan*/
+}
+
+h2{
+    font-size: 2.2em;
+    color: #600;
+    margin-bottom: 5px;
+}

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    body{
+        font-family: Verdana, Geneva, Tahoma, sans-serif;
+        color: #00f;
+    }
+    p{
+        color: #f00;
+    }
+    strong{
+        font-size: 36px;
+        color: #0f0;
+    }
+    .colorPropio{
+        color: brown;
+    }
+    #otroColor{
+        color: darkmagenta;
+    }
+</style>
+<body>
+    <p>Lorem <a href="https://www.google.com">IR A GOOGLE</a> ipsum dolor sit amet consectetur adipisicing elit. <strong  id="otroColor" style="color:darksalmon">Iusto, eveniet!</strong></p><!--lo de dentro del strong esta heredando la fuente del body, y el color del p, el color del body es reemplazado por el elemento mas especifico que es el p-><!--despues agrege color directamete al strong, al ser mas especifico toma a este--><!--la etiqueta a tiene valores especificas dadas por el navegador, por eso originalmente son azules, aun si estas estas dentro de otro elemento con su propia regla, si queremos cambiarla lo especificamos en los estilos--><!--inline(1000)>id(100)>class(10)>etiqueta(1)-->
+</body>
+</html>

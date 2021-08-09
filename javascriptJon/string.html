@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        //propiedades= caracterisiticas, metodos= acciones y terminan en ()
+
+        let nombre= "Johan";//"" o ''
+        let apellido= "Apellido";
+        let saludo= new String("¡Hola!");//con el constructor, no muy usado
+
+        console.log(nombre,apellido,saludo);//en la consola, saludo sera mostrado como un objeto de tipo string
+
+        console.log(
+            nombre.length,
+            apellido.length,
+            saludo.length
+        );//lenght la unica propiedad de un string
+
+        console.log(nombre.toLowerCase());
+        console.log(nombre.toUpperCase());
+
+        let parrafo= "      Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quas dolore quibusdam necessitatibus nemo cupiditate est? amet amet       ";
+
+        console.log(parrafo, parrafo.includes("amet"));//metodo para verificar que se encuentra una palabra 
+
+        console.log(parrafo.trim());//elimina espacios en blanco al inicio y final
+
+        let arrayEspacio= parrafo.split(" ");//crea un array de un string a partir de un filtro, aqui es un espacio en blanco
+
+        let arrayComa= parrafo.split(",");
+
+        console.log(arrayEspacio);
+        console.log(arrayComa);
+    </script>
+
+    
+</body>
+</html>

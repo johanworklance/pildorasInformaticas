@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        var hola= "Hola Mundo";//ambito global, no recomendable volver a usar var, y aparece en el scope del objeto window
+        let hello= "Hello World";//ambito de bloque, function scope, if,for etc scope, y no aparece en el scope del window
+        console.log(hola);
+        console.log(hello);
+        console.log(window);
+
+        console.log(window.hola);
+        console.log(window.hello);//undefined, los lets solo existen en bloques, por tanto no pertenecen al scope de window, es decir el scope global
+
+        //el ambito global de los navegadores es el objeto window, en node js es global, por lo que seria algo asi como global.hola
+
+        window.console.log("metodo del objeto global window");
+
+        var musica= "ROCK";
+        console.log("antes del bloque",musica);
+
+        let music= "ROCA";
+        console.log("before the block",music);
+
+        {
+            console.log("dentro del bloque",musica);//ROCK
+
+            console.log("within the block",music);//ROCA
+
+            var musica= "POP";//por culpa del hoisting o elevacion, js "sube" esta declaracion fuera del scope de este bloque, por lo que a partir de aqui musica vale POP
+
+            console.log("dentro del bloque 2",musica);//POP
+
+            //let music= "POP LET";//No puedo hacer lo del var, aquí si yo uso let music, es como si fuera la primera vez que se declaro, no toma en cuenta el del scope antes de este bloque, y me marcara error en la linea 30, por que segun este scope, music en esa linea aun no se ha declarado previamente
+            console.log("within the block",music);//ROCA
+        }
+
+        console.log("fuera del bloque",musica);//POP
+        
+        console.log("outside the block",music);//ROCA
+    </script>
+</body>
+</html>

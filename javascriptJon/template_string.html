@@ -1,0 +1,52 @@
+|<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        let nombre= 'Johan ';
+        let apellido= 'Nieto';
+
+        let saludo= 'Hola mi nombre es: ' + nombre + apellido + ".";//concatenacion
+
+        console.log(saludo);
+
+        //`` Backticks, lo saco con altgr y la tecla con } o con alt+96
+        let saludo2= `Hola mi nombre es: ${nombre}${apellido}.(interpolacion de variables usando template string)`;//interpolar datos es colocarlos dentro de un texto ya creado
+
+        console.log(saludo2);
+
+        let ul= "<ul><li>primavera</li><li>verano</li><li>otoño</li><li>invierno</li></ul>";
+
+        let ul2= `
+            <ul>
+                <li>primavera</li>
+                <li>verano</li>
+                <li>otoño</li>
+                <li>invierno</li>
+            </ul>
+        `;
+
+        console.log(ul);
+        console.log(ul2);//las template string permiten tabulacion y saltos de linea
+
+        let ul3= "<ul>";
+            ul3+= "<li>primavera</li>";
+            ul3+= "<li>verano</li>";
+            ul3+= "<li>otoño</li>";
+            ul3+= "<li>invierno</li></ul>";
+
+            console.log(ul3);//es mas comodo usar template string con los ``, ya que con "" tendrian que o estar en una sola linea como el primer ul, o concatenar como en el ul3
+    </script>
+    <ul>
+        <li>primavera</li>
+        <li>verano</li>
+        <li>otoño</li>
+        <li>invierno</li>
+    </ul>
+</body>
+</html>
