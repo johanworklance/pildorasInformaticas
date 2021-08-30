@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        let nombre;//undefined, variable sin valor asignado, no inicializada
+
+        console.log("variable 'nombre' vacia",nombre);
+
+        let nulo= null;//valor vacio pero intencionado por el programador, es para referirnos a la nada o vacio desde nuestra perspectiva, en cambio undefined seria desde el navegador
+
+        console.log("variable 'nulo'",nulo);
+
+        let ocho= "ocho";
+        let nueve= 9;
+
+        let noEsUnNumero= ocho/nueve;//normalmente sale cuando se intento hacer una operacion con strings o otro tipo de dato con un number, o se ingreso un string etc  donde se esperaba number, NaN es Not a Number, por cierto si fuera un "8" si que resuleve todas las operaciones aritmeticas, por que js lo toma como si fuera un number
+
+        console.log(noEsUnNumero);
+
+
+    </script>
+</body>
+</html>

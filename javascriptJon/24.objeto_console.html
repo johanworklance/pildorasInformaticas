@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+
+        console.log(console);
+
+        console.error('esto es un error');//muestra el mensaje como si fuera un error de js
+
+        console.warn("esto es un warning");
+
+        console.info("algo de info");
+
+
+        let nombre= 'Johan';
+        let apellido= 'Nieto';
+        let edad= 30;
+
+        console.log(nombre,apellido,edad,`Hola mi nombre es ${nombre} ${apellido} y tengo ${edad} años`);
+
+        console.log(`Hola mi nombre es %s %s y tengo %d años`,nombre,apellido,edad);//los %s y %d son comodines, recuerdo haber visto en un curso de c++ en platzi, la cuestion es, donde estan los comodines, estos luegos seran reemplazados por las variables que colocamos despues
+
+        console.clear();//limpia la consola
+
+        console.log(window);
+        console.log(document);//es la representacion del documento html en js, pero no lo muestra como un objeto sino como el html en si
+
+        console.dir(window);
+        console.dir(document);//aqui si muestra al dom como un objeto con propiedades y metodos, usar el metodo dir en vez de log, cuando algo no se muestre como un objeto como el dom
+
+        console.group('curso de jonmircha en youtube:');//crea como un grupo con las siguiente lineas de comando
+        console.log('javascript');
+        console.log('nodejs');
+        console.log('curso de flexbox');
+        console.groupEnd();
+
+        console.groupCollapsed('curso de jonmircha en youtube:');//este los muestra para desplegarlos o no, pero chrome hace eso mismo con el group normal
+        console.log('javascript');
+        console.log('nodejs');
+        console.log('curso de flexbox');
+        console.groupEnd();
+
+        console.log(console);
+        console.table(Object.entries(console));//muestra los datos como si fuera una tabla creando un array, en este caso los datos son un metodo que trae las propiedades del objeto console, con ese metodo entries de la clase Object
+
+
+        const numeros= [1,2,3,4,5];
+
+        const vocales= ['a','e','i','o','u'];
+
+        console.table(numeros);//aqui muestra una tabla con el indice y valor de cada elemento del array numeros
+
+        console.table(vocales);
+
+        const perro= {
+            nombre: 'lulina',
+            raza: 'poodle',
+            color: 'blanco'
+        }
+
+        console.table(perro);
+
+        console.clear();
+
+
+        //con este metodo time podemos saber cuanto toma hacer un codigo 
+        console.time('cuanto tiempo tarda mi codigo');//el string de adentro es un alias, por tanto en el timeEnd, se debe colocar lo mismo
+
+        const arreglo= Array(1000000);//es lo mismo que new Array()
+
+        for (let index = 0; index < arreglo.length; index++) {
+            
+            arreglo[index]= index;
+        }
+
+        console.table(arreglo);
+
+        console.timeEnd('cuanto tiempo tarda mi codigo');//asignar el arreglo y mostrarlo como tabla le toma mas o menos 658ms
+
+        console.clear();
+
+        for (let index = 0; index < 100; index++) {
+            console.count('codigo for');//cuenta las ejecuciones de un codigo 
+            console.log(index);
+            
+        }
+
+        //pruebas unitarias con console
+        let x= 3,
+        y=2,
+        pruebaXY='se espera que X siempre sea menor que Y';
+
+        console.assert(x<y,{x,y,pruebaXY});//assert funciona asi: en el primer parametro la condicion que se desea comprobar, en el segundo un objeto, con las variables y en la ultima, la variable con el mensaje de prueba, este saldra si no se cumple la condicion, por ejemplo aqui x vale 3 es mayor al 2y por lo que saldra el mensaje como una especie de error llamdo Assertion failed
+
+
+    </script>
+</body>
+</html>

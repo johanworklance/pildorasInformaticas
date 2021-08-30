@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        let verdadero= true;//valor truthy
+        let falso= false;//valor falsy, null, undefined y NaN son falsy
+        let v= new Boolean(true);//valor truthy
+        let f= new Boolean(false);//valor falsy
+
+        console.log(verdadero,falso,v,f);
+        console.log(typeof(verdadero),typeof(false));
+
+        console.log(Boolean(0));//false //valor falsy
+        console.log(Boolean(-7));//true valor truthy
+        console.log(Boolean(""));//false //valor falsy
+        console.log(Boolean(" "));//true valor truthy
+    </script>
+</body>
+</html>

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+
+        class Animal{
+
+            constructor(nombre,genero){
+                this.nombre= nombre;
+                this.genero= genero;
+            }
+
+            sonar(){
+                console.log('hago sonidos');
+            }
+
+            saludar(){
+                console.log(`Hola me llamo ${this.nombre}`);
+            }
+        }
+
+        const lulina= new Animal('Lulina','panochon');
+
+        console.log(lulina);
+        lulina.sonar();
+        lulina.saludar();
+
+        //el uso de clases, es pasado a prototipos detras de bambalinas
+
+        
+        class Perro extends Animal{
+            constructor(nombre,genero,tamanio){
+
+                super(nombre,genero);//aqui es un metodo js que llama al constructor del padre, es como la propiedad super que vimos en prototipos
+                this.tamanio= tamanio;
+            }
+
+            sonar(){
+                console.log('soy un perro y hago ladridos');
+            }
+
+            ladrar(){
+                console.log('guau guau soy un perro de tamaño ' + this.tamanio);
+            }
+        }
+
+        const copito= new Perro('copito','machito','enano');
+
+        console.log(copito);
+        copito.sonar();
+        copito.ladrar();
+    </script>
+</body>
+</html>

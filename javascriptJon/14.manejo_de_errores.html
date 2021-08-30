@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        try{
+            console.log('En el try se agrega el código a evaluar');
+            noExiste;//como esta variable no ha sido definida, lanzara error, y el catch lo tomara, por tanto la siguiente linea no se mostrara
+            console.log('segundo mensaje en el try');
+
+        }catch(error){
+            console.log('catch captura cualquier error surgido o lanzado en el try');
+            console.log('Este es el error:', error);
+        }finally{
+            console.log('finally se ejecutara siempre al final de un bloque try-catch');
+        }
+        console.log('--------------------');
+        try{
+            let numero= '10d';
+            if(isNaN(numero)){
+                throw new Error('Has enviado un valor que no es un número');//usamos throw para indicar que crearemos un tipo de error personalizado del tipo Error(hay varios tipos de errores, este es el generico)
+            }
+            console.log(numero*numero);
+        }catch(error){
+            console.log('Se produjo el siguiente error: ',error);
+        }
+    </script>
+</body>
+</html>

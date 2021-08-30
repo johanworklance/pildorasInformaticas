@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        function saludar(nombre='desconocido'){
+            return `Hola ${nombre}`;
+        }
+
+        console.log(saludar());
+        console.log(saludar('Johan'));
+
+
+        function saludar2(nombre){
+            nombre= nombre || 'desconocido';//Operador OR cortocircuito, es parecido a los de valores por defecto como el de arriba, si se da true a la izquierda tomara ese valor de lo contrario tomara el de la derecha
+            return `Hola ${nombre}`;
+        }
+
+        console.log(saludar2());
+        console.log(saludar2('Alexis'));
+
+
+        console.log(19 || 'otro');//el numero es verdadero saldra el
+
+        console.log(0 || []);//0 es falsy, por tanto imprime el array
+
+        console.log("" || "lleno");
+
+
+        console.log(null && 'hola');//OPERADOR && cortocircuito, siempre que la derecha sea un valor falsy entonces imprimira ese, tiene sentido para que sea un and true, los 2 deben ser true
+
+        console.log(undefined && true);
+
+        console.log(true && 'valor de la derecha');//si los 2 son true entonces imprime el de la derecha
+    </script>
+</body>
+</html>

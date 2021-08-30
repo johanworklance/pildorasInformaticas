@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+
+        let cadena= 'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Tempora id explicabo debitis animi incidunt soluta obcaecati eum maiores, aut ratione.animi fff';
+
+
+        let expReg= new RegExp('animi','ig');//que exista lorem en la cadena y una bandera 'i' que indica que no sea casesensitive, el flag g es para que busque en todo la cadena 
+
+        let expReg2= /lorem/i;
+
+        // let expReg2= /\d/i;//numeros
+
+        // let expReg2= /[0-9]/i;//numeros del 0 al 9
+
+        console.log(expReg.test(cadena));//TRUE si encuentra Lorem
+
+        console.log(expReg.exec(cadena));//null si no encuentra nada, o un arreglo con mas info de lo encontrado, aqui hay algo raro, cuando puse la bandera 'g' como solo habia un animi, no lo pillaba y mandaba null, le coloque uno mas casi al final y este si que lo pillo, sera que cuando solo hay una coincidencia exec no lo manda
+
+        console.log(expReg2.test(cadena));
+
+        console.log(expReg2.exec(cadena));//si con la bandera g, efectivamente si solo hay una coincidencia no la devuelve
+
+    </script>
+</body>
+</html>

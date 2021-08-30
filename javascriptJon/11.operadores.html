@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+
+        let a= 5+5-10*3/6;//5+5-30/6=5+5-5=5
+        console.log(a);
+
+        let cociente= 5/2;//el cociente de la division
+        console.log(cociente);
+
+        let modulo= 5%2;//residuo de la division
+        console.log(modulo);
+
+        console.log(8>9);//false
+
+        console.log(9>=8);//true
+
+        console.log(7<=7);//true
+
+        console.log(7==7,"7"==7,0==false,"7"===7,0===false)//true, true, true, false,false recomendable ya no usar == se considera mala practica, recordar tambien que el 0 es un valor falsy, pero cuando se usa === no serian lo mismo por que el 0 es un number y el false es un boolean
+
+        let i=1;
+
+        //i=i+2;
+
+        i+=2;//3
+
+        i-=3//0
+
+        i++;//1 operador unario
+
+        i*=3//3
+
+        i/=2;//1.5
+
+        i--;//0.5
+
+        ++i;//1.5 se asigna la suma justo en esta linea
+
+        console.log(i++);//1.5 se asigna la suma en la linea siguiente
+
+        console.log(i, "el valor de i");//2.5
+
+        console.log(!true,!false);//false,true
+
+        console.log(9===9 || '9'===9);//true, al menos un true
+
+        console.log(9===8 || '9'===9);//false
+
+        console.log(9===9 && '9'===9);//false
+
+        console.log(9===9 && 9===9);//true, los 2 en true
+
+        let texto= "el 9 con '' y con \"\" son iguales";
+
+        document.write(texto);
+        console.log(9===9 && '9'==="9", texto);//true, por alguna razon en consola si que se muestran las \
+
+        console.log(0===false, 'el number cero y el boolean false, no son del mismo tipo')//false
+
+
+    </script>
+</body>
+</html>

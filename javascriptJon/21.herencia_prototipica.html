@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        /*POO
+         *Clase: modelo a seguir, Objetos: copias o instancias del modelo, atributos: caracteristica o propiedad de un objeto, variables dentro de un objeto, metodos: acciones que un objeto puede realizar, son verbos, funciones dentro de un objeto.
+         */
+
+         const animal= {
+             nombre: 'snoopi',
+             sonar(){
+                 console.log('hago sonidos');
+             }
+         }
+
+         const animal2= {
+             nombre: 'lola bunny',
+             sonar(){
+                 console.log('hago sonidos');
+             }
+         }
+
+         console.log(animal,animal2);
+
+
+         function Animal(nombre,genero){//las clases/prototipos deben UpperCamelCase, esta es una funcion constructora, usando prototipos, estamos asignando este constructor al prototipo de esta funcion
+
+            //atributos
+            this.nombre= nombre;//a pesar de que hacemos uso del this para referirnos al contexto de cada instancia, esto originalmente es propiedad 'nombre' en el objeto window
+            this.genero= genero;
+
+         }
+
+         //metodos, se asignan de esta manera al prototipo, es como si a la funcion Animal que estamos usando, la convirtieramos en clase usando su prototipo, que es una cosa rara ahi de javascript que consiste de un objeto que todos los objetos tienen en js llamado prototype, pero en resumidas es, creamos el constructor con una funcion con el nombre de la clase, y sus metodos los creamos de esta manera, de haber creado el metodo dentro de la funcion constructora, todas sus instancias usarian la misma funcion y la "llamarian" cada vez por instancia, en cambio al asignarla al prototipo, es como si a asignaramos una vez por cada instancia que se vaya a crear
+         Animal.prototype.sonar= function(){
+                console.log('hago sonidos');
+        }
+
+        Animal.prototype.saludar= function(){
+            console.log(`Hola me llamo ${this.nombre}`);
+        }
+
+         const snoopy= new Animal('snoopy','machito'), lolaBunny= new Animal('lola','niña');//use una , para hacer uso del mismo const
+
+         console.log(snoopy,lolaBunny);
+
+         snoopy.sonar();
+
+         snoopy.saludar();
+
+         //es decir usando prototipos, que es propio de js, creamos una function con el nombre de la clase, que vendria a ser el constructor, donde guardaremos las propiedades, y los metodos los crearemos afuera y asignandolos al prototipo de la funcion que es originalmente la clase, es asi como realmente funcionan las clases en js, pero con la nueva sintaxis, no es necesario recurrir a esto
+
+
+
+         //Un objeto en JavaScript tiene otro objeto, llamado prototype (prototipo, en español). ... Así, un prototipo es otro objeto que se utiliza como una fuente de propiedades alternativa. Prototype es una propiedad de Object, -el objeto del que se derivan todos los demás objetos-, y esta propiedad es, a su vez, un objeto.
+
+         //herencia
+
+        function Perro(nombre,genero,tamanio){
+            this.super= Animal;//que se llame super es por convencion, puede ser otro nombre, esta propiedad es igual al metodo/constructor Animal, es como el super en las herencias de otros lenguajes
+
+            this.super(nombre,genero);
+
+            this.tamanio= tamanio;
+        }
+
+        Perro.prototype= new Animal();//aqui es donde se esta haciendo la herencia
+
+        //al parecer asi establecemos el constructor de una clase que esta heredando
+        Perro.prototype.constructor= Perro;
+
+        //sobreescribimos el metodo que heredamos de Animal
+        Perro.prototype.sonar= function(){
+            console.log('soy un perro y ladro');
+        }
+
+        //creamos un nuevo metodo para los perros
+        Perro.prototype.ladrar= function(){
+            console.log('¡guau guau!');
+        }
+
+        const lulina= new Perro('Lulina','panochon','enano');
+
+        console.log(lulina);
+
+        lulina.sonar();
+
+        lulina.ladrar();
+
+        lulina.saludar();
+    </script>
+</body>
+</html>

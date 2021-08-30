@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+
+        //arrow funciones anonimas expresadas, es decir las que se asignan a una variable
+
+        const saludar= (nombre)=>{
+            console.log(`¡Hola! ${nombre}`);
+        }
+
+        const greet= ()=> console.log("Hello!");//cuando hay una sola linea podemos omitir las llaves
+
+        const saludar2= nombre=>`¡Hola! ${nombre}`;//si hay un solo parametro podemos omitir los parentesis, y si hay una sola linea y no se esta ejecutando una funcion extra, es como si estuvieramos haciendo un return
+
+        saludar('Johan');
+        console.log(saludar2('Alexis'));
+        greet();
+
+        const sumar= function(a,b){
+            return a+b;
+        }
+
+        const add= (a,b)=> a+b;
+
+        console.log(sumar(1,2));
+        console.log(add(1,2),'con arrow function');
+
+
+        const funcionDeVariasLineas= ()=>{
+            console.log(1);
+            console.log(2);
+            console.log(3);
+        }
+
+        funcionDeVariasLineas();
+
+
+        const numeros= [1,2,3,4,5];
+
+        numeros.forEach((numero, indice)=>console.log(`el indice ${indice} tiene como valor ${numero}`));//foreach recibe una funcion, en este caso una arrow function que imprime por consola cada valor del arreglo
+
+
+        function perro(){//funcion declarada
+            console.log(this);//este this seria el objeto window, es como si las funciones fueran metodos del objeto window, ahora que lo pienso.
+
+        }
+
+        perro();
+
+        const dog= {
+            nombre:'Lulina',
+            ladrar:function(){
+                console.log(this);//el this aqui es el contexto dentro del objeto dog
+            },
+            bark:()=>{
+                console.log(this);//las arrow function dentro de objetos no toman el contexto del objeto si no el contexto donde se encuentra el objeto, que seria window
+            },
+            comer(){
+                console.log(this,'comer');//el this aqui es el contexto dentro del objeto dog
+            },
+            cachorros:{
+                cachorro:{
+                        nombre:'Lulina bebe',
+                        ladrido:()=>{
+                            console.log(this,'objeto dentro de objeto');//bueno al parecer las arrow function, siempre pillan como this al objeto window, no me queda claro si es por que el objeto padre esta dentro de ese contexto window
+                        }
+                    }
+            }
+        }
+
+        dog.ladrar();
+        dog.bark();
+        dog.comer();
+        dog.cachorros.cachorro.ladrido();
+
+        //En resumen: ¡MEJOR NO UTILIZAR ARROWS FUNCTIONS EN UN OBJECTO!
+
+        //por cierto metodos como apply, bind y demas nos ayudan a especificar el this, es decir, podemos decirle explictamente elcontexto de algun objeto que eligamos, y que el no pille de forma implicita
+
+        window.edad=23;//contexto window
+
+        function pillar(){
+            this.edad=52;//ahora edad vale 52, la propiedad del objeto window es de alcance global
+            const flecha= ()=>console.log(this.edad);
+            flecha();
+        }
+
+        pillar();
+        
+    </script>
+</body>
+</html>

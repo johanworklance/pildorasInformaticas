@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+
+        console.log(Date());//al parecer aqui estamos usando al constructor de Date que es lo mismo que mostrara una instancia de Date mas abajo
+
+        console.log(Array());//un array vacio
+        console.dir(Array());//con dir si que vemos las propiedades y o metodos de array
+        console.log(Number());//un cero, en resumen invocar a clases predefinidas es como hacer una instancia sin aignar a una variable
+
+        
+        let fecha= new Date();
+
+        console.log(fecha);
+        console.log(fecha.getDate());//obtiene el dia 
+        console.log(fecha.getDay());//obtiene el dia de la semana domingo 0 lunes 1, martes 2 miercoles 3 jueves 4 viernes 5 sabado 6
+
+        console.log(fecha.getMonth());//mes del año comenzando con enero 0
+
+        console.log(fecha.getYear());//el numero de años que ha pasado desde el 1900, hoy es 2021, han pasado 121 años
+
+        console.log(fecha.getFullYear());//este si es el año 2021
+
+        console.log(fecha.getHours());
+        console.log(fecha.getMinutes());
+        console.log(fecha.getSeconds());
+        console.log(fecha.getMilliseconds())
+
+        console.log(fecha.toString());//la fecha con todo y hora como en la instancia de Date
+        console.log(fecha.toDateString());//dia y fecha sin hora
+        console.log(fecha.toLocaleString());//fecha y hora en formato 29/08/2021 
+        console.log(fecha.toLocaleDateString());//fecha
+        console.log(fecha.toLocaleTimeString());//hora
+
+        console.log(fecha.getTimezoneOffset());//uso horario aqui son 240 minutos osea 4 horas a londres ek meridiano de greenwitch
+
+        console.log(fecha.getUTCDate());//dia en londres o el meridiano 0
+        console.log(fecha.getUTCHours());//hora en londres por ejemplo si son las 3 en venezuela son las 7 en el gmt o las 19
+
+        console.log(Date.now());//fecha en formato timestamp, la se segundos pasados desde el 01-01-1970 la fecha timestamp
+
+
+        let cumpleJohan= new Date(1991,6,11);//julio esta en la posicion 6 del "array" en donde estan los meses
+        console.log(cumpleJohan);
+
+        
+    </script>
+</body>
+</html>

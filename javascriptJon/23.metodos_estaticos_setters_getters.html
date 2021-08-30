@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+
+        class Animal{
+
+            constructor(nombre,genero){
+                this.nombre= nombre;
+                this.genero= genero;
+            }
+
+            sonar(){
+                console.log('hago sonidos');
+            }
+
+            saludar(){
+                console.log(`Hola me llamo ${this.nombre}`);
+            }
+
+            
+        }
+
+        const lulina= new Animal('Lulina','panochon');
+
+        console.log(lulina);
+        lulina.sonar();
+        lulina.saludar();
+
+        //el uso de clases, es pasado a prototipos detras de bambalinas
+
+        
+        class Perro extends Animal{
+            constructor(nombre,genero,tamanio){
+
+                super(nombre,genero);//aqui es un metodo js que llama al constructor del padre, es como la propiedad super que vimos en prototipos
+                this.tamanio= tamanio;
+                this.raza= null;
+            }
+
+            sonar(){
+                console.log('soy un perro y hago ladridos');
+            }
+
+            ladrar(){
+                console.log('guau guau soy un perro de tamaño ' + this.tamanio);
+            }
+
+            static queEres(){//metodo estatico, no se necesita de instanciar para ejecutarlo
+                console.log('soy un perro');
+            }
+
+            get getRaza(){//par alos metodos get anteponemos la palabra get
+                return this.raza;
+            }
+
+            set setRaza(raza){// y para los setters la palabra set
+                this.raza= raza;
+            }
+        }
+
+        const copito= new Perro('copito','machito','enano');
+
+        console.log(copito);
+        copito.sonar();
+        copito.ladrar();
+
+        Perro.queEres();
+
+        console.log(copito.getRaza);//js a los metodos get los trata como propiedades
+
+        copito.setRaza= 'poodle';//igual para los setters los ve como propiedades no como funciones de ahi que no usemos los ()
+
+        console.log(copito.getRaza);
+    </script>
+</body>
+</html>

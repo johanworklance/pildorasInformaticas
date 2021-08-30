@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        const b= {
+
+        }
+
+        console.log(b);
+
+        const c= new Object();
+
+        console.log(c);
+
+        const johan= {
+            nombre: 'Johan',
+            edad:30,
+            pasatiempos:['videojuegos','youtube','bbc news'],
+            soltero: true,
+            contacto:{
+                email:'johan@email.com',
+                linkeInd: 'johanworklance',
+                telefono: 31945755
+            },
+            saludar: function(){
+                console.log("hola :)")
+            },
+            decirMiNombre(){//se pueden crear metodos tambien asi
+                console.log(`Hola me llamo ${this.nombre} tengo ${this.edad} y me puedes escribir a ${this.contacto.email} `);
+            }//debemos usar this, para hacer uso de las propiedades en este contexto del objeto en donde estamos, si fuera solo nombre y edad, manda que no estan definidos, el contexto this sucede en todos los objetos, this hace referencia al objeto en donde se encuentra
+        }
+
+        console.log(johan);
+        console.log(johan['nombre']);//se puede usar la notacion de corchetes para acceder a las propiedades o atributos
+        console.log(johan['soltero']);
+        console.log(johan['saludar']());//me lo pilla pero despues deja un undefined, mas abajo uso el metodo con notacion de punto... ah ya se por que el undefined, por que es un console.log dentro de otro
+        johan['saludar']();//aqui si no manda el error
+
+        console.log(johan.edad);//pero se recomienda la notacion del punto
+        console.log(johan.pasatiempos[1]);
+        johan.saludar();
+
+        console.log('telefono',johan.contacto.telefono);
+
+        johan.decirMiNombre();
+
+        console.log(Object.keys(johan));//crea un array con las llaves de un objeto
+        console.log(Object.values(johan));//crea un array pero con los valores de un objeto
+
+        console.log(johan.hasOwnProperty("nombre"));//devuelve true si encuentra un propiedad con el nombre "nombre" dentro del objeto
+
+        console.log(johan.hasOwnProperty("nacimiento"));//false
+
+
+    </script>
+</body>
+</html>

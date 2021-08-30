@@ -24,7 +24,7 @@ img{
 /*reset*/
 
 #principal{
-    float: left;/*se pasa a la izquierda y lo demas se ir a la derecha que es el div latera*/
+    float: left;/*se pasa a la izquierda y lo demas se ir a la derecha que es el div lateral*/
     width: 580px;
 }
 
@@ -45,7 +45,7 @@ body{
 
 h1{
     font-size: 3em;
-    font-family: Arial, Helvetica, sans-serif;/*aqui sustituimos la herencia del body, todas estas son propiedades de primer plano, las de segundo plano tipo el background image, color de fondo, margin, padding no se heredan*/
+    font-family: Arial, Helvetica, sans-serif;/*aqui sustituimos la herencia del body, todas estas son propiedades de primer plano, las de segundo plano tipo el background image, color de fondo, margin, padding no se heredan, el color la hereda del body*/
 }
 
 h2{

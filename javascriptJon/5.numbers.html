@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        let a= 2;
+        let b= new Number(3);
+        let c= 7.19;
+        let d= 6.43;
+        let e= "5.6";
+
+        console.log(a,b,c);
+
+        console.log(c.toFixed(1),d.toFixed(1),c.toFixed(5));//con toFixed indicamos cuantos decimales habra, en este caso redondea hacia arriba el 7.19 a 7.2 y el 6.43 a 6.4 hacia abajo, en el ultimo hace 7,19000
+
+        console.log(parseInt(c),parseInt("334"));//el entero de 7,19, y pasa "334" a 334
+
+        console.log(a.toFixed(2));//al parecer lo vuelve flotante
+        console.log(parseFloat(a).toFixed(2));//aqui lo volvi flotante primero y despues le formatee a que tenga 2 decimales quedando 2.00
+
+        console.log(typeof(c),typeof(e));
+
+        console.log(c+e,typeof(c+e));//esta concatenando el numero 7.19 con el string "5.6" quedando "7.195.6" un string 
+
+        console.log(c+parseInt(e));//al sumar un float 7.19 + un int 5 que venia del string "5.6" da 12.190000000000001, es un error de js, recomendable sumar del mismo tipo como abajo, todos esos ceros y el 1 del final sobran
+
+        //e= Number.parseFloat(e);//estos metodos parse son directos de la clase Number, podemos poner el Number o no, js lo sobreentiende
+        e= parseFloat(e);//cambiar el tipo de un valor se le conoce como casting
+
+        /* c.toString();//abria que reasignar a c, si quisieramo cambiar el tipo
+        c= c.toString();//este es un metodo de las instancias de number
+        console.log(c,typeof(c)); */
+
+        console.log(c+e,typeof(c+e));//12,79 y es un number
+
+
+    </script>
+</body>
+</html>

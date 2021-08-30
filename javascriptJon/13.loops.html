@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        let contador= 0;
+
+        while(contador<100){
+            contador++;
+            console.log(contador);
+        }
+
+        contador+=4;
+        console.log("------------------")
+
+        do{
+            console.log(contador);
+            contador--;
+            
+        }while(contador != 100)
+
+        console.log("------------------")
+
+        for(let i= 0; i<=100; i++){
+            console.log(i);
+        }
+
+        console.log("------------------")
+
+        let numeros= [10 ,20, 30, 40];
+
+        for (let index = 0; index < numeros.length; index++) {
+            const element = numeros[index];
+            console.log(element);
+        }
+
+        const johan={
+            nombre:"Johan",
+            edad:30,
+            hobbies:{
+                videojuegos:'monster hunter',
+                youtube:'slobulus'
+            }
+        }
+        for (const key in johan) {//es para objetos primitivos
+            if(typeof(johan[key]) === 'object'){
+                for (const key2 in johan[key]) {
+                    console.log(key,johan[key][key2])
+                }
+            }else{
+                console.log(key,johan[key])
+            }
+            
+            
+        }
+
+        console.log("------------------");
+
+        for (const numero of numeros) {//es para arreglos, cadenas de texto y cadenas de textos, elementos iterables, los objetos no funcionan con esto
+            console.log(numero);
+        }
+
+        for (const letra of 'numeros') {
+            console.log(letra);
+        }
+
+    </script>
+</body>
+</html>

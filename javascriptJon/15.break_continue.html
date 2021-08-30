@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+
+        const numeros= [1,22,55,45,84];
+
+        for (let index = 0; index < numeros.length; index++) {
+            
+            if(index===2){
+                //break;//rompe la estructura del for y se sale
+                continue;//se salto el indice 2, por lo que no se uso el valor 55 del indice 2 en el array numeros
+            }
+            const element = numeros[index];
+
+            console.log(element);
+        }
+    </script>
+</body>
+</html>

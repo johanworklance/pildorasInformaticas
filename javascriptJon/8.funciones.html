@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        function estoEsUnaFuncion(){//funcion declarada
+            console.log("1");
+            console.log("2");
+            console.log("3");
+            console.log("----------------");
+        }
+
+        estoEsUnaFuncion();//invocacion de funcion
+        estoEsUnaFuncion();
+
+        function unaFuncionQueDevuelveValor(){
+            return 19;//las lineas siguientes de la funcion son ignoradas, apenas js vea un return, el retorna 
+            console.log("no apareci por que se hizo un return antes");
+            return "la función ha retornado una cadena de texto";//se pueden retornar todo tipo de valores, primitivos o compuestos
+        }
+
+        console.log(unaFuncionQueDevuelveValor());
+
+        function saludar(nombre="nombre_defecto",edad=0){
+            return `Hola mi nombre es: ${nombre} y tengo ${edad} años`;
+        }
+
+        let saludo= saludar();//si no envio parametros estos quedaran como undefined, o usara los por defecto en la funcion
+        console.log(saludo);
+
+        saludo= saludar("Johan",30);
+
+        console.log(saludo);
+
+
+
+        seUsaraAntes();//esto sucede por que las funciones declaradas, son cargadas por js mucho antes que todo lo demas, es parecido al hositing de las variables con var, es decir "eleva" el codigo, como si estuviera antes la declaracion de la funcion
+
+        function seUsaraAntes(){
+            console.log("esto es una función declarada, puede invocarse antes de ser creada, es decir en cualquier parte del codigo");
+        }
+
+        seUsaraAntes();
+
+
+        //console.log(funcionExpresada());//no se puede usar si no esta inicializada o creada, mandara un error de referencia
+
+        const funcionExpresada= function(){//funcion anonima asignada a una variable convirtiendola en una funcion expresada
+
+            return "funcion expresada, que a diferencia de las declaradas, no puede invocarse antes de su creacion, por que originalmente es una variable constante(se recomienda no usar let para funciones expresadas) a la que se le ha asignado una funcion, se han hecho populares porque como una buena practica es declarar las funciones antes de la ejecucion, hacerlas expresadas, te fuerza a crearlas primero antes que ejecutarlas";
+
+        }
+
+        console.log(funcionExpresada());
+    </script>
+    
+</body>
+</html>

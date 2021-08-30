@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+
+        let nombre= "kenai";
+        let edad= 7;
+
+        const perro={
+            nombre: nombre,
+            edad: edad,
+            ladrar:function(){
+                console.log("ladrar guau guau");
+            }
+        }
+
+        console.log(perro);
+        perro.ladrar();
+
+        const dog= {
+            nombre,//si una variable afuera del objeto tiene el mismo nombre de una propiedad, podemos solo poner el nombre de la propiedad
+            edad,
+            raza:"poodle",
+            ladrar(){//nueva forma de crear metodos
+                console.log("bark guau guau");
+            }
+        }
+        console.log(dog);
+        dog.ladrar();
+    </script>
+</body>
+</html>

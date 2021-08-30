@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        const a= [];
+        const b= [12,true,"hola",['a','b','c',[1,2,3]]];
+
+        console.log(a);
+        console.log(a,b);
+        console.log(b.length);//4
+
+        console.log(b[2]);//"hola" tercer elemento, posicion 2
+        console.log(b[0]);//12 primer elemento, posicion 0
+        console.log(b[3][2]);//c tercer elemento en la posicion 2 del cuarto elemento en la posicion 3
+        console.log(b[3][3][1])//2  segundo elemento de la posicion 1 del cuarto elemento posicion 3 del cuarto elemento posicion 3 del array inicial
+
+        const c= Array.of('x','y','z',9,8,7);//metodo of de la clase/objeto Array para crear arrays nuevo
+
+        console.log(c);
+
+        const d= Array(30).fill(false);//un array de 30 posiciones, al cual se ha usado el metodo fill para inicializar cada posicion con valor false
+
+        console.log(d);
+
+        const e= new Array("blanco","negro");
+
+        console.log(e);
+
+        const colores= ['rojo','verde','amarillo'];
+
+        colores.push('negro');//agrega al final
+
+        colores.pop();//elimina el ultimo elemento
+
+        console.log(colores);
+
+        colores.forEach(function(elemento, index){
+            console.log(`<li id="${index}">${elemento}</li>`)
+        })//ejecutara una funcion callback a cada elemento del array, en los parametros de la funcion callback, llegan los elementos y sus indices en el array
+
+
+        
+
+
+    </script>
+
+    
+</body>
+</html>

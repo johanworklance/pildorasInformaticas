@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+    <script>
+        let numeros= [2,12,36,44,58,545,144,124];
+
+        //sin destructuracion
+        let dos= numeros[0];
+        let doce= numeros[1];
+        let treinta_y_seis= numeros[2];
+
+        console.log(dos,doce,treinta_y_seis);
+
+        //con estructuracion, es una forma de asignar variables mas rapido
+
+        const [two,twelve,thirty_six,forty_four]=  numeros;//encerramos entre corchetes los nombres de las variables, y a ellas se les asignaran los valores por orden dentro de numeros,no es necesario una variable para cada valor que tenga el arreglo
+
+        console.log(two,twelve,thirty_six,forty_four);
+
+        const johan= {
+            nombre: 'Johan',
+            apellido: 'Nieto',
+            edad: 30
+        }
+
+        let {nombre, edad, apellido}= johan;//para aislar en una variable las propiedades de un objeto, dichas variables deben tener el mismo nombre de la propiedad, de otra manera da error, no importa el orden ya que usa el nombre para buscar
+
+        console.log(nombre,apellido,edad)
+    </script>
+</body>
+</html>
