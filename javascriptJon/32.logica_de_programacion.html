@@ -570,7 +570,115 @@
 
 //------------------------------------------------------------------------------
 
+/* 15) Programa una función para convertir números de base binaria a decimal y viceversa, pe. miFuncion(100,2) devolverá 4 base 10(que se base 10 quiere decir decimal, binario seria base 2). */
 
+
+/*Explicacion de lo que hago para binario a decimal, notacion posicional es un array que guarda los valores de las potencias de 2 que se usan para convertir binario en decimal, por ejemplo 100 seria 0*1,0*2,1*4 que dan 0+0+4= 4 en decimal, ese array lo usare en el for para el calculo. 
+
+Recibo el numero lo vuelvo string y lo guardo en un array con split, despues creo 2 indices uno para el array de la notacion para que comienze en el ultimo elemento, es decir el 1, lo mismo para el numero para que comienze en el 0 si es un 100.
+
+en el for digo que comienze en 2 dado que 100 serian 0,1,2 y en la pruimera iteracion calcule el 0 de la pos 2 del numero por el 1 de la pos 7 del array con la notacion, eso daria 0, lo sumo al resultado, y otra iteracion, el indice del texto baja un punto y tambien le bajo al de la notacion y asi sucesivamente
+ 
+ */
+
+ 
+
+/* Para hacer la conversión de decimal a binario, hay que ir dividiendo el número decimal entre dos y anotar en una columna a la derecha el resto (un 0 si el resultado de la división es par y un 1 si es impar). La lista de ceros y unos leídos de abajo a arriba es el resultado. */
+const binariaDecimal= (numero,base)=>{
+
+    
+
+    if(base===10){
+
+        const binario= [];
+
+        let numeroResultado= numero;
+
+        if(numero%2===0){
+            binario.unshift(0);
+        }else{
+            binario.unshift(1);
+        }//verifico si el numero en si es par o impar, este seria el ultimo valor del numero bianrio
+
+        while(numero>1){
+
+            numero/=2;//dividimos entre 2 y asignamos para la siguiente iteracion
+
+            numero= Math.floor(numero);//para poder decir si es impar o par,debemos redondear hacia abajo, los numeros flotantes no sirven
+
+            if(numero%2===0){//al igual que arriba asigno 0 si la division fue un numero para o 1 si fue impar, no confundir con el residuo, la division aqui seria el cociente, es este el que verificamos si es par o no
+                binario.unshift(0);
+            }else{
+                binario.unshift(1);
+            }
+        }
+
+        //lo vuelvo a unir a un numero
+
+        return console.log(`el numero base de 10(decimal): ${numeroResultado} tiene como valor en base 2(binario) el numero: ${binario.join("")}`);
+    }
+
+    if(base===2){
+
+        numero= numero.toString().split('');
+
+        for (let index = 0; index < numero.length; index++) {
+        
+            if (numero[index] > 2  || numero[index] < 0 )
+            return console.log(`La base especificada es base de: ${base}, por tanto solo se pueden enviar numeros binarios, no numeros decimales, intenta de nuevo por favor`);
+        
+        }
+
+        
+        const notacionPosicional= [128,64,32,16,8,4,2,1];
+
+        let indiceNotacion= notacionPosicional.length-1;
+
+        let numeroDecimal= 0;
+
+        for (let index = numero.length-1; index >=0; index--, indiceNotacion--) {
+            
+            numeroDecimal+= numero[index] * notacionPosicional[indiceNotacion];
+        
+        }
+
+        return console.log(`el numero base de 2(binario): ${numero.join("")} tiene como valor en base 10(decimal) el numero: ${numeroDecimal}`);
+    }
+
+    
+
+}
+
+binariaDecimal(100,2);//4
+binariaDecimal(11010001,2);//209
+binariaDecimal(1100100,2);//100
+
+binariaDecimal(209,10);//11010001
+binariaDecimal(4,10);//100
+binariaDecimal(100,10);//1100100
+
+//------------------------------------------------------------------------------
+
+/* 16) Programa una función que devuelva el monto final después de aplicar un descuento a una cantidad dada, pe. miFuncion(1000, 20) devolverá 800. */
+
+
+    const hacerDescuento= (monto,descuento)=>
+    console.log('monto con descuento:', monto-(monto*(descuento/100)));
+    //lo hice de forma pajua si :)
+
+
+    hacerDescuento(1000,20);
+
+    hacerDescuento(40000,50);
+
+//------------------------------------------------------------------------------
+
+/* 17) Programa una función que dada una fecha válida determine cuantos años han pasado hasta el día de hoy, pe. miFuncion(new Date(1984,4,23)) devolverá 35 años (en 2020). */
+
+    const aniosPasados= fecha => console.log(`desde esta fecha ${fecha.getFullYear()} a la fecha actual han pasado ${new Date().getFullYear()-fecha.getFullYear()} años`);//lo hice de forma pajua si :) , recordar que una instancia de date sin parametros pilla la fecha actual, getFullYear da el año, y como es una sola linea de codigo, use el return implicito de las arrow functions
+    
+
+    aniosPasados(new Date(1984,4,23));
     </script>
 </body>
 
