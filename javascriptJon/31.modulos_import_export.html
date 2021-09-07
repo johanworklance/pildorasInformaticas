@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+
+    </script>
+    <script src="js/31.modulos.js" type="module"></script><!--esto de type="module" es para poder hacer lo de las importaciones, es nuevo, pero me salia error, parece ser que esto solo funciona desde protocolos https y demas, por lo que debo correrlo en un servidor y no como archivo local, asi active el xampp, es necesario lo del module, o mandara error al usar export y import en los archivos js-->
+    
+    <script src="js/31.no-modulos.js" nomodule></script><!--esta es por si el navegador no soporta lo de modulos, y como no tiene el type, se ejecuta antes, pero cuando agregamos el nomodule(atributo boolean), el navegador lo reconoce y no lo carga, por que por ejemplo chrome si soporta modulos, asi no hay una doble carga de archivos-->
+</body>
+    
+</html>

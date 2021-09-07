@@ -1,0 +1,577 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+
+        /* 1) Programa una función que cuente el número de caracteres de una cadena de texto, pe. miFuncion("Hola Mundo") devolverá 10. */
+
+        const contarLetras = texto => {
+            contador = 0
+
+            //return texto.length;//lel
+
+            /* for (; contador < texto.length; contador++) {
+            }
+            return `El texto ${texto} tiene este número de caracteres: ${contador}`; *///codigo funcional, me parecio curioso hacer un for asi, sin condicion inicial y sin cuerpo, solo aumentando el contador en cada iteracion
+
+            while (contador < texto.length) {
+                contador++;
+            }
+
+            return `El texto ${texto} tiene este número de caracteres: ${contador}`;
+        }
+
+        console.log(contarLetras('Hola mundo'));
+
+        /* function contarCaracteres(cadena=''){//declarada
+            if(!cadena){
+                console.warn('No ingresaste una cadena');
+            }else{
+                console.info(`La cadena "${cadena}" tiene ${cadena.length} caracteres`);
+            }
+        } */
+
+        const contarCaracteres= (cadena="")=> //expresada
+        (!cadena) 
+        ? console.warn('No ingresaste una cadena') 
+        : console.info(`La cadena "${cadena}" tiene ${cadena.length} caracteres`);//recordar que una arrow function, si solo tiene una linea de codigo, este tendra un return implicito
+
+        contarCaracteres();
+
+        contarCaracteres('Hola mundo');
+
+        console.log('ejercicio 2----------------------------');
+//------------------------------------------------------------------------------
+
+        /* 2) Programa una función que te devuelva el texto recortado según el número de caracteres indicados, pe. miFuncion("Hola Mundo", 4) devolverá "Hola". */
+
+
+        const recortarTexto = (texto, numero) => {
+
+            let textoRecortado = '';
+
+            for (let index = 0; index < numero; index++) {
+
+                textoRecortado += texto[index];
+
+            }
+
+            return textoRecortado;
+        }
+
+        console.log(recortarTexto('Hola Mundo', 4));
+
+        const recortarTexto2= (cadena='',longitud= undefined)=>
+        (!cadena) 
+        ? console.warn('No ingresaste una cadena')
+        : (longitud===undefined)
+         ? console.warn('No ingresaste la longitud')//se pueden anidar operadores ternarios a otros
+         : console.info(cadena.slice(0,longitud));//extrae una seccion de la cadena, inicio, fin
+
+        recortarTexto2();
+        recortarTexto2('Hola Mundo');
+        recortarTexto2('Hola Mundo',6);
+
+        console.log('ejercicio 3----------------------------');
+//------------------------------------------------------------------------------
+
+
+        /* 3) Programa una función que dada una String te devuelva un Array de textos separados por cierto caracter, pe. miFuncion('hola que tal', ' ') devolverá ['hola', 'que', 'tal']. */
+
+        const separarTexto = (texto, caracter) => {
+
+            const textoSeparado = texto.split(caracter);
+
+            return textoSeparado;
+        }
+
+        console.log(separarTexto('hola que tal', ' '));
+
+        const cadenaAArreglo= (cadena='',separador=undefined)=>
+        (!cadena) 
+        ? console.warn('No ingresaste una cadena')
+        : (separador===undefined)
+         ? console.warn('No ingresaste un caracter separador')
+         :console.info(cadena.split(separador));
+
+        cadenaAArreglo();
+        cadenaAArreglo('hola mundo');
+        cadenaAArreglo('hola que tal', ' ');
+        cadenaAArreglo('ene,feb,mar,abr,may,jun,jul,agos,sep,oct,nov,dic', ',');
+        console.log('ejercicio 4----------------------------');
+//------------------------------------------------------------------------------
+
+
+
+        /* 4) Programa una función que repita un texto X veces, pe. miFuncion('Hola Mundo', 3) devolverá Hola Mundo Hola Mundo Hola Mundo. */
+
+
+        const repetirTexto = (texto, numero) => {
+
+            let textoRe = '';
+
+            for (let index = 0; index < numero; index++) {
+                textoRe += ` ${texto}`;
+            }
+
+            return textoRe;
+        }
+
+        console.log(repetirTexto('Hola Mundo', 4));
+
+
+        const repetirTexto2= (texto='',numero=undefined)=>{
+
+            if(!texto) return console.warn('No ingresaste una cadena');//con if con return no tiene sentido los else, tambien recordar que si un if tiene una sola linea podemos omitir las {}
+            
+            if(numero===undefined) return console.warn('No ingresaste las repeticiones');
+
+            if(numero===0) return console.error('El número de repeticiones no puede ser 0, es un error de lógica');
+            
+
+            if(Math.sign(numero)===-1) return console.error('El número de repeticiones no puede ser negativo');
+
+            for (let index = 1; index <= numero; index++) console.log(`${texto} repeticiones: ${index}`);//a los for tambien se les puede omitir las llaves
+        }
+
+        repetirTexto2();
+        repetirTexto2('Hola Mundo');
+        repetirTexto2('Hola Mundo',0);
+        repetirTexto2('Hola Mundo',-5);
+        repetirTexto2('Hola Mundo', 4);
+
+        console.log('ejercicio 5----------------------------');
+//------------------------------------------------------------------------------
+
+        /* 5) Programa una función que invierta las palabras de una cadena de texto, pe. miFuncion("Hola Mundo") devolverá "odnuM aloH". */
+
+        const invertirFrase=(texto)=>{
+
+            let textoInvertido='';
+
+            for(i=texto.length-1; i>=0; i--){
+                textoInvertido+= texto[i];
+            }
+
+            return textoInvertido;
+        }
+
+        console.log(invertirFrase('Hola mundo'));
+
+        const invertirCadena= (cadena='')=>
+        (!cadena)
+        ? console.warn('No ingresaste una cadena de texto')
+        : console.info(cadena.split('').reverse().join(''));//split con '' convierte al string en array, el metodo reverse de los arrays cambia las posiciones inversamente del array, y finalmente el metodo join de los arrays convierte el arreglo en un string nuevamente
+
+        invertirCadena();
+
+        invertirCadena('Hola Mundo');
+//------------------------------------------------------------------------------
+
+
+/* 6) Programa una función para contar el número de veces que se repite una palabra en un texto largo, pe. miFuncion("hola mundo adios mundo", "mundo") devolverá 2. */
+
+        const contarRepeticiones= (texto,palabra)=>{
+
+            const expReg= new RegExp(palabra,'g') ;
+
+            let repeticion= 0;
+            
+            while(expReg.test(texto)){//esto es parecido a esos metodos de php que buscaban registros en las tablas de la bd, el while repetira el test hasta que este mande false, y el test recuerda cual fue la ultima coincidencia para desde ahi seguir con la siguiente
+                repeticion++;
+            }
+
+            return `Número de repeticiones ${repeticion}`;
+            
+        }
+
+        console.log(contarRepeticiones("hola mundo adios mundo", "mundo"));
+
+
+
+        const textoEnCadena=(cadena='',texto='')=>{
+
+            if(!cadena) return console.warn('No ingresaste una cadena');
+            
+            if(!texto) return console.warn('No ingresaste el texto a verificar');
+
+            let i= 0, 
+            contador=0;
+
+            while(i!==-1){
+                i= cadena.indexOf(texto,i);//indexOf busca un string dentro de otro, indicamos el texto y desde que posicion lo hara,en el ejemplo encontrara mundo en la posicion 5 comenzando desde 0, entonces despues de verificar que encontro algo, le sumaremos 1 para que en la siguiente iteracion busque desde el 6, y omita la busquedad anterior, y asi sumar a contador que mas veces se puede encontrar la palabra
+
+                if(i!==-1){
+                    i++;
+                    contador++;
+                }
+            }
+
+            return console.log(`La cadena ${cadena} tiene la palabra ${texto}: ${contador} veces`);
+
+        }
+
+        
+
+        textoEnCadena("hola mundo adios mundomundo", "mundo");
+//------------------------------------------------------------------------------
+
+        /* 7) Programa una función que valide si una palabra o frase dada, es un palíndromo (que se lee igual en un sentido que en otro), pe. mifuncion("Salas") devolverá true. */
+
+        const esUnPalindromo=(texto)=>{
+
+            let textoInvertido='';
+
+            texto= texto.toLowerCase();
+
+            texto= texto.replace(/\s/g,'');//quitar espacios en blanco
+
+            texto= texto.normalize('NFD').replace(/[\u0300-\u036f]/g,"");//Con esto eliminamos los acentos, pero ni idea de como se hace esa expresion regular, la encontre en internet
+
+           
+
+            for(i=texto.length-1; i>=0; i--){
+                textoInvertido+= texto[i];
+            }
+
+            if(textoInvertido === texto){
+                return true;
+            }
+
+            return false;
+        }
+
+        console.log(esUnPalindromo('Salas'));
+
+        console.log(esUnPalindromo('Dábale arroz a la zorra el abad'));
+
+
+
+        const palindromo=(palabra='')=>{
+
+            if(!palabra) return console.warn('No ingresaste una palabra');
+
+            palabra= palabra.toLocaleLowerCase();
+
+            palabra= palabra.replace(/\s/g,'');
+
+            palabra= palabra.normalize('NFD').replace(/[\u0300-\u036f]/g,"");
+
+            let alReves= palabra.split('').reverse().join('');
+
+            return (palabra===alReves)
+            ? console.info(`si es un palindromo, original: ${palabra} alreves: ${alReves}`)
+            : console.info(`No es un palindromo, original: ${palabra} alreves: ${alReves}`)
+        }
+
+
+        palindromo('Salas');
+        palindromo('Hola Mundo');
+
+        palindromo('Dábale arroz a la zorra el abad');
+
+//------------------------------------------------------------------------------
+
+        /* 8) Programa una función que elimine cierto patrón de caracteres de un texto dado, pe. miFuncion("xyz1, xyz2, xyz3, xyz4 y xyz5", "xyz") devolverá  "1, 2, 3, 4 y 5. */
+
+        console.group('ejercicio 8');
+
+        const eliminarPatron= (texto,patron)=>{
+
+            let expReg= new RegExp(patron,'ig');
+
+            texto= texto.replace(expReg,'');
+
+            return console.log(texto);
+
+        }
+
+        eliminarPatron("xyz1, xyz2, xyz3, xyz4 y xyz5","xyz");
+
+
+        console.groupEnd();
+
+        console.group('version del profesor');
+
+            const eliminarCaracteres= (texto='',patron='')=>
+
+                (!texto) 
+                ?console.warn('No ingresaste un texto')
+                :(!patron) 
+                ?console.warn('No ingresaste un patron')
+                :console.info(texto.replace(new RegExp(patron,'ig'),''));//recordar que esta arrow function con el uso de los ternarios tiene en si, una sola linea de codigo, por tanto no necesito las {} ni poner return
+
+        eliminarCaracteres();
+        eliminarCaracteres('xyz1, xyz2, xyz3, xyz4 y xyz5');
+        eliminarCaracteres("xyz1, xyz2, xyz3, xyz4 y xyz5","xyz");
+
+        console.groupEnd();
+
+
+//------------------------------------------------------------------------------
+
+        /* 9) Programa una función que obtenga un numero aleatorio entre 501 y 600. */
+
+        const obtenerNumeroAleatorio= (min, max) =>
+
+        // Retorna un entero aleatorio entre min (incluido) y max (excluido)
+        // ¡Usando Math.round() te dará una distribución no-uniforme! es decir algunos valores irian hacia abajo otros hacia arriba, con floor todos tienden hacia abajo
+
+            console.log(`Numero aleatorio entre ${min} y ${max}: `,Math.floor(Math.random() * (max - min)+1) + min);//aqui seria los numeros comprendidos entre por ejemplo 600 y 501, que serian 99 numeros, por el calculo del numero random daria un numero entre 0 y 99, a eso le sumamos el rango minimo que es 501, con eso logramos establecer la operacion, el +1 es para que incluya al 600 de otra manera nunca sale
+
+        obtenerNumeroAleatorio(501,600);
+
+
+        const aleatorio= ()=>
+        console.info(Math.round((Math.random()* 100)+501));//501 a 600
+
+        aleatorio();
+        
+//------------------------------------------------------------------------------
+
+        /* 10) Programa una función que reciba un número y evalúe si es capicúa o no (que se lee igual en un sentido que en otro), pe. miFuncion(2002) devolverá true. */
+
+        const esCapicua= numero=>{
+
+            numero= numero.toString();
+
+            for(i=0,j=numero.length-1; i<=j;i++, j--){//lo iba a hacer como el del palindromo, pero en youtube consegui esta manera me gusta es chula, consiste es que hacemos 2 indices i para el inicio del string y j para el final, en cada iteracion del for comparamos si el inico y el final son diferentes, si lo fueran hacemos de una vez el return false para acabar el ciclo y la funcion, pero si resultan que son iguales seguira hasta que termine el for que seria cuando el indice i sea mayor que el j
+
+                if(numero[i]!==numero[j]){
+                    return false;
+                }
+            }
+
+            return true;//como los extremos y el medio del numero capicua correspondian entonces logro salir del for y llegar a este return que confirma que el numero es capicua, es decir que se lee igual al derecho y al revez
+        }
+
+        console.log(esCapicua(345));
+        console.log(esCapicua(121));
+        console.log(esCapicua(2002));
+
+        const capicua=(numero=0)=>{
+
+            if(!numero) return console.warn('No ingresaste un numero');
+
+            if(typeof(numero)!=='number') return console.warn('ingresaste un texto');
+
+            numero= numero.toString();
+
+            let alReves= numero.split('').reverse().join("");
+
+            return (numero===alReves) ? console.log(`si es capicua, numero original: ${numero}, numero al reves: ${alReves}`) : console.log(`No si es capicua, numero original: ${numero}, numero al reves: ${alReves}`)
+
+        }
+        
+        capicua();
+        capicua('4');
+        capicua(345);
+        capicua(121);
+        capicua(2002);
+        capicua(18.81);
+
+
+//------------------------------------------------------------------------------
+
+        /* 11) Programa una función que calcule el factorial de un número (El factorial de un entero positivo n, se define como el producto de todos los números enteros positivos desde 1 hasta n), pe. miFuncion(5) devolverá 120.
+    */
+
+        const factorial= numero=>{
+
+
+            let resultado=1;
+
+            for (let index = 1; index <= numero; index++) {
+                
+                resultado*= index;//factorial de 5= 1*1,1*2,2*3,6*4,24*5,se sale y da 120
+            }
+
+            return console.log(resultado);
+        }
+
+        factorial(5);
+        factorial(13);//comprobe que funciona de esta manera, muchos en internet usan es recursividad, ni se me paso por la mente hacerlo asi, lo hice reflejando el como lo hice con papel y lapiz
+        factorial(0);//el factorial de 0 siempre es 1, y el ejercicio me da, pero es raro tecnicamente nunca entra al for, por tanto es 1, tengo que verlo matematicamente
+
+
+        const factorial2= (numero=undefined)=>{
+
+            if(numero===undefined) return console.warn('No ingresaste un numero');
+
+            if(typeof(numero)!=='number') return console.warn('No ingresaste un valor numerico');
+
+            if(Math.sign(numero)===-1) return console.warn('el numero no puede ser negativo');
+
+            let factorial=1;
+
+            for (let index = numero; index > 1; index--) {
+                
+                factorial*= index;//factorial de 5= 1*1,1*2,2*3,6*4,24*5,se sale y da 120
+            }
+
+            return console.log(`el factorial de ${numero} es: ${factorial}`);
+        }
+
+        factorial2();
+        factorial2(-3);
+        factorial2(5);
+        factorial2(13);
+        factorial2(0);
+
+//------------------------------------------------------------------------------
+
+/* 12) Programa una función que determine si un número es primo (aquel que solo es divisible por sí mismo y 1) o no, pe. miFuncion(7) devolverá true. */
+
+        const esPrimo= numero=>{
+
+            let divisores=0;
+
+            let contador= 1;
+
+            for (contador; contador <=numero; contador++) {
+              
+                if(numero%contador===0){
+                   divisores++;
+               }
+               
+            }
+
+            if(divisores>=3){
+                return `El numero: ${numero} No es primo ${false}`;
+            }else{
+                return `El numero: ${numero} Si es primo ${true}`;
+            }
+           
+        }
+
+        console.log(esPrimo(5));
+        console.log(esPrimo(4));
+        console.log(esPrimo(113));
+        console.log(esPrimo(45));
+        console.log(esPrimo(24));
+        console.log(esPrimo(983));
+
+        const numeroPrimo= (numero=undefined)=>{
+
+            if(numero===undefined) return console.warn('No ingresaste un numero');
+
+            if(typeof(numero)!=='number') return console.warn('No ingresaste un valor numerico');
+
+            if(Math.sign(numero)===-1) return console.warn('el numero no puede ser negativo');
+
+            if(numero===0) return console.warn('El cero no es primo ni compuesto, ingresa otro numero');
+
+            if(numero===1) return console.warn('El 1 es la unidad, no ingreses 1');
+
+            let divisible= false;
+
+            for (let i = 2; i < numero && divisible===false; i++) {
+                
+                if(numero%i===0){
+                   divisible= true;
+               }
+            }//la cosa en este for es, primero inicia en 2 por que si se supone que un primo es divisible entre 1, se omite, y el for termina antes del numero en si, por que tambien es divisible por el mismo, por lo que si llega a haber un divisor mas, decimos que el numero si es divisible, y salimos del for, la variable divisible indica que si es false es primo, pero si es true no es primo
+
+            return (divisible)
+            ? `el numero ${numero} no es primo`
+            : `el numero ${numero} es primo`;
+        }
+
+
+        console.log(numeroPrimo(5));
+        console.log(numeroPrimo(4));
+        console.log(numeroPrimo(113));
+        console.log(numeroPrimo(45));
+        console.log(numeroPrimo(24));
+        console.log(numeroPrimo(983));
+//------------------------------------------------------------------------------
+        /* 13) Programa una función que determine si un número es par o impar, pe. miFuncion(29) devolverá Impar. */
+
+        const esPar= numero=>
+        (numero%2===0) 
+        ? console.log (`el numero: ${numero} es par`) 
+        : console.log (`el numero: ${numero} es impar`);
+
+
+        esPar(29);
+        esPar(30);
+
+        const numeroPar= (numero=undefined) =>{
+            
+            if(numero===undefined) return console.warn('No ingresaste un numero');
+
+            if(typeof(numero)!=='number') return console.warn('No ingresaste un valor numerico');
+
+            return (numero%2===0) 
+            ? console.log (`el numero: ${numero} es par`) 
+            : console.log (`el numero: ${numero} es impar`);
+        }
+
+        numeroPar();
+        numeroPar(29);
+        numeroPar(30);
+
+
+//------------------------------------------------------------------------------
+        /* 14) Programa una función para convertir grados Celsius a Fahrenheit y viceversa, pe. miFuncion(0,"C") devolverá 32°F. */
+
+        const convertirGrados= (grados,tipo)=>
+        (tipo==='C')
+        ? console.log(`los grados ${grados} celcius a fahrenheit dan: `,(grados * 9/5) + 32 ,'grados °F')
+        : console.log(`los grados ${grados} fahrenheit a celcius dan: `,(grados - 32) * 5/9,'grados °C') 
+
+        convertirGrados(0,'C');
+        convertirGrados(0,'CD');
+
+        
+        const convertirGrados2= (grados=undefined,unidad=undefined)=>{
+
+            if(grados===undefined) return console.warn('No ingresaste grados a convertir');
+
+            if(typeof(grados)!=='number') return console.warn('No ingresaste un valor numerico');
+
+            if(unidad===undefined) return console.warn('No ingresaste el tipo de grado a convertir');
+
+            if(typeof(unidad)!=='string') return console.warn('No ingresaste un un valor de texto');
+
+            if(unidad.length !==1 || !/(C|F)/.test(unidad)) return console.warn('valor de unidad no reconocido');//que tenga mas de un caracter, o que no sea 'C' o 'F'
+
+            if(unidad==='C'){
+                console.info(`los grados ${grados} celcius a fahrenheit dan: `,Math.round((grados * 9/5) + 32) ,'grados °F')
+            }
+
+            if(unidad==='F'){
+                console.log(`los grados ${grados} fahrenheit a celcius dan: `,Math.round((grados - 32) * 5/9),'grados °C')
+            }
+
+        }
+
+        convertirGrados2();
+        convertirGrados2('2');
+        convertirGrados2(2);
+        convertirGrados2(2,4);
+        convertirGrados2(2,'r');
+        convertirGrados2(2,'C');
+        convertirGrados2(2,'CDWDW');
+        convertirGrados2(2,'F');
+
+        console.log('--------------')
+
+        convertirGrados2(100,'C');
+        convertirGrados2(32,'F');
+
+//------------------------------------------------------------------------------
+
+
+    </script>
+</body>
+
+</html>
