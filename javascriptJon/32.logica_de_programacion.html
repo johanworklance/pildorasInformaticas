@@ -652,11 +652,47 @@ const binariaDecimal= (numero,base)=>{
 binariaDecimal(100,2);//4
 binariaDecimal(11010001,2);//209
 binariaDecimal(1100100,2);//100
-
+binariaDecimal(101,2);//5
 binariaDecimal(209,10);//11010001
 binariaDecimal(4,10);//100
 binariaDecimal(100,10);//1100100
 
+
+
+    const convertirBinarioDecimal= (numero = undefined,base = undefined)=>{
+
+        if(numero===undefined)
+        return console.warn('No introdujiste un numero a convertir');
+
+        if(typeof(numero)!== 'number')
+        return console.error('El valor ingresado no es un numero');
+
+        if(base===undefined)
+        return console.warn('No introdujiste la base');
+
+        if(typeof(base)!== 'number')
+        return console.error('El valor de la base ingresado no es un numero');
+
+        if(base===2){
+            return console.info(`el numero ${numero} base${base} es ${parseInt(numero,base)} en base10`);//parseInt recibe un segundo parametro con el cual indicamos que base es ese numero, en este caso es 2 quiere decir que le estamos pasando un numero binario a convertir
+        }else if(base===10){
+            return console.info(`el numero ${numero} base${base} es ${numero.toString(2)} en base2`);//el metodo toString de los numeros, recibe como parametro en que base lo quieres convertir, si colocas 2 es binario
+        }else{
+            console.error('el tipo de base a convertir no es valido');
+        }
+
+    }
+
+    convertirBinarioDecimal();
+    convertirBinarioDecimal('100');
+    convertirBinarioDecimal(100);
+    convertirBinarioDecimal(100,'2');
+    convertirBinarioDecimal(100,2);
+    convertirBinarioDecimal(101,2);
+    convertirBinarioDecimal(4,10);
+    convertirBinarioDecimal(5,10);
+    convertirBinarioDecimal(114,10);
+    convertirBinarioDecimal(114,1140);
 //------------------------------------------------------------------------------
 
 /* 16) Programa una función que devuelva el monto final después de aplicar un descuento a una cantidad dada, pe. miFuncion(1000, 20) devolverá 800. */
@@ -671,14 +707,976 @@ binariaDecimal(100,10);//1100100
 
     hacerDescuento(40000,50);
 
+    const aplicarDescuento= (monto=undefined,descuento=0)=>{
+
+        
+        if(monto===undefined)
+        return console.warn('No introdujiste un numero a convertir');
+
+        if(typeof(monto)!== 'number')
+        return console.error('El valor ingresado no es un numero');
+
+        if(monto===0)
+        return console.error('El monto no puede ser cero');
+
+        if(Math.sign(monto)===-1)
+        return console.error('El monto no puede ser negativo');
+
+        if(typeof(descuento)!== 'number')
+        return console.error('El descuento debe ser un numero');
+
+        if(Math.sign(descuento)===-1)
+        return console.error('El descuento no puede ser negativo');
+        
+
+        return console.info(`monto: ${monto}, descuento: ${descuento}% = ${monto-(monto*descuento)/100}`);
+
+    }
+
+    aplicarDescuento();
+    aplicarDescuento(0);
+    aplicarDescuento(1000,20);
+    aplicarDescuento(40000,50);
+    aplicarDescuento(1000);
+
 //------------------------------------------------------------------------------
 
-/* 17) Programa una función que dada una fecha válida determine cuantos años han pasado hasta el día de hoy, pe. miFuncion(new Date(1984,4,23)) devolverá 35 años (en 2020). */
+/* 17) Programa una función que dada una fecha válida determine cuantos años han pasado hasta el día de hoy, pe. miFuncion(new Date(1984,4,23)) devolverá 35 años (en 2020). *///ese mes 4 es marzo, que js comienza enero en 0
 
     const aniosPasados= fecha => console.log(`desde esta fecha ${fecha.getFullYear()} a la fecha actual han pasado ${new Date().getFullYear()-fecha.getFullYear()} años`);//lo hice de forma pajua si :) , recordar que una instancia de date sin parametros pilla la fecha actual, getFullYear da el año, y como es una sola linea de codigo, use el return implicito de las arrow functions
     
 
     aniosPasados(new Date(1984,4,23));
+
+
+    const calcularAnios= (fecha=undefined)=>{
+
+        if(fecha===undefined)
+        return console.warn('No introdujiste una fecha');
+
+        if(!(fecha instanceof Date))//se usa instaceof en ves de typeof por que para js los valores tipo Date son object tipo un array o un objeto primitivo, asi que no serviria usar el typeof
+        return console.error('El valor ingresado no es un fecha valida');
+
+        let hoyMenosFecha= new Date().getTime() - fecha.getTime();//getTime da un valor timestamp, es decir el tiempo en milisegundos desde la fecha indicada hasta el año 1970, si se colocara una fecha por encima de la actual, entonces el resultado sera negativo
+
+        let aniosEnMilisegundos= 1000*60*60*24*365;//milisegundos,segundos,minutos,horas,dias, si agregaramos un 10 seria decadas, si agregaramos un 5 serian lustros(unidad de tiempo de 5 años)
+
+
+        //1000*60*60*24*365 años, 1000*60*60*24 dias, 1000*60*60*24*365*10 decadas, 1000*60*60*24*365*5 lustros
+
+        let aniosHumanos= Math.floor(hoyMenosFecha/aniosEnMilisegundos);
+
+
+        return (Math.sign(aniosHumanos)===-1)
+        ? console.info(`Faltan ${Math.abs(aniosHumanos)} años para llegar el ${fecha.getFullYear()}`)//si es negativo, entonces son los años por llegar
+        : (Math.sign(aniosHumanos)===1)
+         ? console.info(`Han pasado ${aniosHumanos} años desde el año ${fecha.getFullYear()}`)
+         :  console.info(`Estamos en el año ${fecha.getFullYear()} actual`);//Math.sign manda -1 si es negativo, 1 si es positivo y 0 cero si es cero, si el usuario manda el mismo año que el actual, la resta daria 0
+
+    }
+
+    calcularAnios();
+    calcularAnios('445');
+    calcularAnios(true);
+    calcularAnios(new Date());//actual
+    calcularAnios(new Date(1984,4,23));//37 tomando que estamos en 2021
+    calcularAnios(new Date(2026,6,11));//5 
+
+
+//------------------------------------------------------------------------------
+
+/* 18) Programa una función que dada una cadena de texto cuente el número de vocales y consonantes, pe. miFuncion("Hola Mundo") devuelva Vocales: 4, Consonantes: 5. */
+
+
+const contarVocalesConsonantes= (texto)=>{
+
+    const vocales= /[aeiou]/i;//recordar que la i es para que no sea casesensitive
+
+    const consonantes= /[a-z]/i;
+
+    
+    let vocalesContadas=0;
+
+    let consonantesContadas=0;
+
+    for (let index = 0; index < texto.length; index++) {
+       
+
+        if(vocales.test(texto[index])){
+            
+            vocalesContadas++;
+        }
+
+        if(consonantes.test(texto[index])){
+            
+            consonantesContadas++;
+        }
+
+        
+    }
+
+    consonantesContadas-= vocalesContadas; 
+
+    return console.info(`la palabra: ${texto} contiene ${vocalesContadas} vocales y ${consonantesContadas} consonantes`);
+
+}
+
+contarVocalesConsonantes('rosas');
+contarVocalesConsonantes('Hola mundo');
+
+
+    const contarLetras2= (cadena='')=>{
+
+        if(!cadena)
+        return console.warn('no ingresaste un texto');
+
+        if(typeof(cadena)!=='string')
+        return console.error(`el valor ${cadena} no es un texto`);
+
+
+        let vocales=0
+        ,consonantes=0;
+
+        for (let letra of cadena) {
+            
+            if(/[aeiouáéíóú]/i.test(letra)) vocales++;
+            
+
+            if(/[bcdfghjklmnñpqrstvwxyz]/i.test(letra)) consonantes++;
+            
+        }
+
+        return console.info({
+            cadena,
+            vocales,
+            consonantes
+        })
+    }
+
+    contarLetras2();
+    contarLetras2(2);
+    contarLetras2('Hola Mundo');
+    contarLetras2('Ñoño');
+
+//------------------------------------------------------------------------------
+
+/* 19) Programa una función que valide que un texto sea un nombre válido, pe. miFuncion("Jonathan MirCha") devolverá verdadero. */
+
+
+
+    const validarNombre= nombre =>{
+
+        const nombreValido= /^[A-Z][a-z]{1,50}\s[A-Z][a-z]{1,50}$/;//que comienze con mayusculas, que el nombre tenga al menos una segunda letra o hasta 50, que haya un espacio y la misma regla del nombre para el apellido, el ^es para que no haya nada antes de la expresion y el $ para que no haya nada despues de la expresion
+
+        if(nombreValido.test(nombre)){
+            return console.log(true);
+        }
+
+        return console.log(false);
+    }
+
+    validarNombre('johanJohan Nieto');//false
+    validarNombre('Jonathan MirCha');//true
+    validarNombre('jonathan MirCha');//false
+    validarNombre('JohanNieto');//false
+    
+    
+
+    const validarNombre2= (nombre='') =>{
+
+        if(!nombre)
+        return console.warn('no ingresaste un nombre');
+
+        if(typeof(nombre)!=='string')
+        return console.error(`el valor ${nombre} no es un texto`);
+
+        let expRegular= /^[A-Za-zÑñÁáÉéÍíÓóÚú\s]+$/g.test(nombre);//no puede haber nada antes de la expresion,todo esos tipos de letras con o sin acento y espacio,no puede haber nada despues de la expresion, la g es para que busque en toda la cadena pero no me queda claro para que aqui
+
+        return (expRegular)
+        ? console.info(`el nombre ${nombre} es válido :)`)
+        : console.info(`el nombre ${nombre} no es válido :(`)
+    }
+
+    validarNombre2('Johan Nieto3');
+    validarNombre2('Jonathan MirCha');
+    validarNombre2('jonathan MirCha');
+    validarNombre2('JohanNieto');
+
+//------------------------------------------------------------------------------
+
+/* 20) Programa una función que valide que un texto sea un email válido, pe. miFuncion("jonmircha@gmail.com") devolverá verdadero.
+ */
+
+    const validarCorreo= correo=>{
+
+        const correoValido= /[\w\._]{5,30}\+?[\w]{0,10}@[\w\._]{3,}\.[\w]{2,5}/;/* que hayan al principio 5 o hasta 30 caracteres incluyendo el . y el _, puede o no haber un signo "+" esto es por que gmail usando este signo puede crear un alias ejemplo "pepito+pepin@gmail.com" siendo pepin el alias y especificamos que ese alias puede o no estar pero no ser mayor de 10, el @, minimo 3 caracteres que pueden ser letras o numeros el . y el - hasta aqui corresponde el ".com" tipico, un punto, y finalmente de 2 a 5 caracteres que corresponden a los regionalismos como ".mx" ".co" ".ve" o a otros TLDs dominios de nivel superior como ".edu" (btw gmail pide minimo 5 caracteres al inico y maximo 30) */
+
+        if(correoValido.test(correo)){
+            return console.log(`${correo} correo valido :)`)
+        }
+
+        return console.log(`${correo} correo invalido :(`)
+    }
+
+    validarCorreo("jonmircha@gmail.com");//true
+    validarCorreo('johan@gma.cm');//true
+
+
+    const validarCorreo2= (correo='') =>{
+
+        if(!correo)
+        return console.warn('no ingresaste un nombre');
+
+        if(typeof(correo)!=='string')
+        return console.error(`el valor ${nombre} no es un texto`);
+
+        let expRegular= /^[A-Za-zÑñÁáÉéÍíÓóÚú\s]+$/g.test(nombre);//no puede haber nada antes de la expresion,todo esos tipos de letras con o sin acento y espacio,no puede haber nada despues de la expresion, la g es para que busque en toda la cadena pero no me queda claro para que aqui
+
+        return (expRegular)
+        ? console.info(`el nombre ${nombre} es válido :)`)
+        : console.info(`el nombre ${nombre} no es válido :(`)
+    }
+
+ //------------------------------------------------------------------------------
+
+/*  21) Programa una función que dado un array numérico devuelve otro array con los números elevados al cuadrado, pe. mi_funcion([1, 4, 5]) devolverá [1, 16, 25]. */
+
+
+    const elevarAlCuadrado= array =>
+
+    console.info(array.map((elemento)=> elemento*elemento));//map devuelve un array con los elementos resultantes del codigo de la funcion anonima
+    //array.forEach((elemento)=> console.log(elemento*elemento)); es como un for, solo ejecuta el codigo de adentro
+
+    elevarAlCuadrado([1,4,5]);
+
+
+const devolverCuadrado= (array=undefined)=>{
+
+    if(array==undefined)return console.warn('No enviaste un arreglo de numeros');
+
+    if(!(array instanceof Array))return console.error('el valor ingresado no es un array');
+
+    if(array.length ===0) return console.error('el arreglo esta vacio');
+
+    for (const numero of array) {
+        
+        if(typeof(numero)!=='number') return console.error(`el valor ${numero} no es un numero`);
+        
+    }
+
+    const newArr= array.map((numero)=>numero*numero);
+
+    return console.info(`arreglo original ${array}; arreglo elevado al cuadrado ${newArr}`)
+}
+
+    devolverCuadrado();
+    devolverCuadrado(2);
+    devolverCuadrado([]);
+    devolverCuadrado([1,'2']);
+    devolverCuadrado([1, 4, 5]);
+
+ //------------------------------------------------------------------------------
+/*  22) Programa una función que dado un array devuelva el número mas alto y el más bajo de dicho array, pe. miFuncion([1, 4, 5, 99, -60]) devolverá [99, -60]. */
+
+    const masAltoMasBajo= array=>{
+
+        let mayor=0;
+        let menor=0;
+        for (let elemento of array) {
+            
+            if(elemento > mayor) mayor= elemento;
+
+            if( elemento < menor) menor= elemento;
+        }
+
+        return console.info(`dentro de este array ${array} el mayor valor es: ${mayor} y el menor valor es: ${menor}`)
+    }
+
+    masAltoMasBajo([1, 4, 5, 99, -60]);
+
+
+    const arrayMinMax= (array=undefined)=>{
+
+        
+        if(array==undefined)return console.warn('No enviaste un arreglo de numeros');
+
+        if(!(array instanceof Array))return console.error('el valor ingresado no es un array');
+
+        if(array.length ===0) return console.error('el arreglo esta vacio');
+
+        for (const numero of array) {
+            
+            if(typeof(numero)!=='number') return console.error(`el valor ${numero} no es un numero`);
+            
+        }
+
+        return console.info(`arreglo original ${array} \n
+        valor mayor: ${Math.max(...array)} valor menor: ${Math.min(...array)}
+        `);
+    }
+
+
+    arrayMinMax([1, 4, 5, 99, -60]);
+
+  //------------------------------------------------------------------------------
+
+  /* 23) Programa una función que dado un array de números devuelva un objeto con 2 arreglos en el primero almacena los números pares y en el segundo los impares, pe. miFuncion([1,2,3,4,5,6,7,8,9,0]) devolverá {pares: [2,4,6,8,0], impares: [1,3,5,7,9]}. */
+
+
+    const numerosParesImpares= array=>{
+
+        const pares= [],
+            impares= [];
+
+            for (const elemento of array) {
+                
+                if(elemento%2===0){
+                    pares.push(elemento);
+                }else{
+                    impares.push(elemento);
+                }
+            }
+
+            return console.info({
+                pares,
+                impares
+            })
+    }
+
+    numerosParesImpares([1,2,3,4,5,6,7,8,9,0]);
+
+
+    const separarParesImpares= (array=undefined)=>{
+
+        
+        if(array==undefined)return console.warn('No enviaste un arreglo de numeros');
+
+        if(!(array instanceof Array))return console.error('el valor ingresado no es un array');
+
+        if(array.length ===0) return console.error('el arreglo esta vacio');
+
+        for (const numero of array) {
+            
+            if(typeof(numero)!=='number') return console.error(`el valor ${numero} no es un numero`);
+            
+        }
+
+
+        return console.info({
+            pares: array.filter(numero => numero%2=== 0 ),
+            inpares: array.filter(function(numero) { return numero%2=== 1 })//el metodo filter recibe una funcion anonima que retorne la condicion con la que filtrara los elementos y devolvera un array con los que cumplieron lo pedido
+        })
+    }
+
+    separarParesImpares([1,2,3,4,5,6,7,8,9,0]);
+
+//------------------------------------------------------------------------------
+
+   /* 24) Programa una función que dado un arreglo de números devuelva un objeto con dos arreglos, el primero tendrá los numeros ordenados en forma ascendente y el segundo de forma descendiente, pe. miFuncion([7, 5,7,8,6]) devolverá { asc: [5,6,7,7,8], desc: [8,7,7,6,5] }. */
+
+
+    const ordenarAscDesc= (array)=>{
+
+        let asc=[],desc=[];
+
+        for (let i= 0; i < array.length; i++) {//este for corresponde a cada posicion uno a uno compararemos con los demas
+
+            
+            for (let j = i+1; j < array.length; j++) {//este seria las demas posciones
+              
+                if(array[i]>array[j]){//si por ejemplo el primer valor vale 7 y el segundo vale 5, los intercambiamos de posicion, ahora la pos 0 vale 5, comparamos si hay algun valor menor, como no hay termina el ciclo de las j, y regresamos al de la i que ahora ira por el 1, y comenzara a comparar con las j+1 es decir de la pos 2 en adelante y asi sucesivamente
+                    
+                    let temporal= array[i];
+                    array[i]= array[j];
+                    array[j]= temporal
+                    
+                }
+            }
+
+            
+        }
+
+        asc= [...array];//aqui descubri que js lo que hace cuando intentas asignar como valor a una variable el valor de un array u objeto, no hace una copia en si si no que, hace una asignacion por referencia, por lo que cualquier cambio en sus 'copias' afecta al original, usando el parametro spread evitamos ese problema, con el si se seria como cualquier asignacion normal de valores primitivos
+        
+        
+
+        desc= array;//en cambio aqui estamos diciendo que desc hace referencia a array, por eso los cambios de los for mas abajo, afectan a "ambos"
+
+        
+
+        for (let i= 0; i < array.length; i++) {
+
+            
+            for (let j = i+1; j < array.length; j++) {
+            
+                if(array[i]<array[j]){
+                    
+                    let temporal= array[i];
+                    array[i]= array[j];
+                    array[j]= temporal
+                    
+                }
+            }
+
+
+        }
+
+        
+
+       
+
+
+        return console.info(asc,desc);//asc tiene los valores del array justo despues del primer reordenamiento asc, pero desc es ahora en realidad array que justo acaba de sufrir un reordenamiento desc, esto no pasa con variables primitivas 
+
+
+    }
+    ordenarAscDesc([3,2,1,4,0])
+    ordenarAscDesc([7,5,7,8,6]);//ascendentemente las iteraciones son:
+
+    ordenarAscDesc([712,53,72,86,6]);
+
+    let texto='texto';
+
+    let cuatro= 4;
+
+    cuatro= texto;
+
+    texto= ': otro texto';
+
+    console.log(cuatro, texto);//aqui si no hay valores por referencia, por tanto cuatro pilla el valor original de texto antes del cambio de valores
+
+
+
+    const ordenarArreglo= (array=undefined)=>{
+
+        if(array==undefined)return console.warn('No enviaste un arreglo de numeros');
+
+        if(!(array instanceof Array))return console.error('el valor ingresado no es un array');
+
+        if(array.length ===0) return console.error('el arreglo esta vacio');
+
+        for (const numero of array) {
+            
+            if(typeof(numero)!=='number') return console.error(`el valor ${numero} no es un numero`);
+        
+        }
+
+        return console.info({
+            array,
+            asc: array.map((elemento)=>elemento).sort((a,b)=>a-b),//sort por defecto ordena es por unicode por que alos numeros los vuelve strings es decir que '80' iria antes '90' asi como Cherry antes que banana, por que las mayusculas van primero, asi que se le envia una funcion de comparacion, si a-b (4,5)  4-5=-1 da menor a cero a iria antes que b, colocandolo de menor a mayor o ascendente...
+            desc: array.map((elemento)=>elemento).sort((a,b)=>b-a)//y si enviamos b-a (4,5) 5-4=1 b ira antes que poniendoloe de mayor a menor
+
+        })
+    }
+
+    ordenarArreglo([7,5,7,8,6]);
+    ordenarArreglo([712,53,72,86,6]);
+
+//------------------------------------------------------------------------------
+
+/* 
+25) Programa una función que dado un arreglo de elementos, elimine los duplicados, pe. miFuncion(["x", 10, "x", 2, "10", 10, true, true]) devolverá ["x", 10, 2, "10", true]. */
+
+
+    const eliminarDuplicados= array=>{
+
+        let arregloResultado= [];
+
+         for (let i = 0; i < array.length; i++) {//cada posicion del array
+
+            const elementoAAñadir= array[i];//posible valor a guardar
+
+            if(arregloResultado.length===0){//si el arreglo en el que guardaremos esta vacio, estamos en la primer iteracion
+                arregloResultado.push(elementoAAñadir);
+                continue;//por tanto no hay nada que comparar asi que saltamos el resto de codigo de la primera iteracion
+            }
+           
+            let repeticion= false;//por defecto diremos que los demas valores del array no estan repetidos
+            
+            for (let j = 0; j < arregloResultado.length; j++) {//las demas posiciones del array de resultados incluyendo al primero de ahi que comienze en cero, he aqui lo curioso, el primer for corresponde al array del usuario, pero este segundo no es para comparar con los demas valores de ese array, si no que es para comparar con los del otro array, el de los resultados, que en teoria es mas pequeño 
+                
+                if(elementoAAñadir===arregloResultado[j]){//si el siguiente elemento a añadir es igual a alguno de los que estan ya guardados en el arreglo resultado, entonces quiere decir que esta repetido
+                    repeticion= true;
+                }
+            }
+
+            if(repeticion){
+                continue;//si se repitio que siga a la siguiente iteracion 
+            }
+
+            arregloResultado.push(elementoAAñadir);//si no esta repetido entonces añadimos 
+
+        } 
+        console.info('Arreglo original:',array, 'arreglo sin elementos duplicados:',arregloResultado);
+    }
+
+    eliminarDuplicados(["x", 10, "x", 2, "10", 10, true, true]);
+    eliminarDuplicados(["x", 10, "x", 2, "10", 10, true, 10]);
+    eliminarDuplicados([10,10,10,10,10,2,2,10]);
+
+
+
+    const quitarDuplicados= (array=undefined)=>{
+
+        if(array==undefined)return console.warn('No enviaste un arreglo de numeros');
+
+        if(!(array instanceof Array))return console.error('el valor ingresado no es un array');
+
+        if(array.length ===0) return console.error('el arreglo esta vacio');
+
+        if(array.length ===1) return console.error('el arreglo debe tener al menos 2 elementos');
+
+        /* return console.info({
+            array,
+            sinDuplicados: array.filter((valor,index,self)=>self.indexOf(valor)===index)//este es interesante, filter le pasara 3 parametros a la funcion, el elemento del array de la iteracion actual, su indice, y tambien todo el array en si(se puede omitir y directament haber puesto array dento el codigo de la funcion), con el parametro self que representa al array sucede lo siguiente: indexOf trae el indice de donde se encontro el valor que le indicamos, en el primer caso seria el valor 'x' mandara que esta en el indice 0 del array, y lo comparamos con el indice de la iteracion actual que es 0 tambien, por tanto el nuevo array que crea filter guardara con exito a x, luego sigue el 10, y exito guardado, pero en la iteracion 2 aparece 'x' otra vez, entonces el indexof buscara la primera vez que el sale, y mandara el indice 0 entonces al comparar veremos que 0 es distinto de la iteracion actual que es 2, por tanto el ya salio, no se cumple la funcion y no se guardara esa 'x' otra vez, es muy parecido a mi algoritmo de arriba
+        }) */
+        return console.info({
+            array,
+            sinDuplicados: [...new Set(array)]//set es un tipo de datos, en el que puede guarda varios valores, pero no se pueden repetir, por tanto el elimina los duplicados, y recorda que el operador spread ... agrega los elementos de un array como si fueran varios valores, es decir es como si hiciera un push en el nuevo array de cada elemento del array a introducir
+        })
+    }
+
+    quitarDuplicados(['x']);//error con un solo elemento, no hay con quien comparar
+    quitarDuplicados(["x", 10, "x", 2, "10", 10, true, true]);
+
+//------------------------------------------------------------------------------
+
+/* 26) Programa una función que dado un arreglo de números obtenga el promedio, pe. promedio([9,8,7,6,5,4,3,2,1,0]) devolverá 4.5. */
+
+
+    function sacarPromedio(array){
+
+        let resultado=0;
+
+        for (const numero of array) {
+            resultado+=numero;
+        }
+
+        resultado/= array.length;
+
+        return console.info(`el promedio del arreglo de numero ${array} es: ${resultado}`);
+    }
+
+    sacarPromedio([9,8,7,6,5,4,3,2,1,0]);
+
+
+    const promedio= (array=undefined)=>{
+
+        if(array==undefined)return console.warn('No enviaste un arreglo de numeros');
+
+        if(!(array instanceof Array))return console.error('el valor ingresado no es un array');
+
+        if(array.length ===0) return console.error('el arreglo esta vacio');
+
+        for (const numero of array) {
+            
+            if(typeof(numero)!=='number') return console.error(`el valor ${numero} no es un numero`);
+        
+        }
+
+        return console.info(
+            array.reduce((total,numeroActual,posicionActual,array)=>{//este no le entendi ni papa, la primera es como un acumulador que se usara, el segundo es el valor actual del elemento del array en el que nos encontramos, y finalmente el array en si
+                total+=numeroActual;//acumulamos en total
+                if(posicionActual===array.length-1){//si estamos en la ultima posicion sacara el promedio
+                    return `el promedio de ${array.join(' + ')} de todos los elementos del arreglo es: ${total/array.length}`
+                }else{
+                    return total;//esto es el conflicto este return es para el "reduce"? me da la sensacion que si, para que total ya tenga el valor de las iteraciones anteriores, total, los 2 siguientes parametros del funciona anonima los llena el reduce... leyendo la docu ya entendi, reduce espera que el primer parametro sea el primer elemento del array, y el segundo parametro el segundo elemento del array, por tanto la primera vez total es el 9 del array y numeroActual es el 8, luego los sumamos para acumular, y retornamos ese valor, entonces en la siguiente iteracion total ya vendra con 17, por tanto el ya no es el siguiente elemento del array, ese papel lo tendra ahora el numero actual por lo que en la segunda iteracion suman 17 +7 y asi sucesivamente 
+                }
+            })
+        )
+    }
+
+    promedio([9,8,7,6,5,4,3,2,1,0]);
+
+//------------------------------------------------------------------------------
+
+
+/* 27) Programa una clase llamada Pelicula.
+
+La clase recibirá un objeto al momento de instanciarse con los siguentes datos: id de la película en IMDB, titulo, director, año de estreno, país o países de origen, géneros y calificación en IMBD.
+  - Todos los datos del objeto son obligatorios.
+  - Valida que el id IMDB tenga 9 caracteres, los primeros 2 sean letras y los 
+     7 restantes números.
+  - Valida que el título no rebase los 100 caracteres.
+  - Valida que el director no rebase los 50 caracteres.
+  - Valida que el año de estreno sea un número entero de 4 dígitos.
+  - Valida que el país o paises sea introducidos en forma de arreglo.
+  - Valida que los géneros sean introducidos en forma de arreglo.
+  - Valida que los géneros introducidos esten dentro de los géneros 
+     aceptados*.
+  - Crea un método estático que devuelva los géneros aceptados*.
+  - Valida que la calificación sea un número entre 0 y 10 pudiendo ser 
+    decimal de una posición.
+  - Crea un método que devuelva toda la ficha técnica de la película.
+  - Apartir de un arreglo con la información de 3 películas genera 3 
+    instancias de la clase de forma automatizada e imprime la ficha técnica 
+    de cada película.
+
+* Géneros Aceptados: Action, Adult, Adventure, Animation, Biography, Comedy, Crime, Documentary ,Drama, Family, Fantasy, Film Noir, Game-Show, History, Horror, Musical, Music, Mystery, News, Reality-TV, Romance, Sci-Fi, Short, Sport, Talk-Show, Thriller, War, Western. */
+
+
+    
+
+
+    const validarDatos= (datos=undefined)=>{
+
+
+        
+        if(datos===undefined) return console.warn('Datos no introducidos');
+
+     
+
+        const valoresTexto=[datos.id,datos.titulo,datos.director];
+
+        for (const valor of valoresTexto) {
+
+            if(typeof(valor)!=='string' || typeof(valor)==='boolean'){
+            return console.error(`El valor introducido ${valor} no es un dato de tipo texto`);
+            }
+        }
+
+
+
+        const idRegExp=/[a-z]{2}[0-9]{7}/;
+        
+        if(!idRegExp.test(datos.id)){
+            return console.error('Id no introducido correctamente');
+        }
+        
+
+
+
+    
+        if(datos.titulo.length>100){
+            return console.warn('El titulo no puede tener mas de 100 caracteres');
+        }
+   
+
+
+
+        if(datos.director.length>50){
+            return console.warn('El director no puede tener mas de 50 caracteres');
+        }
+
+        if(typeof(datos.año)!=='number'){
+            return console.error('El año de estreno ingresado no es un número');
+        }
+
+        if(datos.año<1895){
+            return console.warn('El año de estreno, no puede ser menor a 1895, fecha de la primera pelicula de la historia “La sortie des ouvriers des usines Lumière à Lyon”');
+        }
+
+        if(datos.año>9999){
+            return console.warn('El año de estreno no puede ser un numero de mas de 4 cifras');
+        }
+
+        if(!(datos.paises instanceof Array)){
+            return console.error('El/los pais/paises en donde se rodo la pelicula deben ser un valor de tipo arreglo ');
+        }
+
+        if(datos.paises.length===0){
+            return console.warn('El arreglo paises no puede venir vacio');
+        }
+
+        for (const pais of datos.paises) {
+            
+            if(typeof(pais)!=='string'){
+                return console.error('Los paises deben ser valores de tipo texto');
+            }
+        }
+
+        if(!(datos.generos instanceof Array)){
+            return console.error('El/los generos de la pelicula deben ser un valor de tipo arreglo ');
+        }
+
+        if(datos.generos.length===0){
+            return console.warn('El arreglo generos no puede venir vacio');
+        }
+
+        for (const genero of datos.generos) {
+            
+            if(typeof(genero)!=='string'){
+                return console.error('Los generos deben ser valores de tipo texto');
+            }
+        }
+
+        for (let i = 0; i < datos.generos.length; i++) {
+            
+            let encontrado=false;
+
+            const genero= datos.generos[i];
+
+            for (let j = 0; j < Pelicula.getGenerosAceptados().length || !encontrado; j++) {//mientras recorrar al array de generos aceptados, o que encontrado siga siendo false
+    
+                if(genero===Pelicula.getGenerosAceptados()[j]) encontrado=true;
+
+            }
+
+            if(!encontrado) console.warn(`Este genero: ${genero} no se encuentra en la base de datos`);
+            
+        }
+
+        if(typeof(datos.calificacion)!=='number'){
+            return console.warn('La calificacion debe ser un número');
+        }
+
+        if(datos.calificacion<0 || datos.calificacion>10){
+            return console.error('La calificacion debe ser un número  entre 0 y 10');
+        }
+
+        return true;
+
+    }
+
+    class Pelicula{
+
+        constructor(datos){
+
+
+            if(validarDatos(datos)){
+                this.id= datos.id;
+                this.titulo= datos.titulo;
+                this.director= datos.director;
+                this.año= datos.año;
+                this.paises= datos.paises;
+                this.generos= datos.generos;
+                this.calificacion= datos.calificacion;
+            }else{
+                console.error('Instanciacion no lograda');
+            }
+            
+        }
+
+        static getGenerosAceptados(){
+
+            return ["Action","Adult", "Adventure", "Animation", "Biography","Comedy", "Crime", "Documentary" ,"Drama", "Family", "Fantasy", "Film Noir", "Game-Show", "History", "Horror", "Musical", "Music", "Mystery", "News", "Reality-TV", "Romance", "Sci-Fi", "Short", "Sport", "Talk-Show", "Thriller", "War", "Western"];
+        }
+
+        fichaTecnica(){
+            return console.info({
+                id:this.id,
+                titulo:this.titulo,
+                director:this.director,
+                año:this.año,
+                paises:this.paises,
+                generos:this.generos,
+                calificacion:this.calificacion
+            });
+        }
+    }
+
+    const peliculas=[
+            new Pelicula({
+            id:'er1234567',
+            titulo:'titanic',
+            director:'steven',
+            año:1997,
+            paises:['EEUU'],
+            generos:['Drama','Adult'],
+            calificacion:9.5
+        }),
+        new Pelicula({
+            id:'er1234567',
+            titulo:'titanic2',
+            director:'steven',
+            año:1997,
+            paises:['EEUU'],
+            generos:['Drama','Adult'],
+            calificacion:9.5
+        }),
+        new Pelicula({
+            id:'er1234567',
+            titulo:'titanic3',
+            director:'steven',
+            año:1997,
+            paises:['EEUU'],
+            generos:['Drama','Adult'],
+            calificacion:9.5
+        })
+    ];
+
+    peliculas.forEach(pelicula => {
+        pelicula.fichaTecnica();
+    });
+
+
+
+
+    class Pelicula2{
+        
+        constructor({id,titulo,director,año,paises,generos,calificacion}){//destructuracion de un objeto
+            
+            this.id= id;
+            this.titulo= titulo;
+            this.director= director;
+            this.año= año;
+            this.paises= paises;
+            this.generos= generos;
+            this.calificacion= calificacion;
+
+            
+            this.validarIMDB(id);
+            this.validarTitulo(titulo);
+            this.validarDirector(director);
+            this.validarAño(año);
+            this.validarPais(paises);
+            this.validarGeneros(generos);
+            this.validarCalificacion(calificacion);
+        }
+
+
+        static get listaGeneros(){//recordar que como es un 'get' al momento de usarlo es como si fuera una propiedad, no un metodo asi que no llevaria los ()
+            return ["Action","Adult", "Adventure", "Animation", "Biography","Comedy", "Crime", "Documentary" ,"Drama", "Family", "Fantasy", "Film Noir", "Game-Show", "History", "Horror", "Musical", "Music", "Mystery", "News", "Reality-TV", "Romance", "Sci-Fi", "Short", "Sport", "Talk-Show", "Thriller", "War", "Western"];
+        }
+
+        static generosAceptados(){
+            return console.info(`los generos aceptados son ${Pelicula2.listaGeneros.join(', ')}`);
+        }
+
+        validarCadena(propiedad,valor){
+
+            if(!valor) return console.warn(`propiedad: ${propiedad}, valor: ${valor} esta vacio`);
+
+            if(typeof(valor)!=='string') return console.warn(`propiedad: ${propiedad}, valor: ${valor} ingresado no es una cadena de texto`);
+
+            return true;
+        }
+
+        validarLongitudCadena(propiedad,valor,longitud){
+            if(valor.length>longitud) return console.error(`${propiedad} ${valor} excede el numero de caracteres permitidos ${longitud}`);
+
+            return true;
+        }
+
+        validarNumero(propiedad,valor){
+
+            if(!valor) return console.warn(`propiedad: ${propiedad}, valor: ${valor} esta vacio`);
+
+            if(typeof(valor)!=='number') return console.warn(`propiedad: ${propiedad}, valor: ${valor} ingresado no es un número`);
+
+            return true;
+        }
+
+        validarArreglo(propiedad,valor){
+
+            if(!valor) return console.warn(`propiedad: ${propiedad}, valor: ${valor} esta vacio`);
+
+            if(!(valor instanceof Array)) return console.warn(`propiedad: ${propiedad}, valor: ${valor} ingresado no es un arreglo`);
+
+            if(valor.length===0) return console.error(`${propiedad} ${valor} no tiene datos`);
+
+            for (const cadena of valor) {
+            
+                if(typeof(cadena)!=='string') return console.error(`el valor ${cadena} no es una cadena de texto`);
+        
+            }
+
+            return true;
+        }
+
+        validarIMDB(id){
+
+            if(this.validarCadena('imdbId',id)){
+
+                if(!(/^([a-z]){2}([0-9]){7}$/.test(id)))//la expresion, solo debe tener 2 letras y 7 numeros, nada antes ni despues
+                return console.error(`EL IMDBID ${id} no es valido, debe contener 9 caracteres, los 2 primeros letras minusculas, y los 7 restantes numeros`);
+            }
+        }
+
+        validarTitulo(titulo){
+
+            if(this.validarCadena('titulo',titulo)){
+
+                this.validarLongitudCadena('titulo',titulo,100);
+                
+            }
+        }
+
+        validarDirector(director){
+
+            if(this.validarCadena('director',director)){
+
+                this.validarLongitudCadena('director',director,50);
+                
+            }
+        }
+
+
+        validarAño(año){
+
+            if(this.validarNumero('año de estreno',año)){
+
+                if(!(/^[0-9]{4}$/.test(año)))//la expresion, solo debe tener un numero de 4 cifras, nada antes ni despues
+                return console.error(`EL año de estreno ${año} no es valido, debe ser un número de 4 cifras`);
+            }
+        }
+
+        validarPais(paises){
+            this.validarArreglo('países',paises);
+        }
+
+        validarGeneros(generos){
+
+            this.validarArreglo('generos',generos);
+
+            for (const genero of generos) {
+                
+                
+
+                if(!Pelicula2.listaGeneros.includes(genero)){
+                    console.error(`generos incorrectos ${generos.join(', ')}`);//includes verifica si un elemento esta dentro de un array
+
+                    Pelicula2.generosAceptados();
+                }
+            }
+        }
+
+        validarCalificacion(calificacion){
+
+            if(this.validarNumero('calificacion',calificacion)) return (calificacion<0 || calificacion>10)
+                ? console.error(`la calificacion tiene que ser entre un rango de 0 y 10`)
+                :this.calificacion= calificacion.toFixed(1);//con toFixed indicamos hasta que decimal queremos dejar
+        }
+
+        fichaTecnica(){
+            return console.info(`ficha técnica\n titulo: ${this.titulo}\n director: ${this.director}\n año: ${this.año}\n paises: ${this.paises.join('-')}\n generos: ${this.generos.join(', ')}\n calificacion: ${this.calificacion}\ IMDBid: ${this.id}`);
+        }
+        
+    }
+
+   
+    
+    const misPeliculas=[
+            {
+            id:'er1234567',
+            titulo:'titanic',
+            director:'steven',
+            año:1997,
+            paises:['EEUU'],
+            generos:['Drama','Adult'],
+            calificacion:9.5
+        },
+        {
+            id:'er1234567',
+            titulo:'titanic2',
+            director:'steven',
+            año:1997,
+            paises:['EEUU'],
+            generos:['Drama','Adult'],
+            calificacion:9.5
+        },
+        {
+            id:'er1234567',
+            titulo:'titanic3',
+            director:'steven',
+            año:1997,
+            paises:['EEUU'],
+            generos:['Drama','Adult'],
+            calificacion:9.5
+        }
+    ];
+
+    misPeliculas.forEach((peli)=>new Pelicula2(peli).fichaTecnica());
     </script>
 </body>
 
