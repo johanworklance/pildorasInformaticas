@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+     /*    console.log('inicio')
+        setTimeout(() => {
+            console.log('ejecutando un setTimeout, esto se ejecuta una sola vez');
+        }, 1000);//1000= 1segundo
+
+        console.log('inicio')
+        setInterval(() => {
+            console.log('ejecutando un setInterval, esto se ejecuta indefinidamente cada cierto intervalo de tiempo');
+        }, 1000); */
+
+        /* setInterval(() => {
+            console.log(new Date().toLocaleTimeString());//toLocaleTimeString muestra la hora en formato militar
+        }, 1000); */
+
+        /* let temporizador= setTimeout(() => {
+            console.log('ejecutando un setTimeout, esto se ejecuta una sola vez');
+        }, 1000);//1000= 1segundo
+
+        clearTimeout(temporizador);//este cancela a un setTimeout, pero este debe estar dentro de una variable
+
+        console.log('despues del clearTimeout'); */
+
+        /* let temporizador = setInterval(() => {
+            console.log(new Date().toLocaleTimeString());
+        }, 1000);
+
+        clearInterval(temporizador);//y este cancela a los setInteval
+
+        console.log('despues del setInterval'); */
+
+//------------------------------------------------------------------------------
+
+
+        /* //codigo sincrono bloqueante
+
+        (()=>{
+            console.log('codigo sincrono');//primero
+            console.log('inicio');//segundo
+
+            function dos(){
+                console.log('dos');//sexto
+
+            }
+
+            function uno(){
+                console.log('uno');//cuarto
+                dos();//quinto
+                console.log('tres');//septimo
+            }
+
+            uno();//tercero
+            console.log('fin');//octavo, en este orden es que se ejecutan estos procesos en el js en algo llamdo event loop, cada proceso bloquea el event loop hasta que no se terminen de ejecutar, por eso la ejecucion de uno() no permite que se ejecute el fin, hasta que no se ejecute todo dentro de uno, tambien estos procesos se acumulan en pilas, en el orden lifo last in first out, por tanto cuando llega a uno, este se queda esperando a que lo que tenga adentro se ejecute, y ya el despues es liberado en memoria
+        })();
+
+
+        console.log('************');
+
+
+
+        //codigo asincrono no bloqueante
+
+        (()=>{
+            console.log('codigo asincrono');//primero
+            console.log('inicio');//segundo
+
+            function dos(){
+                setTimeout(function() {
+                    console.log('dos');
+                }, 1000);//octavo
+
+            }
+
+            function uno(){
+                setTimeout(() => {
+                    console.log('uno');
+                }, 0);//septimo, que valga 0 no significa que no se apile, mientras este en un temporizador se apilara, y se ejecutara primero lo que no sea asincrono, aun asi se pasara a la pila de tareas pero no se ejecuta
+                dos();//cuarto
+                console.log('tres');//quinto
+            }
+
+            uno();//tercero
+            console.log('fin');//sexto
+        })();
+ */
+
+//------------------------------------------------------------------------------
+
+   /*  function cuadradoCallback(value,callback){
+
+        
+        setTimeout(() => {
+            callback(value,value*value)
+        }, 0 || Math.random()*1000);//no sabia que se podian usar tambien OR cortocicuito como parametros, aqui puede ser 0 o segundos random entre 0 y 10, por que 10, por que 1000 serian milisegundos que son 1 s
+
+    }
+
+    cuadradoCallback(0,
+        (value,resultado)=>{
+            console.log('inicia callback');
+            console.log(`callback: ${value}, ${resultado}`)
+
+            cuadradoCallback(1,
+                (value,resultado)=>{
+                    console.log('interno')
+                    console.log(`callback: ${value}, ${resultado}`)
+
+                    cuadradoCallback(2,
+                        (value,resultado)=>{
+                            console.log('interno 2 capa')
+                            console.log(`callback: ${value}, ${resultado}`)
+                        }//(callback mas interno 2)
+                    );
+                }//(callback mas interno)aqui estamos llamando a la misma funcion para ver como su proceso tarda mas que el anterior, nada mas
+            );
+
+        }//(callback mas afuera)este callback, es decir una funcion que se ejecuta dentro de otra, al estar dentro del setTimeout seria como un proceso asincrono
+        
+    );
+
+ */
+//------------------------------------------------------------------------------
+
+/* 
+    function cuadradoPromise(value){
+
+        if(typeof(value)!== 'number') return Promise.reject(`error el valor ingresado no es un numero`);//el reject aqui se usa como metodo estatico de Promise, es decir sin instanciar como hacemos abajo
+
+        return new Promise((resolve,reject)=>{//cada llamado a esta funcion, devolvera una promesa
+
+            setTimeout(() => {
+                resolve(
+                    {
+                        value,
+                        result: value*value
+                    } 
+                );//si se cumple la promesa resolve hara un return de lo que tiene dentro, en este caso un objeto que opera con el parametro que le llego a la funcion principal, es decir value
+            }, 0 || Math.random()*1000);//recordar que este setTimeout es para "imitar" el comportamiento de un proceso asincrono
+        });
+    }
+
+    cuadradoPromise(0)
+    .then(//todas las promesas tienen el metodo then, que es el que usa lo que le retorna el resolve
+        (obj)=>{//este obj es el que retorno el resolve en la promesa
+            console.log('inicia promise');
+            console.log(`promise: ${obj.value}, ${obj.result}`);
+            return cuadradoPromise(1);//y aqui hacemos otra llamada del proceso siguiente, y al ser lo que devuelve este metodo una promesa...
+        }
+    )
+    .then((obj)=>{//entonces este then corresponderia a ese ultimo llamado
+        console.log(`promise: ${obj.value}, ${obj.result}`);
+            return cuadradoPromise(2);//y aqui la siguiente, la cuestion con esto es que esta llamada por ejemplo no se realizara hasta que no se hayan cumplido las anteriores
+    })
+    .then((obj)=>{
+        console.log(`promise: ${obj.value}, ${obj.result}`);
+        console.log('fin promise');
+    })
+    .catch(err=>console.error(err))//el catch pilla lo que le devueleve el reject que es cuando no se logro la operacion asincrona
+ */
+
+
+//------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+    </script>
+</body>
+</html>
