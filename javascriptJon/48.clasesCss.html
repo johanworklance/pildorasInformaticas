@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    :root{
+        --yellow-color: #f7df1e;
+        --dark-color: #222;
+
+    }
+
+    .card{
+        display: inline-block;
+        background-color: var(--dark-color);
+        color: var(--yellow-color);
+    }
+
+    .card figcaption{
+        padding: 1rem;
+    }
+
+    .rotate-45{
+        transform: rotate(45deg);
+    }
+
+    .rotate-135{
+        transform: rotate(135deg);
+    }
+
+    .opacity-80{
+        opacity: .8;
+    }
+
+    .sepia{
+        filter: sepia(1);
+    }
+</style>
+<body>
+    <h1>ejemplo para getSelection()</h1>
+
+    <h3>manejo del dom</h3>
+
+    <p id="que-es">
+        Lorem ipsum, dolor sit amet consectetur adipisicing elit. Neque officia qui reprehenderit aperiam rem, id fuga architecto mollitia laborum cumque.
+    </p>
+    <nav id="menu">
+        <ul>
+            <li><a href="#">Sección 1</a></li>
+            <li><a href="#">Sección 2</a></li>
+            <li><a href="#">Sección 3</a></li>
+            <li><a href="#">Sección 4</a></li>
+        </ul>
+    </nav>
+
+    <input type="text" name="nombre" placeholder="nombre">
+
+    <a style="background-color:yellow;color:black" class="link-dom" href="46.dom.html" data-descripcion="enlace" data-id="id del enlace">DOM</a><!--los data attributes son atributos que podemos crear nosotros, pero deben comenzar en "data-"-->
+
+
+    <section class="cards">
+        <figure class="card">
+            <img src="https://placeimg.com/200/200/tech" alt="tech">
+            <figcaption>
+                Tech
+            </figcaption>
+        </figure>
+    </section>
+
+    <section class="cards">
+        <figure class="card">
+            <img src="https://placeimg.com/200/200/animals" alt="animals">
+            <figcaption>
+                Animals
+            </figcaption>
+        </figure>
+    </section>
+
+    <section class="cards">
+        <figure class="card">
+            <img src="https://placeimg.com/200/200/people" alt="people">
+            <figcaption>
+                People
+            </figcaption>
+        </figure>
+    </section>
+
+    <section class="cards">
+        <figure class="card">
+            <img src="https://placeimg.com/200/200/arch" alt="arch">
+            <figcaption>
+                Arch
+            </figcaption>
+        </figure>
+    </section>
+
+    <section class="cards">
+        <figure class="card">
+            <img src="https://placeimg.com/200/200/nature" alt="nature">
+            <figcaption>
+                Nature
+            </figcaption>
+        </figure>
+    </section>
+
+
+    <script>
+
+        const $card= document.querySelector('.card');
+
+
+        console.log($card);
+
+        console.log($card.className);//trae lo que tiene exactamente el atributo class
+
+
+        console.log($card.classList);//es un tokenList que trae las clases que tenga el elemento, recordar que hablamos de clases CSS, de ahi estas 2 propiedades, no hay class a secas, por que js tiene esa palabra reservada para crear clases de objetos
+
+        console.log($card.classList.contains('rotate-45')); //false,este metodo manda un boolean de si encuentra o no la clase indicada
+
+        $card.classList.add('rotate-45');//para agregar clases
+
+        console.log($card.classList.contains('rotate-45'));//true
+
+
+        $card.classList.remove('rotate-45');
+
+        $card.classList.toggle('rotate-45');//toggle palanca en ingles, agrega o quita una clase, deacuerdo a si esta o no, si esta la elimina, si no la agrega
+
+       /*  setTimeout(() => {
+            $card.classList.toggle('rotate-45');
+        }, 4000);//en 4 segundos elimina la clase
+
+        $card.classList.toggle('rotate-45');//aqui la agregamos de nuevo
+ */
+
+        $card.classList.replace('rotate-45','rotate-135');//reemplaza una clase por otra
+
+        $card.classList.add('opacity-80','sepia');//se pueden agregar varias clases a la vez
+
+
+        $card.classList.remove('opacity-80','sepia');
+
+        $card.classList.toggle('sepia');//con toggle si no se puede enviar mas de una clase, su segundo parametro es un boolean que le puedes enviar para
+
+        $card.classList.toggle('sepia',true);//si se envia falso y esta, la elimina, si le envias true y esta no la elimina
+    </script>
+</body>
+</html>

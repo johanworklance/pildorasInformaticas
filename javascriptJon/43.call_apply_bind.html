@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+
+        this.lugar='contexto global'
+        function saludar(saludo='hello',destinatario='fulanito'){
+            console.log(`${saludo} ${destinatario} desde ${this.lugar}`);
+        }
+
+        saludar();//cucuta global
+
+
+        const obj={
+            lugar:'contexto objeto'
+        }
+
+        saludar.call(obj,'hola','johan');//con call indicamos que contexto this queremos, aqui el del obj, mandado contexto objeto
+
+        saludar.apply(obj,['adios','johan']);//con apply es igual, pero se envian los parametros en un arreglo
+
+        saludar.call(null,'hola','johan');//contexto global
+
+        saludar.call(this,'hola','johan');//contexto global
+
+
+
+        const persona={
+            nombre:'johan',
+            saludar:function(){
+                console.log(`hola ${this.nombre}`);
+            },
+            saludar2:()=>{//recordar que las arrow func
+                console.log(`hola ${this.nombre}`);
+            }
+        }
+
+        persona.saludar();
+        persona.saludar2();//recordar que las arrow function pillan el this del contexto en donde se creo el objeto en donde aparece dicha arrow, por tanto aqui undefined, ya que el contexto global no tiene una propiedad nombre
+
+
+        const otraPersona={
+            saludar:persona.saludar.bind(persona)//con
+        }
+
+        otraPersona.saludar();
+    </script>
+</body>
+</html>

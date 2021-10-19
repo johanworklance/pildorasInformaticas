@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+
+        const ws= new WeakSet();//a diferencia de los sets, no se pueden enviar valores al constructor de WeakSet
+
+        let valor1={'valor1':1};
+        let valor2={'valor2':2};
+        let valor3={'valor3':3};//solo se pueden introducir dentro de un weakSet objetos
+
+        ws.add(valor1);
+        ws.add(valor2);
+        ws.add(valor3);//se deben introducir de uno en uno
+
+        console.log(ws);//no hay propiedad size
+
+        console.log(ws.has(valor1));
+
+        //ws.delete(valor2);//se borra refiriendonos a la clave
+
+        console.log(ws);
+
+       /*  setInterval(() => {
+            console.log(ws);
+        }, 1000); *///aqui imprimimos cada segundo para verificar el estado del weakSet, aqui aun tiene 3 valores
+
+
+        /* setTimeout(() => {
+            valor1=null;
+            valor2=null;
+            valor3=null;
+        }, 5000); *///pasados 5 segundos nulifico sus valores, y automaticamente el weakset elimina sus referencias, es como si ahora el estuviera vacio, tambien pasa con valores undefined
+
+
+        const wm= new WeakMap();
+
+        let llave1= {};//las llaves deben ser objetos
+        let llave2= {};
+        let llave3= {};
+
+        wm.set(llave1,'valor1');//clave, valor
+        wm.set(llave2,2);
+        wm.set(llave3,3);
+
+        console.log(wm);
+
+        console.log(wm.has(llave2));
+
+        console.log(wm.get(llave1));
+
+        wm.delete(llave3);
+
+        console.log(wm);
+
+        /* setInterval(() => {
+            console.log(wm);
+        }, 1000); 
+
+        setTimeout(() => {
+            llave1=null;
+            llave2=null;
+            llave3=null;
+        }, 5000); *///aqui igual con el interval vemos el weakMap con valores, pero pasado 5 segundo las llaves se nulifican y el weakmap queda vacio
+    </script>
+</body>
+</html>

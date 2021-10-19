@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        function* iterable(){//ese * es para indicar que esta funcion es un generator
+
+            yield 'hola';//el yield es el return de estas funciones, estas se guian por por los next de los iterators, al parecer imprimira esta linea y se sale
+            console.log('hola consola');//despues esta que es una linea normal
+            yield 'hola2';//y saldra aqui
+            console.log('seguimos con mas intrucciones');//ahora aqui
+            yield 'hola3';//sale una tercera vez
+            yield 'hola4';//y en la cuarta iteracion saldra este hola4
+        }
+
+
+        let iterador= iterable();//al parecer que la funcion sea un generator, hace que la asignacion de esta variable fuera como un const iterador= iterable[Symbol.iterator]();, por tanto poder usar la funcion next, es como si la funcion en si fuera un elemento iterable como un array, y cada yield un elemento del mismo
+
+        /* console.log(iterador.next());//hola, done=false
+        console.log(iterador.next());//hola consola hola2 done=false
+        console.log(iterador.next());//seguimos con mas intrucciones hola3 done=false
+        console.log(iterador.next());//hola4 done=false
+        console.log(iterador.next());//undefined done=true */
+
+        for (const y of iterador) {
+            console.log(y);//aqui se muestra el valor directamente con es como con next que manda un objeto con el value y el don
+        }
+
+        const arr= [...iterable()];//dentro de este array guardamos usando el spread operator los yield de esta funcion, solo se guardarian los yield, las demas lineas de la funcion no las toma en cuenta
+
+
+        console.log(arr);
+
+
+        function cuadrado(valor){
+
+            setTimeout(() => {
+                return console.log({
+                    valor,
+                    resultado:valor*valor
+                })
+            }, Math.random()*1000);
+
+            
+        }
+
+        function* generador(){
+            console.log('inicia generator');
+            yield cuadrado(0);
+            yield cuadrado(1);
+            yield cuadrado(2);
+            yield cuadrado(3);
+            yield cuadrado(4);
+            yield cuadrado(5);
+            console.log('termina generator');
+        }
+
+        let gen= generador();
+
+
+        for (const cadaYield of gen) {
+            cadaYield;//esto aqui esta rarisimo, esta ejecutando como si tuviera los parenteris, cadaYield, es cada yield de la funcion generador, pero como esta ya tiene los () cuando lo asigno a gen, aqui no se hace necesario, eso si como la funcion cuadrado tenia settimeout, entonces lo que no es asincrono como los console log de inicia termina generator se ejecutan antes
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        //los strings, arrays, nodos del DOM, sets,los maps, son elementos iterables, es decir que se pueden recorrer sus elementos, y estos a su vez son publicos para verse
+
+        //iterador, es la interfaz, apuntador que recorre los elementos de un elemento iterable, ejemplo la deestructuracion, for, forof while, spread operator, promises, array.from
+
+
+        const iterable= [1,2,3,4,5];
+
+        const iterador= iterable[Symbol.iterator]();//los arrays, string etc, tiene una posicion especial que es un valor de tipo symbol, y a su vez un metodo, que nos funcionara del iterador, que por cierto deacuerdo al valor cambia el tipo de iterador, los strings hacen un string iterator, los sets un set iterator y asi sucesivamente
+
+        console.log(iterable);
+        console.log(iterador);
+
+        /* console.log(iterador.next()); *///devuelve el valor en donde esta, en este caso el 1, y un valor llamado done, que indica si el arreglo ya termino, es decir ya pasamos de la ultima posicion, aqui mandara false
+
+       /*  console.log(iterador.next());//2
+        console.log(iterador.next());//3
+        console.log(iterador.next());//4
+        console.log(iterador.next());//5
+        console.log(iterador.next()); *///undefined y el donde dara true, por que ya se recorrio todo el elemento iterable
+
+        //casi que funciona como un i dentro de un for, o valor indice
+
+        //tuve que comentar los next previos, por que si no el apuntador marcaria que ya recorrio el arreglo
+        let next= iterador.next();
+
+
+        while(!next.done){
+            console.log(next.value);
+            next= iterador.next();
+        }
+
+        
+
+    </script>
+</body>
+</html>

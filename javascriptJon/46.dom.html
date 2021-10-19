@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document titulo</title>
+</head>
+<body>
+    <h1>ejemplo para getSelection()</h1>
+
+    <h3>manejo del dom</h3>
+
+    <p id="que-es">
+        Lorem ipsum, dolor sit amet consectetur adipisicing elit. Neque officia qui reprehenderit aperiam rem, id fuga architecto mollitia laborum cumque.
+    </p>
+    <nav id="menu">
+        <ul>
+            <li><a href="#">Sección 1</a></li>
+            <li><a href="#">Sección 2</a></li>
+            <li><a href="#">Sección 3</a></li>
+            <li><a href="#">Sección 4</a></li>
+        </ul>
+    </nav>
+
+    <input type="text" name="nombre" placeholder="nombre">
+
+    <a class="link-dom" href="46.dom.html" data-descripcion="enlace" data-id="id del enlace">DOM</a><!--los data attributes son atributos que podemos crear nosotros, pero deben comenzar en "data-"-->
+
+
+    <section class="cards">
+        <figure class="card">
+            <img src="https://placeimg.com/200/200/tech" alt="tech">
+            <figcaption>
+                Tech
+            </figcaption>
+        </figure>
+    </section>
+
+    <section class="cards">
+        <figure class="card">
+            <img src="https://placeimg.com/200/200/animals" alt="animals">
+            <figcaption>
+                Animals
+            </figcaption>
+        </figure>
+    </section>
+
+    <section class="cards">
+        <figure class="card">
+            <img src="https://placeimg.com/200/200/people" alt="people">
+            <figcaption>
+                People
+            </figcaption>
+        </figure>
+    </section>
+
+    <section class="cards">
+        <figure class="card">
+            <img src="https://placeimg.com/200/200/arch" alt="arch">
+            <figcaption>
+                Arch
+            </figcaption>
+        </figure>
+    </section>
+
+    <section class="cards">
+        <figure class="card">
+            <img src="https://placeimg.com/200/200/nature" alt="nature">
+            <figcaption>
+                Nature
+            </figcaption>
+        </figure>
+    </section>
+    <script>
+
+        /* console.group('elementos del dom')
+
+        console.log(window);
+        console.log(window.document);
+        console.log(document);//toda la pagina, un mapeo de todo el dom, incluyendo el doctype
+
+        console.log(document.head);//parte del head
+        console.log(document.body);//parte del body
+
+        console.log(document.documentElement);//este muestra todo loque tiene la etiqueta html, es parecido a document solo, pero este ultimo tambien muestra el doctype
+
+        console.log(document.doctype);
+        
+        console.log(document.charset);
+
+        console.log(document.title);
+
+        console.log(document.links,'enlaces');//este mandaria los enlaces de la pagina, en la consola parece un array, pero no es asi es un htmlcollection, por tanto no tiene todos los metodos de los arreglos
+
+        console.log(document.images,'imagenes');
+
+        console.log(document.forms,'formularios');
+
+        console.log(document.styleSheets);//este es curioso es un stylesheetlist no un htmlcollection
+
+        console.log(document.scripts);
+
+
+        setTimeout(() => {
+            console.log(document.getSelection().toString());//getSelection recoge lo que seleccionemos con el raton, y para que el console lo pueda mostrar lo converitmos a string de lo contrario muestra un objeto de tipo Selection, lo colocamos en un temporizador, para que dentro de 3 segundos yo seleccion el h1 de arriba, y asi el pueda mostrar algo
+        }, 3000);
+        
+        document.write('<h2>hola mundo desde el dom</h2>');
+        console.groupEnd('fin') */
+
+
+//------------------------------------------------------------------------------
+
+//Nodos, hay distinto tipos de nodos, etiquetas html, textos dentro de ellos, los comentarios, fragmentos del documento, etc
+
+
+        console.log(document.getElementsByTagName('li'));//coleccion html con todos li
+
+        console.log(document.getElementsByClassName('card'));//igual otra coleccion
+
+        console.log(document.getElementsByName('nombre'));//un nodelist tambien es como un array
+
+
+        //estos 3 anteriores ya no se usan mucho
+
+
+        console.log(document.querySelector('#menu'));//este escoge un selector css valido, pero hay que indicarselo explicitamente, por eso el # de id, pero eso lo hace un metodo mas lento en rendimiento
+
+        console.log(document.querySelector('a'));//devuelve el primer enlace, por cierto este metodo solo devuelve una cosa
+
+        console.log(document.querySelectorAll('a'));//este trae una nodelist con todos los elementos que encuentre
+
+        console.log(document.querySelectorAll('a').length);//hay 5 enlaces
+
+        document.querySelectorAll('a').forEach((enlace)=>console.log(enlace));
+
+        console.log(document.querySelectorAll('.card'));//una nodelist con todos los elementos con la clase card
+
+        console.log(document.querySelectorAll('.card')[3]);//tarjeta arch
+
+        console.log(document.querySelectorAll('#menu li'));
+
+        console.log(document.getElementById('menu'));//devuelve el html de este, tambien este elemento es agil en rendimiento elemento al solo buscar ids
+
+
+        console.log(document.documentElement.lang);//el atributo lang de la etiqueta html que es igual a documentElement
+
+        console.log(document.documentElement.getAttribute('lang'));//aqui igual trae lo mismo
+
+
+        console.log(document.querySelector('.link-dom').href);//trae todo la ruta del enlace 
+
+        console.log(document.querySelector('.link-dom').getAttribute('href'));//en cambio con getAttribute, solo trae lo que esta dentro del atributo es decir 46.dom.html, por lo que no necesariamente el metodo y el atributo mediante la nomenclatura del punto son lo mismo, depende del elemento html
+
+
+        document.documentElement.lang= 'es';//lo cambie a español
+
+        console.log(document.documentElement);
+
+        document.documentElement.setAttribute('lang','es-mex');//es el metodo setter
+
+        console.log(document.documentElement);
+
+
+        const $linkDom= document.querySelector('.link-dom');//es recomendable guardar los elementos del dom como constantes, y a parte hay una practica que consiste en anteponerele al nombre de la variable un $ para indicar que es un elemento del dom, como este enlace
+
+
+        $linkDom.setAttribute('target','_blank');//recordar que el target es un atributo que indica como se abrira la ventana, _blank es para abrir otra pestaña
+
+        $linkDom.setAttribute('rel','noopener');//es un atributo de seguridad recomendado cuando usamos de target _blank, es para desligar la pagina a la que se va, con la que se estuvo anteriormente
+
+        $linkDom.setAttribute('href','https://www.google.com');//cambiamos el href
+
+
+        console.log($linkDom.hasAttribute('rel'));//true
+
+        $linkDom.removeAttribute('rel');//eliminar atributos
+
+        console.log($linkDom.hasAttribute('rel'));//false
+
+
+        console.log($linkDom.getAttribute('data-descripcion'));//'enlace' eso dice la data-attribute que le colocamos
+
+        console.log($linkDom.dataset);//manda un mapa, que es un tipo de dato parecido a un objeto revisar archivo 36, con todos los data-attribute del elemento
+
+        console.log($linkDom.dataset.descripcion);
+
+        $linkDom.setAttribute('data-descripcion','link en ingles');
+
+        console.log($linkDom.dataset.descripcion);//aqui reasigno su valor
+
+        $linkDom.dataset.descripcion="enlace en español";
+
+        console.log($linkDom.dataset.descripcion);
+
+        console.log($linkDom.hasAttribute('data-id'));//true
+    </script>
+</body>
+</html>

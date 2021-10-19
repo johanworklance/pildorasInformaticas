@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    :root{
+        --yellow-color: #f7df1e;
+        --dark-color: #222;
+
+    }
+
+    .cards{
+        border: thin solid var(--dark-color);
+        padding: 1rem;
+    }
+
+    .card{
+        display: inline-block;
+        background-color: var(--dark-color);
+        color: var(--yellow-color);
+    }
+
+    .card figcaption{
+        padding: 1rem;
+    }
+
+    .rotate-45{
+        transform: rotate(45deg);
+    }
+
+    .rotate-135{
+        transform: rotate(135deg);
+    }
+
+    .opacity-80{
+        opacity: .8;
+    }
+
+    .sepia{
+        filter: sepia(1);
+    }
+</style>
+<body>
+    <h1>ejemplo para getSelection()</h1>
+
+    <h3>manejo del dom</h3>
+
+    <p id="que-es">
+        Lorem ipsum, dolor sit amet consectetur adipisicing elit. Neque officia qui reprehenderit aperiam rem, id fuga architecto mollitia laborum cumque.
+    </p>
+    <nav id="menu">
+        <ul>
+            <li><a href="#">Sección 1</a></li>
+            <li><a href="#">Sección 2</a></li>
+            <li><a href="#">Sección 3</a></li>
+            <li><a href="#">Sección 4</a></li>
+        </ul>
+    </nav>
+
+    <input type="text" name="nombre" placeholder="nombre">
+
+    <a style="background-color:yellow;color:black" class="link-dom" href="46.dom.html" data-descripcion="enlace" data-id="id del enlace">DOM</a><!--los data attributes son atributos que podemos crear nosotros, pero deben comenzar en "data-"-->
+
+
+    <section class="cards">
+
+        <figure class="card">
+            <img src="https://placeimg.com/200/200/tech" alt="tech">
+            <figcaption>
+                Tech
+            </figcaption>
+        </figure>
+    
+
+    
+        <figure class="card">
+            <img src="https://placeimg.com/200/200/animals" alt="animals">
+            <figcaption>
+                Animals
+            </figcaption>
+        </figure>
+   
+
+    
+        <figure class="card">
+            <img src="https://placeimg.com/200/200/people" alt="people">
+            <figcaption>
+                People
+            </figcaption>
+        </figure>
+  
+
+    
+        <figure class="card">
+            <img src="https://placeimg.com/200/200/arch" alt="arch">
+            <figcaption>
+                Arch
+            </figcaption>
+        </figure>
+    
+
+    
+        <figure class="card">
+            <img src="https://placeimg.com/200/200/nature" alt="nature">
+            <figcaption>
+                Nature
+            </figcaption>
+        </figure>
+
+    </section>
+
+
+    <script>
+
+
+        const   $cards= document.querySelector('.cards');
+
+        console.log($cards);
+
+        console.log($cards.children);//los elementos que contiene
+
+        console.log($cards.childNodes);//aqui salen las tabulaciones y los elementos html dentro de cards, 5 figures y tabulaciones entre ellos
+
+        console.log($cards.children[2]);//tarjeta people
+
+        console.log($cards.parentElement);//el html de body que es padre de la section cards
+
+        console.log($cards.parentNode);//tambien es el body, pero esto se refiere a nodos, es algo diferente, en estos nodos inclusive se toman en cuentan los espacios que dejamos entre etiquetas en el codigo html, o los comentarios
+
+        console.log($cards.firstChild);//aqui el primer hijo no se refiere al primer figure, si no al espacio/tabulacion entre donde se abre la section y donde esta el primer figure, todo ese espacio es un nodo
+
+        console.log($cards.firstElementChild);//este si pilla el primer hijo es decir el primer figure que es el de tech
+
+        console.log($cards.lastChild);//otra tabulacion
+
+        console.log($cards.lastElementChild);//figure nature
+
+
+        console.log($cards.previousSibling);//la tabulacion entre el enlace con clase link-dom y la section cards
+
+        console.log($cards.previousElementSibling);//el hermano anterior a la section cards
+
+        console.log($cards.nextElementSibling);//la etiqueta script despues
+
+        console.log($cards.closest('div'));//busca el ancestro/padre mas cercano del tipo de selector que le demos, aqui null por que no ancestros div
+
+        console.log($cards.closest('body'));//solo hay un body, pero es un ancestro
+
+        console.log($cards.children[2].closest('section'));//el section ancestro mas cercano seria cards
+    </script>
+</body>
+</html>

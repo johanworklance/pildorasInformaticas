@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    :root{
+        --yellow-color: #f7df1e;
+        --dark-color: #222;
+
+    }
+
+    .card{
+        display: inline-block;
+        background-color: var(--dark-color);
+        color: var(--yellow-color);
+    }
+
+    .card figcaption{
+        padding: 1rem;
+    }
+
+    .rotate-45{
+        transform: rotate(45deg);
+    }
+
+    .rotate-135{
+        transform: rotate(135deg);
+    }
+
+    .opacity-80{
+        opacity: .8;
+    }
+
+    .sepia{
+        filter: sepia(1);
+    }
+</style>
+<body>
+    <h1>ejemplo para getSelection()</h1>
+
+    <h3>manejo del dom</h3>
+
+    <p id="que-es">
+        Lorem ipsum, dolor sit amet consectetur adipisicing elit. Neque officia qui reprehenderit aperiam rem, id fuga architecto mollitia laborum cumque.
+    </p>
+    <nav id="menu">
+        <ul>
+            <li><a href="#">Sección 1</a></li>
+            <li><a href="#">Sección 2</a></li>
+            <li><a href="#">Sección 3</a></li>
+            <li><a href="#">Sección 4</a></li>
+        </ul>
+    </nav>
+
+    <input type="text" name="nombre" placeholder="nombre">
+
+    <a style="background-color:yellow;color:black" class="link-dom" href="46.dom.html" data-descripcion="enlace" data-id="id del enlace">DOM</a><!--los data attributes son atributos que podemos crear nosotros, pero deben comenzar en "data-"-->
+
+
+    <section class="cards">
+        <figure class="card">
+            <img src="https://placeimg.com/200/200/tech" alt="tech">
+            <figcaption>
+                Tech
+            </figcaption>
+        </figure>
+    </section>
+
+    <section class="cards">
+        <figure class="card">
+            <img src="https://placeimg.com/200/200/animals" alt="animals">
+            <figcaption>
+                Animals
+            </figcaption>
+        </figure>
+    </section>
+
+    <section class="cards">
+        <figure class="card">
+            <img src="https://placeimg.com/200/200/people" alt="people">
+            <figcaption>
+                People
+            </figcaption>
+        </figure>
+    </section>
+
+    <section class="cards">
+        <figure class="card">
+            <img src="https://placeimg.com/200/200/arch" alt="arch">
+            <figcaption>
+                Arch
+            </figcaption>
+        </figure>
+    </section>
+
+    <section class="cards">
+        <figure class="card">
+            <img src="https://placeimg.com/200/200/nature" alt="nature">
+            <figcaption>
+                Nature
+            </figcaption>
+        </figure>
+    </section>
+
+
+    <script>
+
+        const $whatIsDom= document.getElementById('que-es');//el parrafo
+
+        let text = `
+            <p>El Modelo de Objetos del Documento (<b><i>DOM - Document Object Model </i></b>) es un API para documentos HTML y XML.
+            </p>
+
+            <p>Éste provée una representación estructural del documento, permitiendo modificar su contenido y presentación visual mediante código JS.</p>
+
+            <p><mark> El DOM no es parte de la especificación de JavaScript, es una API para los navegadores.</mark>
+            </p>`;
+
+        //$whatIsDom.innerText= text;//esta propiedad fue creada para internet explorer, no es parte del estandar js, hay que usar otro metodo, pero funciona, sustituye el lorem del parrafo por lo que esta en el text, otra cosa este metodo no reconoce las etiquetas html
+
+        //$whatIsDom.textContent= text;//este hace lo mismo, pero quita los saltos de linea del template string, a parte este metodo si pertenece a la api del dom, este se usa para solo insertar texto
+
+        $whatIsDom.innerHTML=text;//este si que agrega codigo html, asi que pilla las etiquetas
+
+        $whatIsDom.outerHTML= text;//este metodo es curioso, sustituye al elemento del dom que escogimos por lo que haya en la derecha del igual, es decir, si el texto son 3 parrafos html, elimina al parrafo con el id que-es y lo sustituye por lo del text
+    </script>
+</body>
+</html>

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+
+
+        const persona={
+            nombre:'',
+            apellido:'',
+            edad:0
+        }
+
+        const manejador={
+            set(obj,propiedad,valor){
+
+                if(Object.keys(obj).indexOf(propiedad)===-1){//Object.keys(obj) trae las llaves de un objeto, y con el indexOf buscamos que este esa propiedad, mandara -1 si no la encuentra, si la encontrara manda el numero de la posicion, por cierto este es un metodo de arrays
+                    return console.error(`la propiedad '${propiedad}' no existe en el objeto persona`);
+                }
+                console.log(valor)
+                if(propiedad==='nombre' || propiedad==='apellido' && !/^[A-Za-z\s]+$/g.test(valor)){
+                    return console.error(`la propiedad: ${propiedad} solo acepta valores en minusculas o mayusculas o espacios`);
+                }
+                obj[propiedad]=valor;//esta linea es curiosa, es parecido a eso que habia en laravel, de indicar que modificariamos un valor en la BD, de no poner esto el manejador no deja que las 'instancias' modifiquen los valores que vienen originales del objeto persona
+            }
+        }
+
+
+        const johan= new Proxy(persona,manejador)//el constructor del proxy pide, el objeto del que se basaran las 'instancias' y un manejador, que tambien es un objeto con el metodo set, donde iran todas las validaciones que necesitemos para los valores del objeto primitivo/ clase provisional, los proxies en si permiten crear instancias de objetos primitivos y no de clases
+    
+
+        
+        johan.nombre='jon';
+        johan.apellido='nieto';
+        johan.edad=35;
+        johan.twitter='twitter';//tambien se pueden agregar propiedades a posterior
+        console.log(johan);
+        console.log(persona);//aqui se observa que los cambios en el objeto proxy se cambian tambien en el objeto persona del cual se basa, pero eso es por que aun no hemos establecido las validaciones, mas adelante si la agrege y manda el error si colocamos un valor mas como el de twitter.tambien recordar que los objetos proxy con como referencia del original, asi que los cambios se veran reflejados en este ultimo
+    </script>
+</body>
+</html>

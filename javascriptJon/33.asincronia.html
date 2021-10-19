@@ -1,22 +1,24 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 </head>
+
 <body>
     <script>
-     /*    console.log('inicio')
-        setTimeout(() => {
-            console.log('ejecutando un setTimeout, esto se ejecuta una sola vez');
-        }, 1000);//1000= 1segundo
-
-        console.log('inicio')
-        setInterval(() => {
-            console.log('ejecutando un setInterval, esto se ejecuta indefinidamente cada cierto intervalo de tiempo');
-        }, 1000); */
+        /*    console.log('inicio')
+           setTimeout(() => {
+               console.log('ejecutando un setTimeout, esto se ejecuta una sola vez');
+           }, 1000);//1000= 1segundo
+   
+           console.log('inicio')
+           setInterval(() => {
+               console.log('ejecutando un setInterval, esto se ejecuta indefinidamente cada cierto intervalo de tiempo');
+           }, 1000); */
 
         /* setInterval(() => {
             console.log(new Date().toLocaleTimeString());//toLocaleTimeString muestra la hora en formato militar
@@ -95,88 +97,144 @@
 
 //------------------------------------------------------------------------------
 
-   /*  function cuadradoCallback(value,callback){
+        /*  function cuadradoCallback(value,callback){
+     
+             
+             setTimeout(() => {
+                 callback(value,value*value)
+             }, 0 || Math.random()*1000);//no sabia que se podian usar tambien OR cortocicuito como parametros, aqui puede ser 0 o segundos random entre 0 y 10, por que 10, por que 1000 serian milisegundos que son 1 s
+     
+         }
+     
+         cuadradoCallback(0,
+             (value,resultado)=>{
+                 console.log('inicia callback');
+                 console.log(`callback: ${value}, ${resultado}`)
+     
+                 cuadradoCallback(1,
+                     (value,resultado)=>{
+                         console.log('interno')
+                         console.log(`callback: ${value}, ${resultado}`)
+     
+                         cuadradoCallback(2,
+                             (value,resultado)=>{
+                                 console.log('interno 2 capa')
+                                 console.log(`callback: ${value}, ${resultado}`)
+                             }//(callback mas interno 2)
+                         );
+                     }//(callback mas interno)aqui estamos llamando a la misma funcion para ver como su proceso tarda mas que el anterior, nada mas
+                 );
+     
+             }//(callback mas afuera)este callback, es decir una funcion que se ejecuta dentro de otra, al estar dentro del setTimeout seria como un proceso asincrono
+             
+         );
+     
+      */
+//------------------------------------------------------------------------------
 
+        /* 
+            function cuadradoPromise(value){
         
-        setTimeout(() => {
-            callback(value,value*value)
-        }, 0 || Math.random()*1000);//no sabia que se podian usar tambien OR cortocicuito como parametros, aqui puede ser 0 o segundos random entre 0 y 10, por que 10, por que 1000 serian milisegundos que son 1 s
+                if(typeof(value)!== 'number') return Promise.reject(`error el valor ingresado no es un numero`);//el reject aqui se usa como metodo estatico de Promise, es decir sin instanciar como hacemos abajo
+        
+                return new Promise((resolve,reject)=>{//cada llamado a esta funcion, devolvera una promesa
+        
+                    setTimeout(() => {
+                        resolve(
+                            {
+                                value,
+                                result: value*value
+                            } 
+                        );//si se cumple la promesa resolve hara un return de lo que tiene dentro, en este caso un objeto que opera con el parametro que le llego a la funcion principal, es decir value
+                    }, 0 || Math.random()*1000);//recordar que este setTimeout es para "imitar" el comportamiento de un proceso asincrono
+                });
+            }
+        
+            cuadradoPromise(0)
+            .then(//todas las promesas tienen el metodo then, que es el que usa lo que le retorna el resolve
+                (obj)=>{//este obj es el que retorno el resolve en la promesa
+                    console.log('inicia promise');
+                    console.log(`promise: ${obj.value}, ${obj.result}`);
+                    return cuadradoPromise(1);//y aqui hacemos otra llamada del proceso siguiente, y al ser lo que devuelve este metodo una promesa...
+                }
+            )
+            .then((obj)=>{//entonces este then corresponderia a ese ultimo llamado
+                console.log(`promise: ${obj.value}, ${obj.result}`);
+                    return cuadradoPromise(2);//y aqui la siguiente, la cuestion con esto es que esta llamada por ejemplo no se realizara hasta que no se hayan cumplido las anteriores
+            })
+            .then((obj)=>{
+                console.log(`promise: ${obj.value}, ${obj.result}`);
+                console.log('fin promise');
+            })
+            .catch(err=>console.error(err))//el catch pilla lo que le devueleve el reject que es cuando no se logro la operacion asincrona, por cierto este catch funciona un poco diferente al del try catch, se le manda un callback como vemos aqui, no es una seccion de codigo como el catch covencional
+         */
 
-    }
 
-    cuadradoCallback(0,
-        (value,resultado)=>{
-            console.log('inicia callback');
-            console.log(`callback: ${value}, ${resultado}`)
+//------------------------------------------------------------------------------
 
-            cuadradoCallback(1,
-                (value,resultado)=>{
-                    console.log('interno')
-                    console.log(`callback: ${value}, ${resultado}`)
 
-                    cuadradoCallback(2,
-                        (value,resultado)=>{
-                            console.log('interno 2 capa')
-                            console.log(`callback: ${value}, ${resultado}`)
-                        }//(callback mas interno 2)
+        function cuadradoPromise(value) {
+
+            if (typeof (value) !== 'number') return Promise.reject(`error el valor ingresado no es un numero`);
+
+            return new Promise((resolve, reject) => {
+                setTimeout(() => {
+                    resolve(
+                        {
+                            value,
+                            result: value * value
+                        }
                     );
-                }//(callback mas interno)aqui estamos llamando a la misma funcion para ver como su proceso tarda mas que el anterior, nada mas
-            );
-
-        }//(callback mas afuera)este callback, es decir una funcion que se ejecuta dentro de otra, al estar dentro del setTimeout seria como un proceso asincrono
-        
-    );
-
- */
-//------------------------------------------------------------------------------
-
-/* 
-    function cuadradoPromise(value){
-
-        if(typeof(value)!== 'number') return Promise.reject(`error el valor ingresado no es un numero`);//el reject aqui se usa como metodo estatico de Promise, es decir sin instanciar como hacemos abajo
-
-        return new Promise((resolve,reject)=>{//cada llamado a esta funcion, devolvera una promesa
-
-            setTimeout(() => {
-                resolve(
-                    {
-                        value,
-                        result: value*value
-                    } 
-                );//si se cumple la promesa resolve hara un return de lo que tiene dentro, en este caso un objeto que opera con el parametro que le llego a la funcion principal, es decir value
-            }, 0 || Math.random()*1000);//recordar que este setTimeout es para "imitar" el comportamiento de un proceso asincrono
-        });
-    }
-
-    cuadradoPromise(0)
-    .then(//todas las promesas tienen el metodo then, que es el que usa lo que le retorna el resolve
-        (obj)=>{//este obj es el que retorno el resolve en la promesa
-            console.log('inicia promise');
-            console.log(`promise: ${obj.value}, ${obj.result}`);
-            return cuadradoPromise(1);//y aqui hacemos otra llamada del proceso siguiente, y al ser lo que devuelve este metodo una promesa...
+                }, 0 || Math.random() * 1000);
+            });
         }
-    )
-    .then((obj)=>{//entonces este then corresponderia a ese ultimo llamado
-        console.log(`promise: ${obj.value}, ${obj.result}`);
-            return cuadradoPromise(2);//y aqui la siguiente, la cuestion con esto es que esta llamada por ejemplo no se realizara hasta que no se hayan cumplido las anteriores
-    })
-    .then((obj)=>{
-        console.log(`promise: ${obj.value}, ${obj.result}`);
-        console.log('fin promise');
-    })
-    .catch(err=>console.error(err))//el catch pilla lo que le devueleve el reject que es cuando no se logro la operacion asincrona
- */
 
 
-//------------------------------------------------------------------------------
+        async function funcionAsincronaDeclarada() {
+
+            try{//se recomienda usar try catch para las funciones asincronas
+                console.log('inicio de funcion asincrona');
+
+                let obj= await cuadradoPromise(0);//usando el await hacemos que js espere a que se complete este proceso asincrono
+                console.info(`asyn function ${obj.value}, ${obj.result}`);
+
+                obj= cuadradoPromise(1);//como aqui no use await, entonces la linea que sigue se ejecuta antes dado que esta esta en espera en el event loop
+                console.info(`asyn function ${obj.value}, ${obj.result}`);
+
+                obj= await cuadradoPromise(2);//inclusive aqui se ve un retraso por el setTimeout
+                console.info(`asyn function ${obj.value}, ${obj.result}`);
+
+            }catch(e){
+                console.error(e)
+            }
+        }
+
+        funcionAsincronaDeclarada()
 
 
+        const funcionAsincronaExpresada= async()=>{
 
+            try{
+                console.log('inicio de funcion asincrona');
 
+                let obj= await cuadradoPromise(3);
+                console.info(`asyn function ${obj.value}, ${obj.result}`);
 
+                obj= cuadradoPromise('4');//aqui mandara error al catch, pilla el objeto reject de la promesa
+                console.info(`asyn function ${obj.value}, ${obj.result}`);
 
+                obj= await cuadradoPromise(5);
+                console.info(`asyn function ${obj.value}, ${obj.result}`);
+
+            }catch(e){
+                console.error(e)
+            }
+        }
+
+        funcionAsincronaExpresada();
 
 
     </script>
 </body>
+
 </html>

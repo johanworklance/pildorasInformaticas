@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+
+        let id= 'hola',id2='hola';
+        //let id3= Symbol(),id4=Symbol();//en este tipo de dato no se usa el new
+        let id3= Symbol('id3'),id4=Symbol('id4');//el parametro es solo una descripcion
+
+        console.log(id===id2);//true
+        console.log(id3===id4);//false, los valores tipo symbol son unicos, asi tenga el mismo valor, sus referencias son unicas tambien
+
+        console.log(id3,id4);
+
+        console.log(typeof(id3));
+
+
+        const NAME= Symbol();//los simbolos se usan como propiedades privadas para los objetos, dato: en un for in estas propiedades no aparecen y en el console salen como symbol, si son propiedades de un objeto no se ve que nombre tienen a menos de que les coloquemos el parametro de descripcion
+
+        const SALUDAR= Symbol('saludar');
+
+        const persona= {
+            [NAME]:'Johan'//asi se asignan los simbolos con corchete y el nombre con el que se crearon
+
+        };
+
+        console.log(persona);
+        
+
+        persona.NAME= 'Johan Nieto';//estoy agregando una nueva propiedad, este NAME no tiene nada que ver con el symbol que tiene el mismo nombre
+
+        console.log(persona);
+
+        console.log(persona.NAME, persona[NAME]);//Los simbolos se llaman usando la nomenclatura de los corchetes, el punto es para las demas propiedades
+
+        persona[SALUDAR]= function(){
+            console.log('hola!!!');
+        };
+
+        console.log(persona);
+
+        persona[SALUDAR]();
+
+        for (const propiedad in persona) {
+            console.log(`propiedad: ${propiedad}, valor: ${persona[propiedad]}`);
+            //como explique arriba las propiedades symbol, no son tomadas en cuenta en ciclos como for in, aqui solo mostrara la propiedad NAME que es un string con el 'Johan Nieto', por eso los simbolos sirven para hacer propiedades privadas
+        }
+
+        console.log(Object.getOwnPropertySymbols(persona));//manda un array con los symbols de lo que le indiquemos
+
+    </script>
+</body>
+</html>

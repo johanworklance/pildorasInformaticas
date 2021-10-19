@@ -1,0 +1,12 @@
+{
+    "cadena":"johan",
+    "numero":"35",
+    "booleando":"true",
+    "arreglo":["correr","saltar"],
+    "objeto":{
+        "twitter":"twitterjohan",
+        "email":"johanemail"
+    },
+    "nulo":null
+}
+

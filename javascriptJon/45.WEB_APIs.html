@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        console.log(window);
+        console.log();
+
+        let texto= 'hola como estas?';
+
+        const hablar= (texto)=>{
+            speechSynthesis.speak(new SpeechSynthesisUtterance('hola como estas?'));
+        }
+
+        hablar(texto);//en la explicacion comenta que la mayoria de cosas con las cuales usamos js, son web apis, el dom, ajax, forms, eventos etc, ese codigo del metodo hablar, es un api que puede hacer que la pc hable, en este linea manda error, por una regla de chrome
+
+        document.addEventListener('click',hablar,texto);//pero aqui abajo podemos saltar esa regla si el usuario interactua de alguna manera aqui, uso el evento clic, por cierto aprendi que addeventlinestener, pide el evento, el metodo, y los parametros
+    </script>
+</body>
+</html>

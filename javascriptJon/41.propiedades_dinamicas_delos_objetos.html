@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        const objUsuarios= {
+            [`id_${Math.floor(Math.random()*100+5)}`]:'valor aleatorio'//aqui usando los corchetes y el template string generara un id aleatorio, el floor para que siempre tienda hacia abajo los decimales, que llegue hasta 100, y que comienze en el 4 contando a cero, por que abajo ya llenamos 5 espacios con el arreglo usuarios, es decir para que por ejemplo no genere un id 3, siendo que el arreglo de abajo ya lo tiene
+        };
+
+        const usuarios=['johan','nieto','alexis','perez'];
+
+
+        console.log(objUsuarios);
+
+        usuarios.forEach((usuario,index)=>{
+            objUsuarios[`id_${index}`]=usuario;//podemos usar template strings, para crear propiedades dinamicas a los objetos aqui quedaria id_0: johan
+        })
+
+
+        console.log(objUsuarios);
+    </script>
+</body>
+</html>

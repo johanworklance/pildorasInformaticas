@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        const set= new Set([1,2,3,3,true,true,{},{},'hola','HOLA']);//los valores repetidos son omitidos, los valores set son 'arreglos' que los elementos dentro de el no se pueden repetir
+
+        console.log(set);//aqui solo saldran un 3 y un true, los objetos vacios, a pesar de parecerse no son lo mismo, cada objeto es distinto en js
+
+        console.log(set.size);//con sets se usa size no lenght
+
+        const set2= new Set();
+
+        set2.add(1);//metodo para agregar valores a un set
+        set2.add(2);
+        set2.add(2);
+        set2.add(2);
+        set2.add(3);
+        set2.add(true);
+        set2.add(true);
+        set2.add({});
+        set2.add({});
+
+        console.log(set2);//igualmente aqui solo se guarda un solo 2 y un solo true
+
+
+        for (const item of set) {
+            console.log(item);
+        }
+        console.group('set2');
+        set2.forEach((item)=>console.log(item));//los foreach tambien sirven para sets
+        console.groupEnd();
+
+        const arr= Array.from(set);//para especificar que queremos un dato particular de un set, debemos convetirlo a array, de otra manera no funciona, array.from crea un array a partir de valores iterables como un string un objeto un set 
+        console.log(arr[0]);
+
+
+        set.delete('hola');//note algo extraño en la consola, aqui se esta borrando el elemento 'hola' del set, pero en en log anterior muestra que tiene 8 elementos, pero ya no aparece este hola, siendo que ahi aun no se ejecuta este delete
+
+        console.log(set);
+
+        console.log(set.size)//aqui muestra que en realidad hay 7 elementos gracias al delete, pero antes eran 8, pero el log anterior tampoco muestra al 'hola', no se si es alguna especie de hoisting de sets
+
+
+        console.log(set.has('HOLA'));//Comprueba que existe este dato en el set
+
+
+        set2.clear();//vacia un set
+
+        console.log(set2);
+    </script>
+</body>
+</html>

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+
+        const mapa= new Map();//objetos que nos permiten guardar una coleccion de elementos llave-valor, y que las llaves no tienen que ser cadenas de texto como los objetos primitivos
+
+        mapa.set('nombre','johan');//crear campos en el map
+        mapa.set('apellido','nieto');
+        mapa.set('edad',30);
+
+        console.log(mapa);
+        console.log(mapa.size);
+        console.log(mapa.has('correo'));
+        console.log(mapa.has('nombre'));//existe esta llave?
+
+        console.log(mapa.get('nombre'));//obtener valor a partir de llave
+
+        mapa.set('nombre','alexis');//actualizar un campo o cambiarlo
+
+        console.log(mapa.get('nombre'));
+
+        mapa.delete('apellido');//borrar campos
+
+        console.log(mapa);
+
+
+        for (let [key,value] of mapa) {//aqui esta usando deestructuracion, crea 2 variables a partir de un array, pero en este caso es por cada elemento supongo, no sabia que se podia usar asi, aunque creo que solo sirve en los tipo mapa ya que al verlo en el console.log muestra asi: indice 0 : key=>value
+            console.log(`llave: ${key}, valor: ${value}`);
+        }
+
+
+        mapa.set(19,'diecinueve');
+        mapa.set(false,'falso');
+        mapa.set({},'objeto');
+
+        console.log(mapa);
+
+        const mapa2= new Map([
+
+            ['nombre','kenai'],
+            ['edad',7],
+            ['animal','perro'],
+            [null,'nulo']
+        ]);//usando el constructor de Map, podemosn crear una nueva instancia asi, un primer corchete y dentro varios corchetes con los elementos llave-valor
+
+        console.log(mapa2);
+
+
+        const llavesMapa2= [...mapa2.keys()];//con esto podemos guardar en el arreglo las llaves del mapa2
+
+        const valoresMapa2= [...mapa2.values()];//y aqui sus valores
+
+
+        console.log(llavesMapa2);
+        console.log(valoresMapa2);
+    </script>
+</body>
+</html>

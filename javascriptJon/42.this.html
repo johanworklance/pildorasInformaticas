@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        console.log(this);//objeto window que es el scope global en navegadores, en nodejs es el objeto 'global'
+        console.log(window);
+        console.log(this===window);//true
+
+
+        this.nombre='contexto global';//aparecera en el log buscando desde la n
+
+        console.log(window.nombre,this.nombre,window.nombre===this.nombre);
+
+
+        function imprimir(){
+            console.log(this.nombre);//el ambito de esta funcion es el ambito global
+
+        }
+
+        imprimir();//por tanto el this es window aun
+
+        const obj={
+            nombre:'contexto objeto',
+            imprimir:function(){
+                console.log(this.nombre);//el this dentro de un objeto, es el this del propio objeto no del global como window, por que el scope en el que estamos es el del objeto, el scope en si lo definen los corchetes con los que se crea el objeto
+            }
+        }
+
+        obj.imprimir();//contexto objeto
+
+        const obj2={
+            nombre:'contexto objeto 2',
+            //imprimir:imprimir//aqui estamos usando el imprimir que esta en el window, como tienen mismo nombre que la propiedad, abajo solo ponemos el nombre, el valor no es necesario, es como las variables que se encuentran afuera, esto es como un shorthand
+            imprimir
+
+        }
+
+        obj2.imprimir();//pilla el contexto del objeto2, tiene sentido, ya que la propiedad imprimir, simplemente esta pillando el codigo de la funcion imprimir que se encuentra en window
+
+        const obj3={
+            nombre:'contexto objeto 3',
+            imprimir(){//sintasis corta
+                console.log(this.nombre);
+            }
+        }
+
+        obj3.imprimir();//contexto objeto3
+
+        const obj4={
+            nombre:'contexto objeto 4',
+            imprimir:()=>{//las arrow function mantiene un enlace con el contexto en donde fue creado el objeto donde aparece, es decir en este caso window/global, es decir las arrow function no maneja su propio scope, no como las funciones anonimas o declaradas que si la tienen, la arrow function toma el contexto del padre en donde fue creado el objeto.No es recomendable usar arrow function en objetos en el que necesitemos su contexto
+                console.log(this.nombre);
+            }
+        }
+
+        obj4.imprimir();//global
+
+
+        function Persona(nombre){
+
+            //var that= this;//anteriormente antes de las arrow function para pillar este contexto en las funciones anonimas clousures se usaba el that una variable que guardar el contexto de la instancia
+            //that.nombre=nombre;
+
+            this.nombre=nombre;
+            //return console.log(this.nombre);//recordar que esta la forma sin uso de 'clases' para crear clases, todo esto en si es el constructor de la clase Persona, asi que al instanciar, se hara tambien este return
+
+             /* return function(){
+
+                 //console.log(that.nombre,'clousure');//se usaba el that para que pillara el contexto del contructor o instancia
+
+                 
+                console.log(this.nombre,'clousure');
+             } *///esto es un clousure, es decir el codigo de una funcion retornada por otra funcion
+
+             return ()=>{
+                console.log(this.nombre,'clousure');
+             }
+        }
+
+        //Persona() //aqui experimente haciendo correr a la clase Persona como si fuera una funcion normal, y haciendo que solo tenga de linea de codigo return console.log(this.nombre); haciendo eso, si que funciona como una funcion normal, y mandaria el 'contexto global', pero si coloco antes el this.nombre=nombre;, mandara undefined, pero si instancio hay si que pilla johan, como vemos abajo, solo asi se diferenciaria una funcion comun y corriente de una tipo clase, con la asignacion de los valores this.
+        const johan= new Persona('johan');//johan, contexto de instancia
+
+        console.log(`clousure`);
+        //johan();//contexto global, aqui recordar que la instancia manda el codigo de una funcion, por tanto johan ahora tambien es esa funcion que manda un console log con un this que esta tomando al contexto global y no al de la clase, supongo que es por que se envio fue un codigo en si, por tanto fuera de la clase tomaria de this al contexto global, aunque la explicacion del profe es que la funcion anonima ahi no tiene valores dentro, por tanto pilla el contexto global, es como la explicacion de la funcion Persona un parrafo arriba
+
+        johan();//en este segundo llamado, se retorno fue una arrow function, pero como ella pilla el contexto del padre del objeto donde fue creado, ahora si que pilla el valor de johan, mi entendimiento es el siguiente, la arrow function esta dentro del objeto/instancia johan, y su padre es la clase Persona, en cambio los objetos literales su padre en si vendria a ser window, es como el mundo al revez, las funciones anonimas en clases pillan el global y las arrow el contexto de la clase padre de la instancia, y en un objeto literal las funciones anonimas pillan el contexto del objeto y las arrow del window
+    </script>
+</body>
+</html>
