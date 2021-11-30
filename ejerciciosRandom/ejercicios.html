@@ -1,0 +1,858 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+<script>
+
+    //1. Leer un número entero y determinar si es un número terminado en 4.
+
+
+    console.group('Ejercicio 1');
+    function terminaEn4(num){
+
+        let ultimoDigito= num - Math.floor(num/10)*10;//la formula es 44-(44/10)*10, esto nos dejaria el 40 solo, y asi restar a 44, y con eso sabremos que su ultimo digito es 4
+
+        if(ultimoDigito===4){
+            console.log(`El numero ${num} termina en 4`);
+        }
+    }
+
+    terminaEn4(433);
+    terminaEn4(947);
+    terminaEn4(4);
+    terminaEn4(44);
+    terminaEn4(5634344);
+
+    console.groupEnd();//-------------------------------------------------------
+
+
+
+
+    //2. Leer un número entero y determinar si tiene 3 dígitos.
+
+    console.group('Ejercicio 2');
+
+    function tiene3Digitos(num){
+
+        let contadorDigitos=0;
+
+        const numeroOriginal=num;
+
+        while(num!=0){
+
+            num/=10;
+
+            num= Math.floor(num);//dividimos el numero entre 10, para quitarle unidades, despues eliminamos el decimal, y sumamos una unidad a los digitos, cuando el numero valga cero, ya habra terminado y habremos contado sus digitos
+
+            contadorDigitos++;//1
+        }
+
+        if(contadorDigitos===3){
+            console.log(`Si el numero ${numeroOriginal} tiene ${contadorDigitos} digitos`);
+        }else if(contadorDigitos===1){
+            console.log(`No el numero ${numeroOriginal} no es de 3 digitos tiene ${contadorDigitos} digito`);
+        }else{
+            console.log(`No el numero ${numeroOriginal} no es de 3 digitos tiene ${contadorDigitos} digitos`);
+        }
+        
+    }
+
+    tiene3Digitos(4355);
+    tiene3Digitos(435522435312);
+    tiene3Digitos(8);
+    tiene3Digitos(843);
+
+
+    console.groupEnd();//-------------------------------------------------------
+
+
+
+
+    //3. Leer un número entero y determinar si es negativo
+
+    console.group('Ejercicio 3');
+
+    const esNegativo= function(num){
+
+        if(num<0){
+            console.log(`el numero ${num} es negativo`);
+        }else{
+            console.log(`el numero ${num} no es negativo`);
+        }
+    }
+
+    esNegativo(-42);
+    esNegativo(65);
+    esNegativo(-873.88)
+
+    console.groupEnd();//-------------------------------------------------------
+
+
+
+
+    //4. Leer un número entero de dos dígitos y determinar a cuánto es igual la suma de sus dígitos.
+
+    console.group('Ejercicio 4');
+
+    function tiene2Digitos(num){
+
+        let contadorDigitos=0;
+
+        const numeroOriginal=num;
+
+        while(num!=0){
+
+            num/=10;
+
+            num= Math.floor(num);
+
+
+            contadorDigitos++;//1
+        }
+
+        if(contadorDigitos===2){
+                return true;
+        }else{
+            console.log(`El numero ${numeroOriginal} no es de 2 digitos tiene ${contadorDigitos} digitos`);
+        }
+            
+    }
+
+    function sumarDigitos(num){
+
+        const numeroOriginal=num;
+
+        let sumatoria=0;
+
+        if(tiene2Digitos(num)){
+
+
+                let ultimoDigito= num - Math.floor(num/10)*10;//sacamos la unida de este entero de 2 digitos
+
+                num= Math.floor(num/10);//eliminamos la unidad, por lo que dividimos entre 10 y eliminamos el decimal, quedano el penultimo digito
+
+                sumatoria=num+ultimoDigito;//y sumamos el ultimo digito con el 'penultimo'
+            
+
+            console.log(`La suma de los digitos de este numero ${numeroOriginal} es ${sumatoria}`);
+        }
+
+        
+    }
+
+    sumarDigitos(245);
+    sumarDigitos(24);
+
+    console.groupEnd();//-------------------------------------------------------
+
+
+
+
+    //5. Leer un número entero de dos dígitos y determinar si ambos dígitos son pares.
+
+    console.group('Ejercicio 5');
+
+    const esPar= (num)=>{
+
+
+        if(tiene2Digitos(num)){//este metodo esta en el ejercicio 4
+
+
+            const primerDigito= Math.floor(num/10);
+
+            const segundoDigito= num - primerDigito*10;
+
+            let posiblePrimerPar= Math.floor(primerDigito/2);//si al dividir por ejemplo 4 entre 2, daria 2, eso lo multiplicamos de nuevo por 2 daria el numero original, pero si fuera 3, daria 1.5 y como rendondeo, entonces seria 1, y al multiplicar por 2 no da de nuevo el 3, entonces seria impar, no lo hice usando modulos, por que en el libro no hancen uso de eso aun
+
+            let posibleSegundoPar= Math.floor(segundoDigito/2);
+
+            if(primerDigito===posiblePrimerPar*2){
+                console.log(`El primer digito ${primerDigito} del num ${num} es par`);
+            }else{
+                console.log(`El primer digito ${primerDigito} del num ${num} es impar`);
+            }
+
+            if(segundoDigito===posibleSegundoPar*2){
+                console.log(`El segundo digito ${segundoDigito} del num ${num} es par`);
+            }else{
+                console.log(`El segundo digito ${segundoDigito} del num ${num} es impar`);
+            }
+
+        }
+    }
+
+    esPar(24);
+    esPar(7634);
+    esPar(56);
+
+
+    console.groupEnd();//-------------------------------------------------------
+
+
+
+
+    //6. Leer un número entero de dos dígitos menor que 20 y determinar si es primo.
+
+    console.group('Ejercicio 6');
+
+
+    const esPrimo= (num)=>{
+
+
+        if(tiene2Digitos(num)){
+
+            if(!(num>20)){//lo hice asi para practica el simbolo de negacion, aqui se lee como el numero es mayor a 20, con el negado seria menor a el
+
+                let iteraciones=2;
+
+                let divisores=0;
+
+                while(divisores===0 && iteraciones<num){
+
+                    const cocienteSinDecimal= Math.floor(num/iteraciones);
+
+
+                    if(cocienteSinDecimal*iteraciones===num){
+                        divisores++;
+                    }
+                    iteraciones++;
+
+                }//no podia hacerlo con un for y modulo, asi que saque el cociente, y le quitaba el decimal si este no resultaba ser un numero entero, entonces significa que  la iteracion no es divisible entre el num, pero si daba entero, significa que si se debia aumentar en 1 los divisores. Solo aumente en 1, por que las iteraciones comienzan en 2, siendo que 1 es divisor de todo el mundo, y que llegara a menos del numero a saber si es primo o no, ya que los numeros primos solo tienen 2 divisores el mismo y el 1
+
+                
+                if(divisores>0){
+                    return console.log(`el numero ${num} no es primo`);
+                }else{
+
+                    
+                    return console.log(`el numero ${num} es primo`);
+                }
+
+            }else{
+                return console.log(`el numero ${num} no es menor a 20`);
+            }
+        }
+    }
+
+    for(i=10;i<20;i++){
+        esPrimo(i);
+    }//aqui si hice un for para apurar desde el 10 al 19
+
+
+
+    console.groupEnd();//-------------------------------------------------------
+
+
+
+
+    //7. Leer un número entero de dos dígitos y determinar si es primo y además si es negativo. Nota:Una curiosidad sobre los números negativos es que no pueden ser números primos, ya que por definición, los números primos son números naturales y mayores que 1.
+
+    console.group('Ejercicio 7');
+
+
+    function esPrimoEsNegativo(num){
+
+        const numeroOriginal= num;
+       
+
+        if(num<0){
+           
+            return console.log(`el numero ${numeroOriginal} es negativo, no puede ser primo`);
+        }
+
+        
+
+        if(num>=10 && num<=99){
+
+            let iteraciones=2;
+
+                let divisores=0;
+
+                while(divisores===0 && iteraciones<num){
+
+                    const cocienteSinDecimal= Math.floor(num/iteraciones);
+
+
+                    if(cocienteSinDecimal*iteraciones===num){
+                        divisores++;
+                    }
+                    iteraciones++;
+
+                }
+
+                
+                if(divisores>0){
+                    return console.log(`el numero ${numeroOriginal} no es primo`);
+                }else{
+
+                    
+                    return console.log(`el numero ${numeroOriginal} es primo`);
+                }
+        }
+    }
+
+    esPrimoEsNegativo(-13);
+    esPrimoEsNegativo(11);
+    esPrimoEsNegativo(44);
+
+    console.groupEnd();//-------------------------------------------------------
+
+
+    //8. Leer un número entero de dos dígitos y determinar si sus dos dígitos son primos.
+
+    console.group('Ejercicio 8');
+
+    function esPrimo2(num){
+
+        let iteraciones=2;
+
+        let divisores=0;
+
+        while(divisores===0 && iteraciones<num){
+
+            const cocienteSinDecimal= Math.floor(num/iteraciones);
+
+
+            if(cocienteSinDecimal*iteraciones===num){
+                divisores++;
+            }
+            iteraciones++;
+
+        }
+
+        
+        if(divisores>0){
+            return console.log(`el numero ${num} no es primo`);
+        }else{
+
+            
+            return console.log(`el numero ${num} es primo`);
+        }
+
+    }
+
+
+    const digitoPrimo= (num)=>{
+
+
+        if(tiene2Digitos(num)){//este metodo esta en el ejercicio 4
+
+
+            const primerDigito= Math.floor(num/10);
+
+            const segundoDigito= num - primerDigito*10;
+
+            console.log(`Los digitos del numero ${num} se encuentran asi:`)
+            esPrimo2(primerDigito);
+            esPrimo2(segundoDigito);
+            
+        }
+    }
+
+
+    digitoPrimo(43);
+    digitoPrimo(22);
+
+    console.groupEnd();//-------------------------------------------------------
+
+
+    //9. Leer un número entero de dos dígitos y determinar si un dígito es múltiplo del otro. Nota: que sea multiplo significa que el otro numero le contiene una serie veces de forma entera
+
+
+    console.group('Ejercicio 9');
+
+    const multiploDeOtro= function(num){
+
+        const primerDigito= Math.floor(num/10);
+
+        const segundoDigito= num - primerDigito*10;
+
+        let digitoMayor=0;
+
+        let digitoMenor=0;
+
+        if(primerDigito>segundoDigito){
+            
+            digitoMayor= primerDigito;
+
+            digitoMenor= segundoDigito;
+        }
+
+        if(primerDigito<segundoDigito){
+            
+            digitoMayor= segundoDigito;
+
+            digitoMenor= primerDigito;
+        }
+
+        let cociente= Math.floor(digitoMayor/digitoMenor);
+
+
+        if(digitoMenor*cociente===digitoMayor){
+
+            console.log(`el digito menor ${digitoMenor} del numero ${num} es multiplo del digito mayor ${digitoMayor}`);
+        }else{
+            console.log(`el digito menor ${digitoMenor} del numero ${num} no es multiplo del digito mayor ${digitoMayor}`);
+        }
+    }
+
+
+    multiploDeOtro(93);
+    multiploDeOtro(39);
+
+    multiploDeOtro(48);
+    multiploDeOtro(84);
+
+    multiploDeOtro(53);
+    multiploDeOtro(67);
+
+
+    console.groupEnd();//-------------------------------------------------------
+
+
+
+
+    //10. Leer un número entero de dos dígitos y determinar si los dos dígitos son iguales.
+
+    console.group('Ejercicio 10');
+
+
+    const digitosIguales= function(num){
+
+        const primerDigito= Math.floor(num/10);
+
+        const segundoDigito= num - primerDigito*10;
+
+        if(primerDigito===segundoDigito){
+            console.log(`los digitos del numero ${num}, son iguales`);
+        }else{
+            console.log(`los digitos del numero ${num}, no son iguales`);
+        }
+
+
+    }
+
+    digitosIguales(88);
+    digitosIguales(65);
+
+
+    console.groupEnd();//-------------------------------------------------------
+
+
+    //11. Leer dos números enteros y determinar cuál es el mayor.
+
+
+    console.group('Ejercicio 11');
+
+
+    function elMayor(num1,num2){
+
+
+        let mayor= num1;
+
+        if(num2>num1) mayor=num2;
+        
+
+        console.log(`el numero mayor de estos dos ${num1},${num2} es el: ${mayor}`);
+
+        return mayor;
+    }
+
+    elMayor(44,657);
+
+    elMayor(7,1);
+
+    console.groupEnd();//-------------------------------------------------------
+
+
+    //12. Leer dos números enteros de dos dígitos y determinar si tienen dígitos comunes.
+
+
+    console.group('Ejercicio 12');
+
+
+    const obtener2Digitos= (num)=>{
+
+        const primerDigito= Math.floor(num/10);
+
+        const segundoDigito= num- primerDigito*10;
+
+        return {primerDigito,segundoDigito};//envio un objeto, no tengo que asignar nada por que js sobreentiende que son los variables de arriba por el nombre, pero en esta parte del libro no han enseñado nada de objetos
+    }
+
+    const digitosComunes= function(num1,num2){
+
+        const digitosNum1= obtener2Digitos(num1);
+
+        const digitosNum2= obtener2Digitos(num2);
+
+        if(digitosNum1.primerDigito === digitosNum2.primerDigito || digitosNum1.primerDigito === digitosNum2.segundoDigito || digitosNum1.segundoDigito === digitosNum2.primerDigito || digitosNum1.segundoDigito === digitosNum2.segundoDigito) 
+        
+        console.log(`los 2 numeros ${num1},${num2} poseen digitos comunes `);
+
+
+        else console.log(`los 2 numeros ${num1},${num2} NO poseen digitos comunes `);
+    }
+
+    digitosComunes(34,73);
+    digitosComunes(44,78);
+    digitosComunes(21,21);
+
+    console.groupEnd();//-------------------------------------------------------
+
+
+
+    //13. Leer dos números enteros de dos dígitos y determinar si la suma de los dos números origina un número par.
+
+
+    console.group('Ejercicio 12');
+
+
+    function resultadoPar(num1,num2){
+
+        const resultado= num1+num2;
+
+
+        let esPar= Math.floor(resultado/2);//ejemplo 66, entre 2 da 33, multplicado por 2 da denuevo 66, pero 65 entre 2 es 32.5 redondeado da 32, por 2 da 64, entonces no es divisible por 2 entonces es impar
+
+        if(esPar*2===resultado){
+
+            console.log(`la suma de ${num1}+${num2} es un numero par: ${resultado}`);
+        }else{
+            console.log(`la suma de ${num1}+${num2} NO es un numero par: ${resultado}`);
+        }
+
+    }
+
+    resultadoPar(20,44);
+    resultadoPar(20,45);
+
+    console.groupEnd();//-------------------------------------------------------
+
+
+
+    //14. Leer dos números enteros de dos dígitos y determinar a cuánto es igual la suma de todos los dígitos.
+
+
+    console.group('Ejercicio 14');
+
+
+    function sumarTodosLosDigitos(num1,num2){
+
+
+        const digitosNum1= obtener2Digitos(num1);
+        const digitosNum2= obtener2Digitos(num2);
+
+        
+
+
+        let sumaNum1= 0, sumaNum2=0;
+        
+        Object.entries(digitosNum1).forEach(([key,digito])=> sumaNum1+=digito);
+
+        Object.entries(digitosNum2).forEach(([key,digito])=> sumaNum2+=digito);
+
+        //aqui hice uso del metodo entries de la clase Object, para poder usar un foreach y recorrer el objeto, en la funcion anonima hay que enviar un parametro array, con la key y el value, que usaremos este ultimo para sumar los digitos
+        
+        return sumaNum1+sumaNum2;
+
+    }
+
+    console.log(`La suma de todos los digitos es: ${sumarTodosLosDigitos(33,20)}`);//8
+
+    console.groupEnd();//-------------------------------------------------------
+
+
+
+
+    //15. Leer un número entero de tres dígitos y determinar a cuánto es igual la suma de sus dígitos
+
+    console.group('Ejercicio 15');
+
+
+
+    const obtener3DigitosSuma= (num)=>{
+
+        
+       
+
+        const primerDigito= Math.floor(num/100);//para el primer digito simplemente divido el numero entre 100 y redondeo 236/100= 2 redondeado
+
+
+        const numTemporal= Math.floor(num/10);//aqui guardare el numero entre 10 y redondeado para conservar las 2 primeras cifras
+
+        const segundoDigito= numTemporal - Math.floor(numTemporal/10)*10;//aqui si por ejemplo tenemos 23 de temporal - 20= 3 que seria la segunda cifra
+
+
+        const tercerDigito= num-numTemporal*10;//y aqui el numero original - el temporal que valia 230, quedando 236-230=6
+
+        
+        const sumatoria= primerDigito+segundoDigito+tercerDigito;
+       
+
+        return {primerDigito,segundoDigito, tercerDigito, suma: `la suma de los 3 digitos es: ${sumatoria}`};
+    }
+
+    console.log(obtener3DigitosSuma(236));
+
+    console.log(obtener3DigitosSuma(785));
+
+    console.groupEnd();//-------------------------------------------------------
+
+
+
+
+    //16. Leer un número entero de tres dígitos y determinar si al menos dos de sus tres dígitos son iguales.
+
+    console.group('Ejercicio 16');
+
+
+
+    function obtener3Digitos(num){
+
+        const primerDigito= Math.floor(num/100);
+
+
+        const numTemporal= Math.floor(num/10);
+
+        const segundoDigito= numTemporal - Math.floor(numTemporal/10)*10;
+
+
+        const tercerDigito= num-numTemporal*10;
+
+        return {primerDigito,segundoDigito,tercerDigito};
+
+    }
+
+
+    const digitosIguales2= (num)=>{
+
+
+        const tresDigitos= obtener3Digitos(num);
+
+
+        const {primerDigito,segundoDigito,tercerDigito}= tresDigitos;
+
+
+        let iguales=0;
+
+        if(primerDigito===segundoDigito) iguales++
+
+        if(primerDigito===tercerDigito) iguales++
+
+        if(segundoDigito===primerDigito) iguales++
+
+        if(segundoDigito===tercerDigito) iguales++
+
+
+        if(iguales>=1){
+            return console.log(`el numero ${num} tiene al menos 2 digitos iguales`);
+        }else{
+            return console.log(`el numero ${num} NO tiene al menos 2 digitos iguales`);
+        }
+
+    }
+
+    digitosIguales2(323);
+
+    digitosIguales2(999);
+
+    digitosIguales2(345);
+
+    console.groupEnd();//-------------------------------------------------------
+
+
+
+
+    //17. Leer un número entero de tres dígitos y determinar en qué posición está el mayor dígito.
+
+
+
+    console.group('Ejercicio 17');
+
+
+    const mayorDeLosDigitos= function(num){
+
+        const tresDigitos= obtener3Digitos(num);
+
+
+        const {primerDigito,segundoDigito,tercerDigito}= tresDigitos;
+
+        let digitoMayor=primerDigito, posicionMayor='primera';
+
+
+
+        if(segundoDigito>digitoMayor){
+            digitoMayor=segundoDigito;
+            posicionMayor='segunda';
+        }
+
+        if(tercerDigito>digitoMayor){
+            digitoMayor=tercerDigito;
+            posicionMayor='tercera';
+        }
+
+        console.log(`el digito mayor:${digitoMayor} del numero ${num} esta en la posicion: ${posicionMayor}`)
+
+        return digitoMayor;
+        
+
+    }
+
+
+    mayorDeLosDigitos(345);
+    mayorDeLosDigitos(938);
+    mayorDeLosDigitos(143);
+
+    console.groupEnd();//-------------------------------------------------------
+
+
+
+
+
+    //18. Leer un número entero de tres dígitos y determinar si algún dígito es múltiplo de los otros.
+
+
+    console.group('Ejercicio 18');
+
+
+    const multiploDeOtro2= function(primerDigito,segundoDigito){
+
+        
+
+        let digitoMayor=0;
+
+        let digitoMenor=0;
+
+        if(primerDigito>segundoDigito){
+            
+            digitoMayor= primerDigito;
+
+            digitoMenor= segundoDigito;
+        }
+
+        if(primerDigito<segundoDigito){
+            
+            digitoMayor= segundoDigito;
+
+            digitoMenor= primerDigito;
+        }
+
+        let cociente= Math.floor(digitoMayor/digitoMenor);
+
+
+        if(digitoMenor*cociente===digitoMayor){
+
+            return {resultado:true,digitoMenor,digitoMayor};
+        }else{
+            return {resultado:false,digitoMenor,digitoMayor};
+        }
+    }
+
+
+    const multiploDeOtro3Digitos= (num)=>{
+
+
+        const tresDigitos= obtener3Digitos(num);
+
+        const {primerDigito,segundoDigito,tercerDigito}= tresDigitos;
+
+
+        if(multiploDeOtro2(primerDigito,segundoDigito).resultado || multiploDeOtro2(primerDigito,tercerDigito).resultado || multiploDeOtro2(segundoDigito,tercerDigito).resultado){
+
+            console.log(`si hay un digito multiplo de alguno de los otros digitos`);
+
+        }else{
+            console.log(`NO hay un digito multiplo de alguno de los otros digitos`);
+        }
+
+    }
+
+
+    multiploDeOtro3Digitos(329);
+
+    multiploDeOtro3Digitos(173);
+
+    multiploDeOtro3Digitos(345);
+
+
+    console.groupEnd();//-------------------------------------------------------
+
+
+
+    //19. Leer tres números enteros y determinar cuál es el mayor. Usar solamente dos variables.
+
+
+    console.group('Ejercicio 19');
+
+
+    const mayorDeLosTres= (num1,num2,num3)=>{
+
+
+        let mayor= num1;
+
+
+        if(num2>mayor) mayor= num2;
+        
+
+        if(num3>mayor) mayor= num3;
+
+        console.log(`el mayor de estos tres numeros ${num1},${num2},${num3} es el: ${mayor}`);
+
+        return mayor;
+
+    }
+
+    mayorDeLosTres(32,4000,3);
+
+
+    console.groupEnd();//-------------------------------------------------------
+
+
+
+    //20. Leer tres números enteros y mostrarlos ascendentemente.
+
+    console.group('Ejercicio 20');
+
+    function tresAscen(num1,num2,num3){
+
+
+        const mayor= mayorDeLosTres(num1,num2,num3);
+
+        let intermedio=0, menor=0;
+
+
+        if(num1===mayor) intermedio= elMayor(num2,num3);
+
+        if(num2===mayor) intermedio= elMayor(num1,num3);
+
+        if(num3===mayor) intermedio= elMayor(num1,num2);
+        
+
+        if(intermedio>num1) menor=num1;
+        if(intermedio>num2) menor=num2;
+        if(intermedio>num3) menor=num3;
+
+        console.log(`los numeros se ordenan de forma ascendente de la siguiente manera: ${menor},${intermedio},${mayor}`);
+
+    }
+
+
+    tresAscen(54,22,301);
+
+    tresAscen(5,4,3);
+
+    console.groupEnd();//-------------------------------------------------------
+
+
+
+    //
+</script>
+</html>

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+<script>
+    function positivoNegativoDigitos(num){
+
+
+        if(num===0) return document.write(` el numero ${num} no puede ser cero`);
+
+        if(num>0){
+
+            document.write('Numero positivo<br>');
+            if(num>=10 && num<=99){
+                return document.write(` el numero ${num} es de 2 digitos<br>`);
+            }else{
+                return document.write(` el numero ${num}  no es de 2 digitos<br>`);
+            }
+
+        }else{
+
+            document.write('Numero negativo<br>');
+            if(num>=-999 && num<=-100){
+                return document.write(` el numero ${num} es de 3 digitos<br>`);
+            }else{
+                return document.write(` el numero ${num}  no es de 3 digitos<br>`);
+            }
+        }
+    }
+
+    positivoNegativoDigitos(-52);
+    positivoNegativoDigitos(1650);
+
+    positivoNegativoDigitos(-485);
+    positivoNegativoDigitos(16);
+</script>
+</html>

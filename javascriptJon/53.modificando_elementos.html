@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    :root{
+        --yellow-color: #f7df1e;
+        --dark-color: #222;
+
+    }
+
+    .cards{
+        border: thin solid var(--dark-color);
+        padding: 1rem;
+    }
+
+    .card{
+        display: inline-block;
+        background-color: var(--dark-color);
+        color: var(--yellow-color);
+    }
+
+    .card figcaption{
+        padding: 1rem;
+    }
+
+    .rotate-45{
+        transform: rotate(45deg);
+    }
+
+    .rotate-135{
+        transform: rotate(135deg);
+    }
+
+    .opacity-80{
+        opacity: .8;
+    }
+
+    .sepia{
+        filter: sepia(1);
+    }
+</style>
+<body>
+    <h1>ejemplo para getSelection()</h1>
+
+    <h3>manejo del dom</h3>
+
+    <p id="que-es">
+        Lorem ipsum, dolor sit amet consectetur adipisicing elit. Neque officia qui reprehenderit aperiam rem, id fuga architecto mollitia laborum cumque.
+    </p>
+    <nav id="menu">
+        <ul>
+            <li><a href="#">Sección 1</a></li>
+            <li><a href="#">Sección 2</a></li>
+            <li><a href="#">Sección 3</a></li>
+            <li><a href="#">Sección 4</a></li>
+        </ul>
+    </nav>
+
+    <input type="text" name="nombre" placeholder="nombre">
+
+    <a style="background-color:yellow;color:black" class="link-dom" href="46.dom.html" data-descripcion="enlace" data-id="id del enlace">DOM</a><!--los data attributes son atributos que podemos crear nosotros, pero deben comenzar en "data-"-->
+
+
+    <section class="cards">
+
+        <figure class="card">
+            <img src="https://placeimg.com/200/200/tech" alt="tech">
+            <figcaption>
+                Tech
+            </figcaption>
+        </figure>
+    
+
+    
+        <figure class="card">
+            <img src="https://placeimg.com/200/200/animals" alt="animals">
+            <figcaption>
+                Animals
+            </figcaption>
+        </figure>
+   
+
+    
+        <figure class="card">
+            <img src="https://placeimg.com/200/200/people" alt="people">
+            <figcaption>
+                People
+            </figcaption>
+        </figure>
+  
+
+    
+        <figure class="card">
+            <img src="https://placeimg.com/200/200/arch" alt="arch">
+            <figcaption>
+                Arch
+            </figcaption>
+        </figure>
+    
+
+    
+        <figure class="card">
+            <img src="https://placeimg.com/200/200/nature" alt="nature">
+            <figcaption>
+                Nature
+            </figcaption>
+        </figure>
+
+    </section>
+
+    <template id="template-card">
+        <figure class="card">
+            <img src="" alt="">
+            <figcaption></figcaption>
+        </figure>
+    </template><!--llenamos el template con lo que queremos que muestra la info dinamica, por cierto esta etiqueta no se renderiza en el navegador, mostrara en sun #document fragment, es parecido a una modelo o clase que usaremos para llenar despues con datos varias de sus iteraciones-->
+
+    <script>
+
+        //metodos de antaño
+
+        /* const $cards= document.querySelector('.cards'),
+
+        $newCard= document.createElement('figure'),
+
+        $clonCards= $cards.cloneNode(true);// es parecido a importNode, pero ese metodo es exclusivo de los template, le damo true para que tambien se copie todo lo que tiene adentro la section cards
+
+        $newCard.innerHTML= `<img src="https://placeimg.com/200/200/any" alt="people">
+            <figcaption>
+                Any
+            </figcaption>`;
+
+        $newCard.classList.add('card');
+
+        //$cards.replaceChild($newCard,$cards.children[2]);//con este metodo podemos reemplazar un hijo de cards por otro elemento, pide el elemento nuevo y el hijo a reemplazar
+
+        //$cards.insertBefore($newCard,$cards.firstElementChild);//ponerlo antes de un hijo que especifiquemos
+
+        //$cards.removeChild($cards.lastElementChild);//para eliminar
+
+        document.body.appendChild($clonCards);
+ */
+
+
+    //-------------------------------------------------------------------------
+
+    //metodos nuevos
+
+
+    const $cards= document.querySelector('.cards'),
+
+        $newCard= document.createElement('figure');
+
+        
+
+        let $contenCard= `<img src="https://placeimg.com/200/200/any" alt="people">
+            <figcaption></figcaption>`;
+
+        $newCard.classList.add('card');
+
+       
+
+        $newCard.insertAdjacentHTML('afterbegin',$contenCard);//con este metodo agregamos elementos html que estaran dentro de otro, como esta vacio, daria igual si usamos afterbegin o beforeend, las otras 2 no tendrian sentido por que entonces estos elementos pasarian a hacer hermanos, pero eso hace que el navegador lo muestre como un #objecthtml, algo asi
+
+        $newCard.querySelector('figcaption').insertAdjacentText('afterbegin','Any');//este metodo es para agregar texto a nodos de texto, como el interior de un figcaption, esto justo despues de que newcard recibiera elementos html con el metodo de arriba
+
+
+       // $cards.insertAdjacentElement('beforebegin',$newCard);//este metodo agrega un elemento html, aqui se esta poniendo antes del inicio de la section cards que es el nodo de referencia al ser el, el que que esta invocando al metodo, por tanto seria un hermano antes
+
+        //$cards.insertAdjacentElement('afterbegin',$newCard);//aqui entraria despues del inicio de section, es decir pasaria a ser primer hijo
+
+        //$cards.insertAdjacentElement('beforeend',$newCard);//aqui antes del final, entonce seria el ultimo hijo
+
+        //$cards.insertAdjacentElement('afterend',$newCard);//y aqui estaria despues del final, por lo que seria el siguiente hermano de la section
+
+
+        //$cards.prepend($newCard);//otro metodo para agregar un elemento como primer hijo
+
+        //$cards.before($newCard);//como hermano anterior
+
+        //$cards.after($newCard);//hermano posterior
+
+        $cards.append($newCard);//hijo ultimo
+    </script>
+</body>
+</html>

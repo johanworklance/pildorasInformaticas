@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Digitos de un numero</title>
+</head>
+<body>
+    
+</body>
+    <script>
+
+
+            //const numero= 1546;
+            let numero= -523;
+
+            if(numero<0) numero*=-1;
+
+            let numeroProcesado= numero;
+
+            let contadorDigitos= 0;
+
+            while(numeroProcesado!=0){
+                numeroProcesado= Math.floor(numeroProcesado/10);//dividimos entre 10 el numero y por cada iteracion contamos un digito hasta que llegue a cero, por cierto es una division de aritmetica entera de hay que use el metodo floor
+                contadorDigitos++;
+            }//iteraciones: 1546,154,15,1, haciendo que sean 4 iteraciones/digitos
+
+            console.log(`el numero ${numero} tiene esta cantidad de digitos: ${contadorDigitos}`);
+    </script>
+</html>

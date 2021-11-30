@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    :root{
+        --yellow-color: #f7df1e;
+        --dark-color: #222;
+
+    }
+
+    .cards{
+        border: thin solid var(--dark-color);
+        padding: 1rem;
+    }
+
+    .card{
+        display: inline-block;
+        background-color: var(--dark-color);
+        color: var(--yellow-color);
+    }
+
+    .card figcaption{
+        padding: 1rem;
+    }
+
+    .rotate-45{
+        transform: rotate(45deg);
+    }
+
+    .rotate-135{
+        transform: rotate(135deg);
+    }
+
+    .opacity-80{
+        opacity: .8;
+    }
+
+    .sepia{
+        filter: sepia(1);
+    }
+
+    .flujoEventos div{
+        padding: 4rem;
+        font-size: 2rem;
+        text-align: center;
+
+    }
+
+    .uno{
+        background-color: yellow;
+    }
+    .dos{
+        background-color: gold;
+    }
+    .tres{
+        background-color: lightyellow;
+    }
+</style>
+<body>
+    
+
+    <h4>Flujo de eventos</h4>
+
+    <section class="flujoEventos">
+        <div class="uno">1
+            <div class="dos">2
+                <div class="tres">3
+
+                </div>
+            </div>
+        </div>
+        
+    </section>
+    <script>
+        
+
+
+        const $divsEventos= document.querySelectorAll('.flujoEventos div'); 
+        console.log($divsEventos);
+
+        function flujoEventos(evento){
+            console.log(`Hola te saluda ${this.className}, el click lo origino ${evento.target.className}`);
+        }//el this hace referenci a cada div del cual se activo el evento, yo habia usado una arrow function pero como el no pillaba el this, use una funcion declarada.Gracia al evento.target podemos saber quien origino el evento y si ese mismo lo propago, aqui si hacemos click en el tercero, se mostrara su evento y los de los demas, pero se vera que originalmente fue el evento del tercero el que los desencadeno
+
+        $divsEventos.forEach((div)=>
+            //div.addEventListener('click',flujoEventos,false)//el tercer parametro indica que metodo de propagacion usara, false es burbuja del mas interno al mas externo,si no se coloca nada, es igual a burbuja de todas formas pero si se usa true cambia a modo captura es decir del mas externo al mas interno, es decir que al dar click al div 3, comenzara con el evento del div 1 y luego hacia dentro con el div 2
+
+            div.addEventListener('click',flujoEventos,{
+                capture:true,
+                once:true
+            })//tambien se puede usar un objeto que tenga el valor capture, y ademas hay un valor once que indica si el evento se activa una sola vez, es parecido a como si al hacer un evento acontinuacion usaramos un removelistener
+        );
+
+        //cuando damos click al elemento 3, como esta dentro del 2 y este a su vez dentro del 1 se propagan los eventos es decir, si se clickea al 3, mandara 3 veces hola en la consola, tiene sentido al darle click a el es como haberle dado click al 2 y al 1 a la vez, en el caso del 2 serian 2 holas, el de el y el del 1, y si solo le damos al 1, como es el que esta mas afuera solo se ve un hola
+    </script>
+</body>
+</html>

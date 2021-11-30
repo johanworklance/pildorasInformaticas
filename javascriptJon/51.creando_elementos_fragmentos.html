@@ -120,13 +120,89 @@
         $img= document.createElement('img'),
         $figcaption= document.createElement('figcaption');//este metodo crea elementos html
 
-        const figcationText= document.createTextNode('animals');//dentro de un figcaption hay un nodo de texto, que es donde ponemos el texto que mostrara
+        const $figcationText= document.createTextNode('animals');//dentro de un figcaption hay un nodo de texto, que es donde ponemos el texto que mostrara
 
 
         $cards= document.querySelector('.cards');
 
-        
+        $img.setAttribute('src','https://placeimg.com/200/200/animals');
 
+        $img.alt= 'animals';//el profe hizo esta fue con el metodo de arriba, yo lo hice asi y funciono, creo que quizas es por que alt es una propiedad propia de los elementos img, y con setAttribute podemos crear propiedades nuevas, como las data-attribute
+
+        $figure.appendChild($img);
+        $figcaption.appendChild($figcationText);
+        $figure.appendChild($figcaption);//estas asignaciones las hice despues de la linea de abajo, de ahi ese comentario
+
+        $figure.classList.add('card');//y finalmente agregamos la clase css
+
+        $cards.appendChild($figure);//le agregamos el figure al section cards, pero aqui esta vacio hay que agregarle la imagen y el nodo de texto
+
+
+        const $figure2= document.createElement('figure');
+
+        $figure2.innerHTML= `<img src="https://placeimg.com/200/200/people" alt="people">
+            <figcaption>
+                People
+            </figcaption>`;//aqui con el innerHTML directo, sin usar appenchild, o establecer propiedades, segun el profe lo malo es que esto no crea un nodo html, no me queda tan claro eso
+
+        $figure2.classList.add('card');
+
+        $cards.appendChild($figure2);
+
+//------------------------------------------------------------------------------
+        
+    const estaciones=['primavera','verano','otoño','invierno'];
+
+    const $listaUl= document.createElement('ul');
+
+    document.write('<h3>Estaciones del año</h3>');
+
+    estaciones.forEach((estacion)=>{
+        const $li= document.createElement('li');
+
+        $li.textContent=estacion;
+
+        $listaUl.appendChild($li);
+    });//agregamos dinamicamente lo que esta en el array a los elementos li de la lista ul
+
+    document.body.appendChild($listaUl);
+
+    //--------------------------------------------------------------------------
+
+    const continentes=['africa','america','europa','asia','oceania'];
+
+    const $ulContinentes= document.createElement('ul');
+
+    document.write('<h3>Continentes del mundo</h3>');
+
+    //$ulContinentes.innerHTML='';//esto no es necesario, imagino que es por que por defecto el innertHtml, esta vacio en el navegador
+
+    continentes.forEach((continente)=>{
+        $ulContinentes.innerHTML+= `<li>${continente}</li>`;
+    });//esto lo super hacer yo solito :)
+
+    document.body.appendChild($ulContinentes);
+
+//------------------------------------------------------------------------------
+    const meses=['enero','febrero','marzo','abril','mayo','junio','julio','agosto','septiembre','octubre','noviembre','diciembre'];
+
+    const $ul3= document.createElement('ul');
+
+    const $fragmento= document.createDocumentFragment();//los fragmentos del dom, son como pequeñas partes del dom que entregaremos, los cuales ya tiene cargado dentro un gran numero de procesos, como iterar ese array de arriba, es recomendable entregar ya todo hecho de golpe con un fragmento, que insertar de uno a uno en el dom usando appenchild, es como si fuera una parte del dom dinamica
+
+    meses.forEach((mes)=>{
+        const $li= document.createElement('li');
+
+        $li.textContent= mes;
+
+        $fragmento.appendChild($li);//por cierto los fragmentos son nodos tipo fragmentohtml
+    });
+
+    document.write('<h3>Meses del año</h3>');
+
+    $ul3.appendChild($fragmento);//y aqui ya agregamos ese fragmento al ul, esta forma es mas eficiente y es la recomendada
+
+    document.body.appendChild($ul3);
 
     </script>
 </body>

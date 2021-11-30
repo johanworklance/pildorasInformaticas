@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    :root{
+        --yellow-color: #f7df1e;
+        --dark-color: #222;
+
+    }
+
+    .cards{
+        border: thin solid var(--dark-color);
+        padding: 1rem;
+    }
+
+    .card{
+        display: inline-block;
+        background-color: var(--dark-color);
+        color: var(--yellow-color);
+    }
+
+    .card figcaption{
+        padding: 1rem;
+    }
+
+    .rotate-45{
+        transform: rotate(45deg);
+    }
+
+    .rotate-135{
+        transform: rotate(135deg);
+    }
+
+    .opacity-80{
+        opacity: .8;
+    }
+
+    .sepia{
+        filter: sepia(1);
+    }
+</style>
+<body>
+    <h1>ejemplo para getSelection()</h1>
+
+    <h3>manejo del dom</h3>
+
+    <p id="que-es">
+        Lorem ipsum, dolor sit amet consectetur adipisicing elit. Neque officia qui reprehenderit aperiam rem, id fuga architecto mollitia laborum cumque.
+    </p>
+    <nav id="menu">
+        <ul>
+            <li><a href="#">Sección 1</a></li>
+            <li><a href="#">Sección 2</a></li>
+            <li><a href="#">Sección 3</a></li>
+            <li><a href="#">Sección 4</a></li>
+        </ul>
+    </nav>
+
+    <input type="text" name="nombre" placeholder="nombre">
+
+    <a style="background-color:yellow;color:black" class="link-dom" href="46.dom.html" data-descripcion="enlace" data-id="id del enlace">DOM</a><!--los data attributes son atributos que podemos crear nosotros, pero deben comenzar en "data-"-->
+
+
+    <section class="cards">
+
+        <figure class="card">
+            <img src="https://placeimg.com/200/200/tech" alt="tech">
+            <figcaption>
+                Tech
+            </figcaption>
+        </figure>
+    
+
+    
+        <figure class="card">
+            <img src="https://placeimg.com/200/200/animals" alt="animals">
+            <figcaption>
+                Animals
+            </figcaption>
+        </figure>
+   
+
+    
+        <figure class="card">
+            <img src="https://placeimg.com/200/200/people" alt="people">
+            <figcaption>
+                People
+            </figcaption>
+        </figure>
+  
+
+    
+        <figure class="card">
+            <img src="https://placeimg.com/200/200/arch" alt="arch">
+            <figcaption>
+                Arch
+            </figcaption>
+        </figure>
+    
+
+    
+        <figure class="card">
+            <img src="https://placeimg.com/200/200/nature" alt="nature">
+            <figcaption>
+                Nature
+            </figcaption>
+        </figure>
+
+    </section>
+
+    <template id="template-card">
+        <figure class="card">
+            <img src="" alt="">
+            <figcaption></figcaption>
+        </figure>
+    </template>
+
+    <button onclick="holaMundo('mundo')">
+        Evento con atributo Html
+    </button>
+
+    <br>
+    <br>
+
+    <button id="eventoSemantico">Evento con manejador semántico</button>
+
+    <button id="eventoMultiple">Evento con manejador multiple</button>
+
+    <button id="eventoRemover">Removiendo eventos con manejadores multiples</button>
+
+    <script>
+        const holaMundo= (mundo)=>{
+            alert(`Hola ${mundo}`);
+            console.log(event);//palabra reservada que trae el evento que desencadena esta funcion, en consola es un pointerevent, al profe le sale un mouseevent, trae datos como el target que es el button o el tipo de evento aqui seria click
+        }
+
+        const $eventoSemantico= document.getElementById('eventoSemantico');
+
+        $eventoSemantico.onclick= holaMundo;//de esta manera no podemos usar los parentesis, pero no se como se envian parametros de esta manera, en cambio lo que esta llegando al parametro mundo, es el el evento en si, debido a que de esta forma no se pueden enviar parametros
+
+        $eventoSemantico.onclick= (e)=>{
+            alert('hola mundo manejador de eventos');
+
+            console.log(e);
+            console.log(event);//es lo mismo que arriba
+        };
+
+
+        const $eventoMultiple= document.getElementById('eventoMultiple');
+
+        /* $eventoMultiple.addEventListener('click',holaMundo);
+        $eventoMultiple.addEventListener('click',(e)=>{
+            alert('Hola manejador de eventos multiples');
+            console.log(e);
+            console.log(e.target);
+            console.log(e.type);
+            console.log(event);
+        }); *///con el addEventListener, se pueden tener varios eventos para un mismo elemento, en este caso suceden en orden de aparicion, en cambio con el onclick en el evento semantico, lo que hace es reasignar, por eso solo ejecuta lo que esta en la arrow function 
+
+
+        //------------------pasar parametros
+
+
+        const saludar= (nombre='desconocido')=>{//las funciones dentro de un evento no le hacen caso a las variables por defecto, imprime hola y el evento
+            alert(`Hola ${nombre}`);
+        }
+
+        $eventoMultiple.addEventListener('click',saludar);
+
+        $eventoMultiple.addEventListener('click',function(){
+            saludar();//aqui si usamos el parentesis, por que es ejecutada dentro de la funcion anonima, en cambio en el addeventlistener pide es el codigo de la funcion anonima
+        });//si hacemos que una funcion anonima ejecute a la funcion que queremos pille parametros, si funcionara
+
+        $eventoMultiple.addEventListener('click',()=>saludar());//o con una arrow function
+
+        $eventoMultiple.addEventListener('click',()=>saludar('johan'));
+
+        const $eventoRemover= document.getElementById('eventoRemover');
+
+        const removerDobleClick=(e)=>{
+            alert(`Removiendo el evento de tipo ${e.type}`);
+
+            $eventoRemover.removeEventListener('dblclick',removerDobleClick);//originalmente este codigo era una funcion anonima dentro del listener de abajo, pero el removerListener pide la funcion que se va a eliminar, y con una funcion anonima no se puede, asi que se hace aqui dentro de la misma funcion que eliminara al llegar aqui, por tanto este doble click solo funcionara una vez
+
+            $eventoRemover.disabled= true;//y lo desabilitamos con esta propiedad html
+        }
+
+        $eventoRemover.addEventListener('dblclick',removerDobleClick);  
+    </script>
+</body>
+</html>

@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    :root{
+        --yellow-color: #f7df1e;
+        --dark-color: #222;
+
+    }
+
+    .cards{
+        border: thin solid var(--dark-color);
+        padding: 1rem;
+    }
+
+    .card{
+        display: inline-block;
+        background-color: var(--dark-color);
+        color: var(--yellow-color);
+    }
+
+    .card figcaption{
+        padding: 1rem;
+    }
+
+    .rotate-45{
+        transform: rotate(45deg);
+    }
+
+    .rotate-135{
+        transform: rotate(135deg);
+    }
+
+    .opacity-80{
+        opacity: .8;
+    }
+
+    .sepia{
+        filter: sepia(1);
+    }
+
+    .flujoEventos div{
+        padding: 4rem;
+        font-size: 2rem;
+        text-align: center;
+
+    }
+
+    .uno{
+        background-color: yellow;
+    }
+    .dos{
+        background-color: gold;
+    }
+    .tres{
+        background-color: lightyellow;
+    }
+</style>
+<body>
+    
+
+    <h4>Flujo de eventos</h4>
+
+    <section class="flujoEventos">
+        <div class="uno">1
+            <div class="dos">2
+                <div class="tres">3
+                    <a href="https://google.com" target="_blank" rel="noopener">google</a>
+                </div>
+            </div>
+        </div>
+        
+    </section>
+    <script>
+        
+
+
+        const $divsEventos= document.querySelectorAll('.flujoEventos div'); 
+        console.log($divsEventos);
+
+        function flujoEventos(evento){
+            console.log(`Hola te saluda ${this.className}, el click lo origino ${evento.target.className}`);
+
+            evento.stopPropagation();//si se usa este metodo se detiene la propagation por lo que el evento click solo funcionara en donde demos click, sin desencadenar los demas, excepto si usamos propagacion de captura, como se ve en el objeto de abajo, si damos click por ejemplo al 3, se desencadena el evento del div 1, es mas probando veo que con este metodo y dejandolo en modo captura, solo mostrara el evento mas externo
+        }
+
+        $divsEventos.forEach((div)=>
+            
+            div.addEventListener('click',flujoEventos,{
+                capture:false,
+                once:false
+            })
+        );
+
+        const $linkEventos= document.querySelector('.flujoEventos a');
+
+        console.log($linkEventos);
+
+        
+
+        $linkEventos.addEventListener('click',evento=>{
+            alert(`hola soy tu amigo y docente digital jonathan mircha ${evento}`);
+            evento.preventDefault();//con este metodo prevenimos los eventos por defecto de algunos elementos html, por ejemplo en este enlace seria que vaya a la pagina, o en un boton submit que envia un formulario, o que por ejemplo las barras de desplazamiento se muevan
+
+            evento.stopPropagation();//pa que no se muestre el evento del div 3 que contiene a este enlace
+        
+        
+        });//este evento no me funcionaba cuando tenia el metodo de captura de los divs en true, es decir de afuera hacia dentro, lo cambie a false y me funciono
+        
+        
+    </script>
+</body>
+</html>
