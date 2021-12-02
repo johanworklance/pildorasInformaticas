@@ -84,7 +84,7 @@
         console.log($divsEventos);
 
         function flujoEventos(evento){
-            console.log(`Hola te saluda ${this.className}, el click lo origino ${evento.target.className}`);
+            console.log(`Hola te saluda ${this.className}, el click lo origino ${evento.target.className}`);//ese this hace referencia a cada una de las divs, dado que este metodo se ejecuta en sus listener, como se abajo en el foreach, en si es como si this fuera a quien se le activo el evento, pero el target es donde dimos click, por eso si no usamos el stoppropagation de abajo, se desencadenan los eventos de todos los elementos pero el target seria el mismo, en el caso de que le demos a los divs que estan mas adentro
 
             evento.stopPropagation();//si se usa este metodo se detiene la propagation por lo que el evento click solo funcionara en donde demos click, sin desencadenar los demas, excepto si usamos propagacion de captura, como se ve en el objeto de abajo, si damos click por ejemplo al 3, se desencadena el evento del div 1, es mas probando veo que con este metodo y dejandolo en modo captura, solo mostrara el evento mas externo
         }

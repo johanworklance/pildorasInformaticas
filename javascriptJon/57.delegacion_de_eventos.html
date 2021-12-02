@@ -78,41 +78,28 @@
     </section>
     <script>
         
-
-
-        const $divsEventos= document.querySelectorAll('.flujoEventos div'); 
-        console.log($divsEventos);
-
         function flujoEventos(evento){
-            console.log(`Hola te saluda ${this.className}, el click lo origino ${evento.target.className}`);
+            console.log(`Hola te saluda ${evento.target.className}, el click lo origino ${evento.target.className}`);
 
-            evento.stopPropagation();//si se usa este metodo se detiene la propagation por lo que el evento click solo funcionara en donde demos click, sin desencadenar los demas, excepto si usamos propagacion de captura, como se ve en el objeto de abajo, si damos click por ejemplo al 3, se desencadena el evento del div 1, es mas probando veo que con este metodo y dejandolo en modo captura, solo mostrara el evento mas externo
         }
-
-        $divsEventos.forEach((div)=>
-            
-            div.addEventListener('click',flujoEventos,{
-                capture:false,
-                once:false
-            })
-        );
-
-        const $linkEventos= document.querySelector('.flujoEventos a');
-
-        console.log($linkEventos);
-
-        
-
-        $linkEventos.addEventListener('click',evento=>{
-            alert(`hola soy tu amigo y docente digital jonathan mircha ${evento}`);
-            evento.preventDefault();//con este metodo prevenimos los eventos por defecto de algunos elementos html, por ejemplo en este enlace seria que vaya a la pagina, o en un boton submit que envia un formulario, o que por ejemplo las barras de desplazamiento se muevan
-
-            evento.stopPropagation();//pa que no se muestre el evento del div 3 que contiene a este enlace
         
         
-        });//este evento no me funcionaba cuando tenia el metodo de captura de los divs en true, es decir de afuera hacia dentro, lo cambie a false y me funciono
-        
-        
+        document.addEventListener('click',(e)=>{
+
+            console.log(e);
+            console.log(`click en ${e.target}`);//el target hace referencia al elemento al que se le hizo click
+
+            if(e.target.matches('.flujoEventos a')){//con matches usando css veremos si corresponde al elemento al que asignaremos un evento, eso si en la consola me salen todos los elementos como [object HTMLBodyElement] o otro parecido, pero parece ser que el matches si que me esta pillando este enlace
+
+                alert(`hola soy tu amigo y docente digital jonathan mircha ${e}`);
+
+                e.preventDefault();//mircha explica que como el listener esta en el document, y el no tiene un elemento padre, no necesitamos hacer un del stoppropagation
+            }
+
+            if(e.target.matches('.flujoEventos div')){
+                flujoEventos(e);
+            }
+        });//con esto de la delegacion, tendriamos un solo listener el del document,, y desde el con condicionales indicamos que codigo desencadenaran sus hijos dentro al darles click
     </script>
 </body>
 </html>

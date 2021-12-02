@@ -842,6 +842,8 @@
 
         console.log(`los numeros se ordenan de forma ascendente de la siguiente manera: ${menor},${intermedio},${mayor}`);
 
+        return mayor;
+
     }
 
 
@@ -853,6 +855,138 @@
 
 
 
-    //
+    //21. Leer tres números enteros de dos dígitos cada uno y determinar en cuál de ellos se encuentra el mayor dígito.
+
+
+    console.group('Ejercicio 21');
+
+    function mayorDigitoDe2(num){
+
+
+        const primerDigito= Math.floor(num/10);
+
+        const segundoDigito= num- primerDigito*10;
+
+        
+        let mayor= primerDigito;
+
+        if(segundoDigito>primerDigito) mayor= segundoDigito;
+
+        
+        return mayor;
+
+    }
+
+    function mayorDigito3Numeros(num1,num2,num3){
+
+        const mayorNum1= mayorDigitoDe2(num1);
+
+        const mayorNum2= mayorDigitoDe2(num2);
+
+        const mayorNum3= mayorDigitoDe2(num3);//primero averiguo el mayor digito de cada numero
+
+        const mayorDeTodos= mayorDeLosTres(mayorNum1,mayorNum2,mayorNum3);//despues con el algoritmo de mas arriba calculo el mayor de esos 3 digitos
+
+        let mayorEntero='';
+
+        if(mayorDeTodos===mayorNum1) mayorEntero='primer';
+
+        if(mayorDeTodos===mayorNum2) mayorEntero='segundo';
+
+        if(mayorDeTodos===mayorNum3) mayorEntero='tercer';//y deacuerdo a quien corresponda indico el numero al que corresponde
+
+        console.log(`el mayor digito de estos 3 numeros ${num1}, ${num2}, ${num3} es: ${mayorDeTodos} y pertenece al ${mayorEntero} numero`);
+
+
+        
+
+    }
+
+
+    mayorDigito3Numeros(88,65,93);
+
+
+    console.groupEnd();//-------------------------------------------------------
+
+
+    //22. Leer un número entero de tres dígitos y determinar si el primer dígito es igual al último
+
+    console.group('Ejercicio 22');
+
+    const primeroIgualUltimo= function(num){
+
+
+        const digitos= obtener3Digitos(num);
+
+
+        if(digitos.primerDigito===digitos.tercerDigito){
+            console.log(`si el primer digito de este numero ${num} es igual al ultimo`);
+        }else{
+            console.log(`NO el primer digito de este numero ${num} es igual al ultimo`);
+        }
+    }
+
+    primeroIgualUltimo(323);
+    primeroIgualUltimo(223);
+    primeroIgualUltimo(909);
+
+    console.groupEnd();//-------------------------------------------------------
+
+
+
+    //23. Leer un número entero de tres dígitos y determinar cuántos dígitos primos tiene.
+
+    console.group('Ejercicio 23');
+
+    function esteEsPrimo(num){
+
+        let iteraciones=2;
+
+        let divisores=0;
+
+        while(divisores===0 && iteraciones<num){
+
+            const cocienteSinDecimal= Math.floor(num/iteraciones);
+
+
+            if(cocienteSinDecimal*iteraciones===num){
+                divisores++;
+            }
+            iteraciones++;
+
+        }
+
+        if(divisores>0){
+            return true;
+        }else{
+            return false;
+        }
+
+    }
+
+
+    function cuantosPrimos(num){
+
+        const digitos= obtener3Digitos(num);
+
+        let primos=0;
+
+        for (const digito in digitos) {
+            
+            if(esteEsPrimo(digito)){
+                primos++;
+            }
+        }
+
+        console.log(`este es el numero de primos de este numero ${num}: ${primos} primos`);
+    }
+
+    cuantosPrimos(367);
+    cuantosPrimos(482);
+
+
+
+
+    console.groupEnd();//-------------------------------------------------------
 </script>
 </html>
