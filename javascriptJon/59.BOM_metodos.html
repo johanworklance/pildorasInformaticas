@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+    <button id="abrir-ventana">Abrir Ventana</button>
+
+    <button id="cerrar-ventana">Cerrar Ventana</button>
+
+    <button id="imprimir-ventana">Imprimir Ventana</button>
+</body>
+
+<script>
+    //window.alert('Hola!!!');
+
+    //window.confirm('Confirma');//aceptar igual true,cancelar igual false
+
+
+    //window.prompt('aviso');//es como un input, almacena lo que escribamos en el browser
+
+    const $btnAbrir= document.getElementById('abrir-ventana');
+
+    const $btnCerrar= document.getElementById('cerrar-ventana');
+
+    const $btnImprimir= document.getElementById('imprimir-ventana');
+
+    let ventana;
+
+
+    $btnAbrir.addEventListener('click',e=>{
+        //open('https://google.com');//tambien puede ser window.open
+
+        ventana= open('https://google.com');//podemos asignar a una variable la referencia a la ventana que abrira el open
+    });
+
+    $btnCerrar.addEventListener('click',e=>{
+
+        //window.close();//esta cierra la ventana en donde estamos, pero a mi no me cerro, si no que mostro por consola un mensaje
+
+        ventana.close();//aqui cerrariamos esa ventana referenciada
+    });
+
+    $btnImprimir.addEventListener('click',e=>{
+
+        window.print();//para imprimir con la impresora, es recomendado usarlo cuandio se tiene el medio print en css, para que carge un estilo especifico para impresion, esto seria en @media print, en vez del tipico screen
+
+    });
+
+    
+    
+</script>
+</html>

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+<script>
+    console.group('**************objeto location o URL****************');
+
+        console.log(location);
+        console.log(location.origin);//la ruta del archivo donde se ejecuto esta linea, puede mostrar la ruta del servidor donde esta montado, o por ejemplo file:// que seria desde el disco local de la pc
+        console.log(location.protocol);//el protocolo, aqui seria file
+        console.log(location.host);//esto seria como el nombre del dominio del sitio
+        console.log(location.hostname);//es parecido al host, pero puede ser especifico dependiendo del archivo
+        console.log(location.port);//puerto de escucha, este asi como los 2 anteriores, si se abre con protocol file, no mostraran nada
+        console.log(location.href);//la ruta html completa, incluyendo variables si las ponemos tipo get
+        console.log(location.hash);//detecta los valores de una url despues de un hash,son datos mandados al lado de un numeral, al parecer los framework como react o laravel usan esto para las rutas amigables
+        console.log(location.search);//este si pillas las variables enviadas por url tipo 60.BOM_URL_historial_navegador.html?nombre=johan traeria esto ultimo
+        console.log(location.pathname);//este seria la ruta del archivo en si
+
+        //location.reload();//recarga la pagina
+
+    console.groupEnd();
+
+
+    console.group('objeto historial/history');
+
+
+    console.log(history);//supuestamente guarda el historial de las paginas visitadas dentro de un mismo dominio creo
+
+    console.log(history.length);//el numero de paginas visitadas
+
+    //history.back(2);//me regresa 2 paginas hacia atras
+
+    //history.forward(1);//aqui avanzaria una pagina hacia adelante ya visitada, es como las flechas del navegador
+
+    //history.go(3);//aqui iria 3 paginas hacia adelante, este metodo go es para ir a donde especifiquemos
+
+    //history.go(-1);//una pagina hacia atras
+    console.groupEnd();
+
+
+    console.group('objeto navegador/navigator');
+
+    console.group(navigator);//obtiene varios datos del navegador y la pc o movil
+
+    console.group(navigator.connection);//info de la conexion de usuario, en mi caso 4g
+    console.group(navigator.geolocation);//api de geolocation
+    console.group(navigator.mediaDevices);//los dispositivos, camaras, micros
+    console.group(navigator.mimeTypes);//tipos de formato de archivo que soporta el navegador, que si word, mp3, pdfs etc
+    console.group(navigator.onLine);//muestra si hay conexion a internet o no
+    console.group(navigator.serviceWorker);//api de progresive-webs-apps, para crear paginas instalables en el sistema operativo
+    console.group(navigator.storage);//api de almacenamiento
+    console.group(navigator.usb);//capacidad de detectar dispositivos usb
+    console.group(navigator.userAgent);//info del navegador y sistema operativo
+    console.groupEnd();
+</script>
+</html>

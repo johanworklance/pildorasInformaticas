@@ -944,6 +944,8 @@
 
         let divisores=0;
 
+        
+
         while(divisores===0 && iteraciones<num){
 
             const cocienteSinDecimal= Math.floor(num/iteraciones);
@@ -957,9 +959,9 @@
         }
 
         if(divisores>0){
-            return true;
+            return false;//no es primo
         }else{
-            return false;
+            return true;//es primo
         }
 
     }
@@ -973,7 +975,7 @@
 
         for (const digito in digitos) {
             
-            if(esteEsPrimo(digito)){
+            if(esteEsPrimo(digitos[digito])){//digito aqui corresponde a la key
                 primos++;
             }
         }
@@ -988,5 +990,365 @@
 
 
     console.groupEnd();//-------------------------------------------------------
+
+
+
+    //24. Leer un número entero de tres dígitos y determinar cuántos dígitos pares tiene.
+
+    console.group('Ejercicio 24');
+
+
+
+    const cuantosPares= (num)=>{
+
+
+        const digitos= obtener3Digitos(num);
+
+        let pares=0;
+
+        for (const digito in digitos) {
+            
+
+            if(digitos[digito]%2===0){
+                pares++;
+            }
+        }
+
+        console.log(`el numero de digitos pares que tiene ${num} es: ${pares}`);
+
+    }
+
+
+    cuantosPares(325);
+    cuantosPares(179);
+
+    console.groupEnd();//-------------------------------------------------------
+
+
+
+    //25. Leer un número entero de tres dígitos y determinar si alguno de sus dígitos es igual a la suma de los otros dos.
+
+
+    console.group('Ejercicio 25');
+
+
+
+    const unoIgualALosOtros2= function(num){
+
+        const digitos= obtener3Digitos(num);
+
+
+        const  primeroSegundo= digitos.primerDigito + digitos.segundoDigito;
+
+        const  primeroTercero= digitos.primerDigito + digitos.tercerDigito;
+
+        const  segundoTercero= digitos.segundoDigito + digitos.tercerDigito;
+
+        let siHaySuma= false;
+
+        for (const digito in digitos) {
+            
+
+            if(digitos[digito]===segundoTercero){
+                console.log(`la suma del segundo digito ${digitos.segundoDigito} con el tercero ${digitos.tercerDigito} del numero ${num} es igual al primer digito ${digitos[digito]}`);
+
+                siHaySuma=true;
+
+
+            } if(digitos[digito]===primeroTercero){
+                console.log(`la suma del primer digito ${digitos.primerDigito} con el tercero ${digitos.tercerDigito} del numero ${num} es igual al segundo digito ${digitos[digito]}`);
+
+                siHaySuma=true;
+
+            } if(digitos[digito]===primeroSegundo){
+                console.log(`la suma del primer digito ${digitos.primerDigito} con el segundo ${digitos.segundoDigito} del numero ${num} es igual al tercer digito ${digitos[digito]}`);
+
+                siHaySuma=true;
+            }
+            
+            
+        }
+
+        if(!siHaySuma){
+            console.log(`la suma de cualquier par de digitos de este numero ${num} no da como resultado algun digito de dicho numero`);
+        }
+
+    }
+
+    unoIgualALosOtros2(844);
+    unoIgualALosOtros2(396);
+    unoIgualALosOtros2(224);
+    unoIgualALosOtros2(137);
+
+
+
+
+    console.groupEnd();//-------------------------------------------------------
+
+
+    //26. Leer un número entero de cuatro dígitos y determinar a cuanto es igual la suma de sus dígitos.
+
+
+    console.group('Ejercicio 26');
+
+
+    function obtener4Digitos(num){
+
+
+        const primerDigito= Math.floor(num/1000);//4396 entre 1000 redondeado es 4
+
+        const segundoDigito= (primerDigito*10 - Math.floor(num/100))*-1;//primer digito es 4 por 10, 40 menos la division del 4396 entre 100 redondeado, dando 43, menos 40 quedaria un 3 negativo, a eso por menos 1 igual 3
+
+        const tercerDigito= Math.floor(num/10)-Math.floor(num/100)*10;//cambie el orden para no hacer uso de -1;
+
+        const cuartoDigito= num- Math.floor(num/10)*10;//4396-4390
+
+        return{primerDigito,segundoDigito,tercerDigito,cuartoDigito};
+
+    }
+
+    const suma4Digitos= function(num){
+
+        const digitos= obtener4Digitos(num);
+
+        let sumatoria=0;
+
+
+        for (const digito in digitos) {
+            
+            sumatoria+=digitos[digito];
+        }
+
+        console.log(`la sumatoria de los digitos de este numero ${num} es: ${sumatoria} `);
+    }
+
+    suma4Digitos(4396);
+
+    console.groupEnd();//-------------------------------------------------------
+
+
+
+    //27. Leer un número entero de cuatro dígitos y determinar cuántos dígitos pares tiene.
+
+
+    console.group('Ejercicio 27');
+
+
+
+    const cuantosPares4Digitos= (num)=>{
+
+
+        const digitos= obtener4Digitos(num);
+
+        let pares=0;
+
+        for (const digito in digitos) {
+            
+
+            if(digitos[digito]%2===0){
+                pares++;
+            }
+        }
+
+        console.log(`el numero de digitos pares que tiene ${num} es: ${pares}`);
+
+     }
+
+
+     cuantosPares4Digitos(2357);
+     cuantosPares4Digitos(2487);
+
+
+    console.groupEnd();//-------------------------------------------------------
+
+
+
+    //28. Leer un número entero menor que 50 y positivo y determinar si es un número primo
+
+
+    console.group('Ejercicio 28');
+
+    function menor50Primo(num){
+
+        if(num>0 && num<50){
+            if(esteEsPrimo(num)){
+                console.log(`el numero ${num} es positivo menor que 50 y es primo`);
+            }else{
+                console.log(`el numero ${num} es positivo menor que 50 pero NO es primo`);
+            }
+        }else{
+            console.log(`el numero ${num} es debe ser positivo y menor a 50`);
+        }
+
+    }
+
+
+    menor50Primo(-8);
+    menor50Primo(11);
+    menor50Primo(17);
+    menor50Primo(4);
+
+
+    console.groupEnd();//-------------------------------------------------------
+
+
+
+    //29. Leer un número entero de cinco dígitos y determinar si es un número capicúo. Ej. 15651,59895
+
+    console.group('Ejercicio 29');
+
+    function obtener5Digitos(num){
+
+
+        const primerDigito= Math.floor(num/10000);
+
+        const segundoDigito= Math.floor(num/1000) - primerDigito*10;
+
+        const tercerDigito= Math.floor(num/100)- Math.floor(num/1000)*10;
+
+        const cuartoDigito= Math.floor(num/10)-Math.floor(num/100)*10;
+
+        const quintoDigito= num- Math.floor(num/10)*10;
+
+        return{primerDigito,segundoDigito,tercerDigito,cuartoDigito,quintoDigito};
+
+    }
+
+    const capicuo5Digitos= (num)=>{
+
+
+        const digitos= obtener5Digitos(num);
+
+        const {primerDigito,segundoDigito,tercerDigito,cuartoDigito,quintoDigito} = digitos;
+
+        const alrevez= {
+            quintoDigito,
+            cuartoDigito,
+            tercerDigito,
+            segundoDigito,
+            primerDigito
+        }
+
+        if(digitos.primerDigito===alrevez.quintoDigito && digitos.segundoDigito===alrevez.cuartoDigito && digitos.tercerDigito===alrevez.tercerDigito){
+
+            console.log(`el numero ${num} es capicuo se lee de al derecho: ${digitos} y al revez: ${alrevez}`);
+        }else{
+
+            console.log(`el numero ${num} no es capicuo NO se lee de al derecho: ${digitos} y al revez: ${alrevez}`);
+        }//en consola no me muestra los objetos en si me sale es:  [object Object]
+    }
+
+    capicuo5Digitos(15651);
+    capicuo5Digitos(59895);
+    capicuo5Digitos(53294);
+
+
+
+    console.groupEnd();//-------------------------------------------------------
+
+
+
+    //30. Leer un número entero de cuatro dígitos y determinar si el segundo dígito es igual al penúltimo.
+
+
+
+    console.group('Ejercicio 30');
+
+    function segundoPenultimo(num){
+
+        const digitos= obtener4Digitos(num);
+
+
+        if(digitos.segundoDigito=== digitos.tercerDigito) console.log(`el segundo digito ${digitos.segundoDigito} y el penultimo digito ${digitos.tercerDigito} del numero ${num} son iguales`);
+        else console.log(`el segundo digito ${digitos.segundoDigito} y el penultimo digito ${digitos.tercerDigito} del numero ${num} NO son iguales`);
+    }
+
+    segundoPenultimo(5234);
+    segundoPenultimo(9224);
+
+
+
+    console.groupEnd();//-------------------------------------------------------
+
+
+
+
+    //31. Leer un número entero y determina si es igual a 10.
+
+
+    console.group('Ejercicio 31');
+
+
+    function igualA10(num){
+
+        if(num===10) console.log(`si el numero ${num} es igual a 10`);
+        else console.log(`NO el numero ${num} NO es igual a 10`);
+    }
+
+    igualA10(10);
+    igualA10(8);
+
+
+
+    console.groupEnd();//-------------------------------------------------------
+
+
+    //32. Leer un número entero y determinar si es múltiplo de 7
+
+
+    console.group('Ejercicio 32');
+
+
+    const multiploDe7= (num)=>{
+
+        const cociente= Math.floor(num/7);
+
+        if(7*cociente===num)
+            console.log(`el numero ${num} es multiplo de 7`);
+        else console.log(`el numero ${num} NO es multiplo de 7`);
+        
+    }
+
+    multiploDe7(14);
+    multiploDe7(21);
+    multiploDe7(30);//nota aqui me supuse que se refiere a numeros que contienen al 7 una n cantidad de veces, no numeros que sean multiplos del 7, que solo seria el mismo y el uno
+
+    console.groupEnd();//-------------------------------------------------------
+
+
+
+
+    //33. Leer un número entero y determinar si termina en 7.
+
+    console.group('Ejercicio 33');
+
+
+    function terminaEn7(num){
+
+        if(num<0) num*=-1;
+
+        if(num===7) return console.log(`el numero ${num} ingresado es el 7`);
+        
+
+        const ultimoDigito= num- Math.floor(num/10)*10;
+
+        if(ultimoDigito===7)
+            return console.log(`el numero ${num} ingresado tiene como ultimo digito el 7`);
+        else
+            return console.log(`el numero ${num} ingresado NO tiene como ultimo digito el 7`);
+        
+
+    }
+
+
+    terminaEn7(7);
+    terminaEn7(-7);
+    terminaEn7(27);
+    terminaEn7(6558);
+    terminaEn7(54447);
+
+
+    console.groupEnd();//-------------------------------------------------------
+
 </script>
 </html>

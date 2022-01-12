@@ -1,0 +1,137 @@
+/*--------------------------------RESET---------------------------------------*/
+
+:root{
+    --main-font: sans-serif;
+    --font-size: 16px;
+    --main-color: #f7df1e;
+    --second-color: #222;
+    --main-modal-color: rgba(247,220,30,0.85);
+    --second-modal-color: rgba(34,34,34,0.85);
+    --container-width: 1200px;
+}
+
+html{
+    box-sizing: border-box;
+    font-family: var(--main-font);
+    font-size: var(--font-size);
+    scroll-behavior: smooth;/*la barra de navegacion ira mas suave al bajar o subir, pero si no funciona usar esto en el navegador chrome://flags/#smooth-scrolling  y despues darle en enabled*/
+}
+
+*,*::before,*::after{
+    box-sizing: inherit;/*heredan el del html o root en este caso*/
+}
+
+body{
+    margin: 0;
+    overflow-x: hidden;/*todo lo que se desborde en horizontal, se ocultara, para que no aparezca la barra de desplazamiento*/
+    /*height: 1000px;*//*probando el sticky*/
+
+    
+}
+
+img{
+    max-width: 100%;
+    height: auto;
+}
+
+
+/*--------------------------------Menu Hamburguesa----------------------------*/
+
+header{
+    position: sticky;/*recordar que sticky, vuelve al elemento con esa caracteristica, apenas aparezca en pantalla, en este caso en el top 0, que al ser sticky no me queda claro si es respecto a donde esta o a su padre, creo que es a su padre por que en documentacion se habla de el como si fuera relative*/
+    top: 0;
+    padding: 1rem;
+    background-color: var(--main-color);
+    color: var(--second-color);
+}
+
+header h1{
+    margin: 0 auto;
+    text-align: center;
+}
+
+.section{
+    padding: 2rem;
+    padding-top: 4rem;
+    margin: 0 auto;
+    width: 100%;
+    max-width: var(--container-width);
+    min-height: 100vh;
+    text-align: center;
+}
+
+.panel{
+    position: fixed;
+    z-index: 998;
+    background-color: var(--second-modal-color);
+    width: 100%;
+    height: 100%;
+    top: 0;/*el profe lo que hizo fue estirar el elemento a todos los lados usando el 0 tanto en top,como botton,right y left, incluso dejando ese width 100%, aqui lo hice con width 100% y colocando si el top 0 para que pille el borde de de su padre que es body siendo fixed como un absolute, que pierde el espacio que le correspondia*/
+    /*sale de arriba*/
+    /* transform: translate(0,-100%); */
+    /*lo movemos a -100% es decir se ira hacia arriba, el 0 es x no lo cambiamos*/
+    /* transition: transform 0.3s ease; */
+    /* transition: transform 0.3s ease, opacity 0.3s ease; */
+     transition: opacity 0.3s ease, visibility 0.3s ease; 
+    /*sale de abajo*/
+    /*transform: translate(0,100%);*/
+
+    /*sale de la derecha*/
+    /* transform: translate(100%,0); */
+
+    /*sale de la izquierda*/
+    /* transform: translate(-100%,0); */
+
+     opacity: 0; 
+
+     visibility: hidden;
+}
+
+.panel.isActive{/*esto es algo que creo no sabia, si queremos un selector que tenga 2 clases de un mismo elemento, los ponemos pegados sin espacio*/
+    /* transform: translate(0,0); */
+     opacity: 1; /*la lineas con opacity es para jugar entre si aparece de la nada o no y o sin el uso del translate*/
+    visibility: visible;/*a la final lo deje con esto del visibility, es como una especie de display none, pero display no es una regla css que tenga animacion, asi que con opacity y visibility si se puede lograr la animacion de aparecer y desaparecer*/
+}
+
+.panel-btn{
+    position: fixed;
+    z-index: 999;/*estara por encima de todos los elementos gracias a este numero alto, que sean hermanos por ejemplo si hiciera que un div hermano tomara todo el espacio en pantalla y lo vuelva por ejemplo absolute y tenga 1000 de zindex, se pondria por encima de este boton*/
+    bottom: 1vh;
+    right: 1vh;
+    width: 4rem;
+    height: 4rem;
+    border-radius: 50%;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--main-color);
+}
+
+.menu{
+    width: inherit;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    text-align: center;
+}
+
+
+.menu a{
+    padding: 2rem;
+    width: inherit;
+    display: block;
+    font-size: 1.5rem;
+    text-decoration: none;
+    color: var(--main-color);
+    transition: all 0.3s ease;
+}
+
+
+.menu a:hover{
+    font-weight: bold;
+    color: var(--second-color);
+    background-color: var(--main-modal-color);
+}
+

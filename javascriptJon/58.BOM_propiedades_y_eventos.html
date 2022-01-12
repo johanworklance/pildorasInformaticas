@@ -4,14 +4,93 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>browser object model</title>
 </head>
+<style>
+    h3{
+        width: 2000px;
+        height: 800px;
+    }
+</style>
+
 <body>
-    
+    <h3>BOM</h3>
 </body>
 
 <script>
 
-    
+    console.log(window.innerWidth);//el ancho del viewport, es decir solo lo muestra las paginas, la barra de herramientas o la consola no cuenta
+
+    console.log(window.outerWidth);//el ancho del navegador, se puede notar cuando redimensionamos la ventana, aunque por alguna razon me marca 1152, cuando este monitor tiene mas resolucion. hay versiones hight de estos valores
+
+
+    window.addEventListener('resize',(e)=>{
+
+        console.clear();//para limpiar la consola con cada redimensionamiento
+        console.log(window.innerWidth);
+
+        console.log(window.outerWidth);
+
+        console.log('evento resize******************');
+
+        console.log(e);
+
+
+        console.log(window.scrollX);//aqui muestra cuantos pixeles (siempre en positivos y en pixeles) se aleja la barra del margen left, y fuera scrollY seria del margen top
+    });
+
+
+    window.addEventListener('scroll',(e)=>{
+
+        console.clear();
+        console.log('evento scroll******************');
+
+        console.log(window.scrollX);
+        console.log(window.scrollY);
+
+        console.log(e);
+
+
+        
+    });
+
+
+    window.addEventListener('load',(e)=>{//load es un evento que ocurre cuando se ha cargado completamente la pagina
+
+        
+
+        console.log('evento load******************');
+
+
+        console.log(window.screenX);
+
+        console.log(window.screenY);
+
+        console.log(e);
+
+        
+        
+
+    });
+
+    //estos son de los 3 eventos mas importantes del browser
+
+
+
+    document.addEventListener('DOMContentLoaded', e=>{
+
+       
+
+        console.log('evento DOMContentLoad******************');
+
+
+        console.log(window.screenX);
+
+        console.log(window.screenY);
+
+        console.log(e);
+
+    });//este evento es como el load de window, pero es mucho mas rapido y funciona a nivel del document, segun cuenta el profe, esto es por que para este evento la pagina ya esta cargada cuando "parsea" /carga desde el doctype hasta la etiqueta de cierre de html, sin hacer caso a las hojas de estilo o a otros scripts, en cambio el evento load, si espera todo eso para decir que la pagina ya esta cargada, es recomendable este evento DOMContentLoad para operaciones asincronas
+
 </script>
 </html>
