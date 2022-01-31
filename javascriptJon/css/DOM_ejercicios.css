@@ -106,6 +106,7 @@ header h1{
     justify-content: center;
     align-items: center;
     background-color: var(--main-color);
+    color: var(--second-color);;
 }
 
 .menu{
@@ -149,4 +150,70 @@ header h1{
     height: 4rem;
     border-radius: 50%;
     background-color: var(--main-color);
+}
+
+
+
+/*--------------------------------ScrollTopButton-----------------------------*/
+
+
+.scroll-top-btn{
+    position: fixed;
+    z-index: 999;
+    bottom: 1vh;/*para que empieze desde abajo*/
+    right: calc(4.25rem + 1vw);/*desde la derecha + un poco mas del elemento para que este al lado del boton del menu*/
+    width: 4rem;
+    height: 4rem;
+    border-radius: 50%;
+    font-size: 2rem;
+    font-weight: bold;
+    background-color: var(--main-color);
+    color: var(--second-color);
+    outline: 0;
+    cursor: pointer;
+    border: 0;
+    transition: all 0.3s ease-out;
+}
+
+.scroll-top-btn:hover{
+    background-color: var(--second-color);
+    color: var(--main-color);
+}
+
+.hidden{
+    opacity: 0;
+    visibility: hidden;/*se usan estas propiedades, por que el transition de arriba no opera con dysplay none*/
+}
+
+
+
+/*--------------------------------DarkThemeButton-----------------------------*/
+
+
+.dark-theme-btn{
+    position: fixed;
+    z-index: 999;
+    bottom: 1vh;/*para que empieze desde abajo*/
+    left: 1vw;/*desde la derecha + un poco mas del elemento para que este al lado del boton del menu*/
+    width: 4rem;
+    height: 4rem;
+    border-radius: 50%;
+    font-size: 2rem;
+    font-weight: bold;
+    background-color: var(--main-color);
+    color: var(--second-color);
+    outline: 0;
+    cursor: pointer;
+    border: 0;
+    transition: all 0.3s ease-out;
+}
+
+.dark-theme-btn:hover{
+    background-color: var(--second-color);
+    color: var(--main-color);
+}
+
+.dark-mode{
+    background-color: var(--second-color);
+    color: var(--main-color);
 }
