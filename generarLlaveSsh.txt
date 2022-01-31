@@ -1,0 +1,18 @@
+1. ssh-keygen -t ed25519 -C "example@gmail.com"
+
+2. eval "$(ssh-agent -s)"
+
+3. ssh-add ~/.ssh/id_ed25519
+
+4. clip < ~/.ssh/id_ed25519.pub
+
+
+5. con lo copiado anteriormente agregarlo en las llaves ssh de github, si no funciona buscarlos en la carpeta usuario, "ed25519" es un nombre de ejemplo
+
+6. git config --global user.email "example@gmail.com"
+
+7. si se quiere hacer push origin main a un repositorio en git hub, hay que hacer pull, y resolver las diferencias en el merge
+
+8.ya despues podemos hacer el push
+
+9 si se quiere agregar una clave: ssh-keygen -p -f ~/.ssh/id_ed25519
