@@ -1,0 +1,22 @@
+tema preferido SynthWave '84
+
+To activate the glow, Set your active colour theme to Synthwave '84 - as of v0.1.0 the glow is only active when the base theme is selected. Open your command palette with Ctrl + Shift + P or Shift +  + P and choose "Enable Neon Dreams". It will prompt you to restart, and when you do the lights should be on :)
+
+si sale que vscode esta corrupto ignorar
+
+
+activar word wrap, render whitespace, render control caracters en el menu view 
+
+en settings poner font a 18
+
+en render whitespace poner all
+
+en word wrap en on
+
+usando el buscardo de settings, buscar 'rulers', darle a editar el json y agregar esta linea para tener un regla vertical de 80 caracteres 
+
+"editor.rulers": [80]
+
+y en el menu file, activar el autosave
+
+
